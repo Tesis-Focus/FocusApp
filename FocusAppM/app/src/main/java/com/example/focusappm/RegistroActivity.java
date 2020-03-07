@@ -1,7 +1,7 @@
 package com.example.focusappm;
 
 import androidx.appcompat.app.AppCompatActivity;
-import org.drools.core.*;
+
 
 import android.os.Bundle;
 

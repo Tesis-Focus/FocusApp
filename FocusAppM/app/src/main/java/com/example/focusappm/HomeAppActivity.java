@@ -32,8 +32,8 @@ public class HomeAppActivity extends AppCompatActivity {
 
     private void setUpViewPageAdapter(){
         viewPageAdapter.addFragment(new MesFragment(),"Mes");
-        viewPageAdapter.addFragment(new MesFragment(),"Semana");
-        viewPageAdapter.addFragment(new MesFragment(),"Dia");
+        viewPageAdapter.addFragment(new SemanaFragment(),"Semana");
+        viewPageAdapter.addFragment(new DiaFragment(),"Dia");
         viewPager.setAdapter(viewPageAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
