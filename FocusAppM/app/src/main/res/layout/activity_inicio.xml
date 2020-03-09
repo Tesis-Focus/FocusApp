@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                     <Button
-                        android:id="@+id/inicioSesion"
+                        android:id="@+id/registro"
                         android:layout_width="304dp"
                         android:layout_height="47dp"
                         android:layout_marginTop="36dp"
@@ -63,7 +63,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Olvide mi contraseña"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/inicioSesion" />
+                        app:layout_constraintTop_toBottomOf="@+id/registro" />
 
                     <EditText
                         android:id="@+id/nombre"

@@ -15,7 +15,7 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        registro = (Button) findViewById(R.id.inicioSesion);
+        registro = (Button) findViewById(R.id.registro);
 
         registro.setOnClickListener(new View.OnClickListener() {
             @Override

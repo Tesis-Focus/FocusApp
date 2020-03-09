@@ -17,7 +17,7 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
 
         crearCuenta = (Button) findViewById(R.id.crearCuenta);
-        inicioSesion =(Button) findViewById(R.id.inicioSesion);
+        inicioSesion =(Button) findViewById(R.id.registro);
 
         crearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +30,7 @@ public class InicioActivity extends AppCompatActivity {
         inicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),RegistroActivity.class);
+                Intent intent = new Intent(getApplicationContext(),PerfilesActivity.class);
                 startActivity(intent);
             }
         });

@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                     <Button
-                        android:id="@+id/inicioSesion"
+                        android:id="@+id/registro"
                         android:layout_width="304dp"
                         android:layout_height="47dp"
                         android:layout_marginTop="60dp"
@@ -54,7 +54,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.421"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/contraseña2" />
+                        app:layout_constraintTop_toBottomOf="@+id/confirmarContraseña" />
 
                     <EditText
                         android:id="@+id/nombre"
@@ -108,7 +108,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/correo" />
 
                     <EditText
-                        android:id="@+id/contraseña2"
+                        android:id="@+id/confirmarContraseña"
                         android:layout_width="304dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="16dp"
