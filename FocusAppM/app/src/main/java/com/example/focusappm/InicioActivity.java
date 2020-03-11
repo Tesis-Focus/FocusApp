@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class InicioActivity extends AppCompatActivity {
 
-    Button crearCuenta=null;
+    Button crearCuenta = null;
     Button inicioSesion=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
