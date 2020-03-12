@@ -1,0 +1,33 @@
+package com.example.focusappm;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+
+public class DetallePerfilActivity extends AppCompatActivity {
+
+    Button realizarTest;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detalle_perfil);
+
+        realizarTest = findViewById(R.id.realizarTest);
+
+        realizarTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent pruebaP = new Intent(view.getContext(), VisualizarTareasActivity.class);
+                startActivity(pruebaP);
+            }
+        });
+
+
+    }
+}

@@ -34,17 +34,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="141dp"
-                    android:layout_height="133dp"
-                    android:layout_marginTop="40dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="360dp"
@@ -56,7 +45,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/registro"
                         android:layout_width="304dp"
                         android:layout_height="47dp"
                         android:layout_marginTop="36dp"
@@ -64,20 +53,20 @@
                         android:text="Iniciar Sesión"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                        app:layout_constraintTop_toBottomOf="@+id/apellido" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/recuperarContraeña"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="Olvide mi contraseña"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button5" />
+                        app:layout_constraintTop_toBottomOf="@+id/registro" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/nombre"
                         android:layout_width="306dp"
                         android:layout_height="57dp"
                         android:layout_marginTop="44dp"
@@ -90,7 +79,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/apellido"
                         android:layout_width="304dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="32dp"
@@ -100,8 +89,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.407"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText" />
+                        app:layout_constraintTop_toBottomOf="@+id/nombre" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="141dp"
+                    android:layout_height="133dp"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_launcher_background" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
