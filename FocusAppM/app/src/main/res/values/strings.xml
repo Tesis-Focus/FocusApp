@@ -1,14 +1,6 @@
 <resources>
     <string name="app_name">FocusAppM</string>
-    <string-array name="Complejidad">
-        <item>Seleccione la complejidad</item>
-        <item>Alto</item>
-        <item>Medio</item>
-        <item>Bajo</item>
-    </string-array>
 
-    <string-array name="Actividad">
-        <item>Selecciona la Actividad</item>
-    </string-array>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
