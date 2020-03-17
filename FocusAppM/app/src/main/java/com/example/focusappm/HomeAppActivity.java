@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -19,12 +22,21 @@ public class HomeAppActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
+    ImageButton btnPerfiles;
+    Button btnTareas;
+    ImageButton btnAgregarTarea;
+    Button btnActividades;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_app);
         mAuth = FirebaseAuth.getInstance();
+        btnPerfiles = findViewById(R.id.btnPerfiles);
+        btnTareas = findViewById(R.id.btnTareas);
+        btnAgregarTarea = findViewById(R.id.btnAgregarTarea);
+        btnActividades = findViewById(R.id.btnActividades);
         setUpView();
         setUpViewPageAdapter();
     }
@@ -76,5 +88,34 @@ public class HomeAppActivity extends AppCompatActivity {
 
             }
         });
+
+        btnPerfiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent detallePerfil = new Intent(view.getContext(), DetallePerfilActivity.class);
+                startActivity(detallePerfil);
+            }
+        });
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent verTarea = new Intent(view.getContext(), VisualizarTareasActivity.class);
+                startActivity(verTarea);
+            }
+        });
+
+        btnAgregarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent agrTarea = new Intent(view.getContext(), AgregarTareaActivity.class);
+                startActivity(agrTarea);
+            }
+        });
+
+
     }
 }

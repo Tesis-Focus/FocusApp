@@ -16,18 +16,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_perfil);
-
         realizarTest = findViewById(R.id.realizarTest);
-
-        realizarTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent pruebaP = new Intent(view.getContext(), VisualizarTareasActivity.class);
-                startActivity(pruebaP);
-            }
-        });
-
-
     }
 }

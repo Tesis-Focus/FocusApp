@@ -86,14 +86,14 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnTareas"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
                 android:text="Tareas" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btnAgregarTarea"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -108,7 +108,7 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnActividades"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
