@@ -45,7 +45,7 @@ public class RegistroActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
-    TextView edttxtFechaNacimiento,edttxtNombre,edttxtApellido,edttxtEmail,edttxtContrasena;
+    TextView edttxtFechaNacimiento,edttxtNombre,edttxtApellido,edttxtEmail,edttxtContrasena,edttxtConfirmaContra;
     Button btnRegistro;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -62,6 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
         edttxtEmail = findViewById(R.id.edttxtEmail);
         edttxtContrasena = findViewById(R.id.edttxtContrasena);
         edttxtFechaNacimiento = findViewById(R.id.edttxtFechaNacimiento);
+        edttxtConfirmaContra = findViewById(R.id.edttxtConfirmaContra);
         edttxtFechaNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +166,10 @@ public class RegistroActivity extends AppCompatActivity {
             edttxtEmail.setError("Requerido");
             edttxtContrasena.setError("Requerido");
         }
+        if(!edttxtContrasena.getText().toString().matches(edttxtConfirmaContra.getText().toString())){
+            esValido = false;
+            edttxtContrasena.setError("las contraseñas no coinciden");
+        }
         return esValido;
     }
     public void registro(){
@@ -195,7 +200,7 @@ public class RegistroActivity extends AppCompatActivity {
         apellido = edttxtApellido.getText().toString();
         email = edttxtEmail.getText().toString();
         try {
-            fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaNacimiento.getText().toString());
+            fechaNacimiento = new SimpleDateFormat("dd/MM/yy").parse(edttxtFechaNacimiento.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
