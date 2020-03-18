@@ -6,6 +6,13 @@
         <item>alto</item>
     </string-array>
 
+    <string-array name="Desempeno">
+        <item>Desempeño</item>
+        <item>bajo</item>
+        <item>medio</item>
+        <item>alto</item>
+    </string-array>
+
     <string-array name="Actividad">
         <item>bajo</item>
         <item>medio</item>
