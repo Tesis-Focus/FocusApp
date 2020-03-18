@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetallePerfilActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="751dp"
+                android:background="#8F4AC384">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="135dp"
+                    android:layout_height="124dp"
+                    android:layout_marginTop="22dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="366dp"
+                    android:layout_height="475dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#009688"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.521"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+                    <Button
+                        android:id="@+id/realizarTest"
+                        android:layout_width="158dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="40dp"
+                        android:background="#00BCD4"
+                        android:text="Relizar Test"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="229dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Fecha de Nacimiento:"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                    <TextView
+                        android:id="@+id/grado"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="20dp"
+                        android:text="XXXXXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/estilo" />
+
+                    <TextView
+                        android:id="@+id/motivacion"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="20dp"
+                        android:text="XXXXXXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView11"
+                        app:layout_constraintTop_toBottomOf="@+id/condicion" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="148dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Motivación:"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                    <TextView
+                        android:id="@+id/fechaNacimiento"
+                        android:layout_width="112dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="24dp"
+                        android:text="XX XX XXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.232"
+                        app:layout_constraintStart_toEndOf="@+id/textView7"
+                        app:layout_constraintTop_toBottomOf="@+id/edad" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="148dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Estilo Aprendizaje"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                    <TextView
+                        android:id="@+id/txtNombre"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="134dp"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="48dp"
+                        android:text="XXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="148dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="21dp"
+                        android:text="Condición cognitiva"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="148dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Grado Academico"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+                    <TextView
+                        android:id="@+id/condicion"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="20dp"
+                        android:text="XXXXXXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView12"
+                        app:layout_constraintTop_toBottomOf="@+id/grado" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="89dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="50dp"
+                        android:text="Nombre:"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/estilo"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="86dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="20dp"
+                        android:text="XXXXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView9"
+                        app:layout_constraintTop_toBottomOf="@+id/fechaNacimiento" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="89dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Edad:"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                    <TextView
+                        android:id="@+id/edad"
+                        android:layout_width="146dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="134dp"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="20dp"
+                        android:text="XXX"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.126"
+                        app:layout_constraintStart_toEndOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="37dp"
+                        android:layout_marginTop="35dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/motivacion"
+                        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
