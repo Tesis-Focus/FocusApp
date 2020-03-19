@@ -91,7 +91,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:editable="false"
                 android:ems="10"
                 android:inputType="date" />
 
@@ -118,6 +117,19 @@
 
             <EditText
                 android:id="@+id/edttxtContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmar contraseña" />
+
+            <EditText
+                android:id="@+id/edttxtConfirmaContra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
