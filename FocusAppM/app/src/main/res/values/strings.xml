@@ -6,20 +6,18 @@
         <item>alto</item>
     </string-array>
 
-    <string-array name="Bajo_Medio_Alto">
-        <item>-</item>
+    <string-array name="Desempeno">
+        <item>Desempeño</item>
         <item>bajo</item>
         <item>medio</item>
         <item>alto</item>
     </string-array>
 
-    <string-array name="Tipo_Actividad">
-        <item>-</item>
-        <item>Académica</item>
-        <item>Recreativa</item>
-        <item>Extracurricular</item>
+    <string-array name="Actividad">
+        <item>bajo</item>
+        <item>medio</item>
+        <item>alto</item>
     </string-array>
-
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
