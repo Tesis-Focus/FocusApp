@@ -1,16 +1,32 @@
 <resources>
     <string name="app_name">FocusAppM</string>
     <string-array name="Complejidad">
-        <item>bajo</item>
-        <item>medio</item>
-        <item>alto</item>
+        <item>Seleccione la complejidad</item>
+        <item>Bajo</item>
+        <item>Medio</item>
+        <item>Alto</item>
     </string-array>
 
-    <string-array name="Actividad">
-        <item>bajo</item>
-        <item>medio</item>
-        <item>alto</item>
+    <string-array name="Clasificacion">
+        <item>Seleccione el tipo de tarea</item>
+        <item>Tarea</item>
+        <item>Taller</item>
+        <item>Proyecto</item>
     </string-array>
+
+    <string-array name="Area">
+        <item>Seleccione el área</item>
+        <item>Lectura</item>
+        <item>Escritura</item>
+        <item>Pensamiento lógico</item>
+    </string-array>
+
+
+    <string-array name="Actividad">
+        <item>Seleccione la actividad</item>
+    </string-array>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

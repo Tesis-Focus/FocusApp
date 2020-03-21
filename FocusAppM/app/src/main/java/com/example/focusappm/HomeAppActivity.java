@@ -23,7 +23,7 @@ public class HomeAppActivity extends AppCompatActivity {
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
     ImageButton btnPerfiles;
-    Button btnTareas;
+    Button btnVerTareas;
     ImageButton btnAgregarTarea;
     Button btnActividades;
 
@@ -34,7 +34,7 @@ public class HomeAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_app);
         mAuth = FirebaseAuth.getInstance();
         btnPerfiles = findViewById(R.id.btnPerfiles);
-        btnTareas = findViewById(R.id.btnTareas);
+        btnVerTareas = findViewById(R.id.btnVerTareas);
         btnAgregarTarea = findViewById(R.id.btnAgregarTarea);
         btnActividades = findViewById(R.id.btnActividades);
         setUpView();
@@ -98,12 +98,12 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
-        btnTareas.setOnClickListener(new View.OnClickListener() {
+        btnVerTareas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent verTarea = new Intent(view.getContext(), VisualizarTareasActivity.class);
-                startActivity(verTarea);
+                Intent verTareas = new Intent(view.getContext(), VisualizarTareasActivity.class);
+                startActivity(verTareas);
             }
         });
 

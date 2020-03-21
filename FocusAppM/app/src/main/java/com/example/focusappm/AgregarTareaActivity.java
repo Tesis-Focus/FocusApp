@@ -23,6 +23,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
     EditText txtDescripTarea;
     EditText txtTemaTarea;
     Spinner sprComplejidad;
+    Spinner sprClasificacion;
+    Spinner sprArea;
     Spinner sprActividad;
     Button btnGuardarTarea;
     Calendar calendario;
@@ -40,6 +42,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         txtDescripTarea = findViewById(R.id.txtDescripTarea);
         txtTemaTarea = findViewById(R.id.txtTemaTarea);
         sprComplejidad = findViewById(R.id.sprComplejidad);
+        sprClasificacion = findViewById(R.id.sprClasificacion);
+        sprArea = findViewById(R.id.sprArea);
         sprActividad = findViewById(R.id.sprActividad);
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
 
@@ -66,20 +70,14 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
 
+        ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
+        sprClasificacion.setAdapter(adapterClasif);
+
+        ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
+        sprArea.setAdapter(adapterArea);
+
         ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Actividad, android.R.layout.simple_spinner_item);
         sprActividad.setAdapter(adapterActiv);
-
-        /*
-        btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intentMain3 = new Intent(v.getContext(), Main3Activity.class);
-                startActivity(intentMain3);
-            }
-        });
-
-         */
 
     }
 }

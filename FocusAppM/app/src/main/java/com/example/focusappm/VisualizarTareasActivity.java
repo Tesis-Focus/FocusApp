@@ -31,7 +31,6 @@ public class VisualizarTareasActivity extends AppCompatActivity {
         btnFechaTarea = findViewById(R.id.btnFechaTarea);
         txtFecha = findViewById(R.id.txtFecha);
         listaTareas = findViewById(R.id.listaTareas);
-        btnAgrTarea = findViewById(R.id.btnAgrTarea);
 
         btnFechaTarea.setOnClickListener(new View.OnClickListener() {
             @Override
