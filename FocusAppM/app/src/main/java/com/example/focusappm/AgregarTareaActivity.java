@@ -29,7 +29,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
     Calendar calendario;
     DatePickerDialog datePickerDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +74,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Bajo_Medio_Alto, android.R.layout.simple_spinner_item);
         sprActividad.setAdapter(adapterActiv);
 
-
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);
-
-        ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Actividad, android.R.layout.simple_spinner_item);
-        sprActividad.setAdapter(adapterActiv);
-
     }
 }

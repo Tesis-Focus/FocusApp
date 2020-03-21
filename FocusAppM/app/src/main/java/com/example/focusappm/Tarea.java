@@ -14,7 +14,24 @@ public class Tarea {
     private Date fechaInicio;
     private Date fechaFinalizacion;
     private Date fechaEntrega;
-    //private Actividad actividad;
+    private Actividad actividad;
+    private CalificacionPlanificacion calificacion;
+
+    public Tarea(String nombre, String descripcion, String tema, String complejidad, String area, String clasificacion, Date fechaAsignacion, Date fechaInicio, Date fechaFinalizacion, Date fechaEntrega, Actividad actividad, CalificacionPlanificacion calificacion){
+
+        this.nombre= nombre;
+        this.descripcion = descripcion;
+        this.tema = tema;
+        this.complejidad = complejidad;
+        this.area = area;
+        this.clasificacion = clasificacion;
+        this.fechaAsignacion = fechaAsignacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinalizacion = fechaFinalizacion;
+        this.fechaEntrega = fechaEntrega;
+        this.actividad = actividad;
+        this.calificacion = calificacion;
+    }
 
     public String getNombre() {
         return nombre;
@@ -94,5 +111,21 @@ public class Tarea {
 
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
+    }
+
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+
+    public CalificacionPlanificacion getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(CalificacionPlanificacion calificacion) {
+        this.calificacion = calificacion;
     }
 }
