@@ -3,7 +3,6 @@ package com.example.focusappm;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -72,6 +71,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
         sprClasificacion.setAdapter(adapterClasif);
+
+        ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Bajo_Medio_Alto, android.R.layout.simple_spinner_item);
+        sprActividad.setAdapter(adapterActiv);
+
 
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);

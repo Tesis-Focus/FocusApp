@@ -3,6 +3,7 @@ package com.example.focusappm;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,17 +29,33 @@ public class HomeAppActivity extends AppCompatActivity {
     Button btnActividades;
 
 
+    ImageButton agregarActividad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_app);
         mAuth = FirebaseAuth.getInstance();
+
         btnPerfiles = findViewById(R.id.btnPerfiles);
         btnVerTareas = findViewById(R.id.btnVerTareas);
         btnAgregarTarea = findViewById(R.id.btnAgregarTarea);
         btnActividades = findViewById(R.id.btnActividades);
+
+
+        agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
+
         setUpView();
         setUpViewPageAdapter();
+
+        agregarActividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,7 +92,7 @@ public class HomeAppActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                
+
             }
 
             @Override

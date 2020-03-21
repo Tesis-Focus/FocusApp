@@ -51,6 +51,13 @@ public class InicioActivity extends AppCompatActivity {
                 }
             }
         });
+        txtvwRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),RegistroActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
