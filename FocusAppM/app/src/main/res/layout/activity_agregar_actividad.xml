@@ -65,7 +65,8 @@
             <Spinner
                 android:id="@+id/spnTipo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/TipoActividad"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +118,8 @@
             <Spinner
                 android:id="@+id/spnMotivacion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/MotivacionActividad"/>
 
             <TextView
                 android:id="@+id/textView21"
@@ -129,7 +131,8 @@
             <Spinner
                 android:id="@+id/spnDesempeno"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/Desempeno" />
 
             <CheckBox
                 android:id="@+id/chbxHorarioFijo"
