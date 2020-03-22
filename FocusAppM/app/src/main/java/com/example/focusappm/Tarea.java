@@ -10,27 +10,14 @@ public class Tarea {
     private String complejidad;
     private String area;
     private String clasificacion;
-    private Date fechaAsignacion;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
+    private String fechaAsignacion;
+    private String fechaInicio;
+    private String fechaFinalizacion;
     private Date fechaEntrega;
     private Actividad actividad;
-    private CalificacionPlanificacion calificacion;
 
-    public Tarea(String nombre, String descripcion, String tema, String complejidad, String area, String clasificacion, Date fechaAsignacion, Date fechaInicio, Date fechaFinalizacion, Date fechaEntrega, Actividad actividad, CalificacionPlanificacion calificacion){
+    public Tarea(){
 
-        this.nombre= nombre;
-        this.descripcion = descripcion;
-        this.tema = tema;
-        this.complejidad = complejidad;
-        this.area = area;
-        this.clasificacion = clasificacion;
-        this.fechaAsignacion = fechaAsignacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinalizacion = fechaFinalizacion;
-        this.fechaEntrega = fechaEntrega;
-        this.actividad = actividad;
-        this.calificacion = calificacion;
     }
 
     public String getNombre() {
@@ -81,27 +68,29 @@ public class Tarea {
         this.clasificacion = clasificacion;
     }
 
-    public Date getFechaAsignacion() {
+    public String getFechaAsignacion() {
+
         return fechaAsignacion;
     }
 
-    public void setFechaAsignacion(Date fechaAsignacion) {
+    public void setFechaAsignacion(String fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinalizacion() {
+    public String getFechaFinalizacion() {
+
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
+    public void setFechaFinalizacion(String fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
@@ -109,7 +98,7 @@ public class Tarea {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(Date fechaEntrega) {
+    public void setFechaEntrega(String s) {
         this.fechaEntrega = fechaEntrega;
     }
 
@@ -121,11 +110,4 @@ public class Tarea {
         this.actividad = actividad;
     }
 
-    public CalificacionPlanificacion getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(CalificacionPlanificacion calificacion) {
-        this.calificacion = calificacion;
-    }
 }

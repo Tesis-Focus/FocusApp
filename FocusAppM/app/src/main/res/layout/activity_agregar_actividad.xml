@@ -7,9 +7,13 @@
     tools:context=".AgregarActividadActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_width="407dp"
+        android:layout_height="726dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAceptarAgregarAct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +70,7 @@
                 android:id="@+id/spnTipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/TipoActividad"/>
+                android:entries="@array/TipoActividad" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,7 +123,7 @@
                 android:id="@+id/spnMotivacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/MotivacionActividad"/>
+                android:entries="@array/MotivacionActividad" />
 
             <TextView
                 android:id="@+id/textView21"
