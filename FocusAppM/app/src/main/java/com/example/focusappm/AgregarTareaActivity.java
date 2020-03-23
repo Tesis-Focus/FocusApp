@@ -153,7 +153,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 System.out.println("Clasificacion" + clasif);
                 tarea.setArea(area);
                 tarea.setFechaInicio("00/00/0000");
-                tarea.setFechaAsignacion("00/00/0000");
+                tarea.setFechaAsignacion("00/00/0000");  //El dia que ingresa la tarea
                 tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
                 tarea.setFechaFinalizacion("00/00/0000");
                 //Log.i("Nombre",txtNombTarea.getText().toString());
