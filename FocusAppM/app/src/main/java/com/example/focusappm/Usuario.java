@@ -1,6 +1,8 @@
 package com.example.focusappm;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Usuario {
     private String id;
@@ -9,14 +11,10 @@ public class Usuario {
     private Date fechaNacimiento;
     private String rol;
     private String email;
+    private List<String> idActividades = new ArrayList<String>() ;
 
-    public Usuario(String id, String nombres, String apellidos, Date fechaNacimiento, String rol, String email) {
-        this.id = id;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.fechaNacimiento = fechaNacimiento;
-        this.rol = rol;
-        this.email = email;
+    public Usuario() {
+
     }
 
     public String getId() {
@@ -66,4 +64,8 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public List<String> getIdActividades() { return idActividades;    }
+
+    public void setIdActividades(List<String> idActividades) {  this.idActividades = idActividades;  }
 }

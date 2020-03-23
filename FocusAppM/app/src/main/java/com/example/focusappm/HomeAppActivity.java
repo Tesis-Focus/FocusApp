@@ -25,6 +25,7 @@ public class HomeAppActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     ImageButton agregarActividad;
+    ImageButton agregarTarea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class HomeAppActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
+        agregarTarea = (ImageButton) findViewById(R.id.agregarTarea);
         setUpView();
         setUpViewPageAdapter();
 
@@ -40,6 +42,14 @@ public class HomeAppActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        agregarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(),TestAprendizajeActivity.class);
                 startActivity(intent);
             }
         });

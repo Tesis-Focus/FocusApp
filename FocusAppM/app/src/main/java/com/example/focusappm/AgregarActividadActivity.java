@@ -24,8 +24,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.focusappm.RegistroActivity.PATH_USUARIOS;
+import static com.example.focusappm.RegistroActivity.focus;
 
 public class AgregarActividadActivity extends AppCompatActivity {
 
@@ -50,8 +52,12 @@ public class AgregarActividadActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     public static final String PATH_ACTIVIDADES = "actividades/";
+    //public static final String PATH_USUARIOS = "usuarios/";
+    public static final String PATH_ACTIVIDADES_TAREAS = "actividades";
     FirebaseAuth mAuth;
     FirebaseUser user;
+
+
 
 
     @Override
@@ -103,13 +109,35 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 actividad.setFechaFinal(edttxtFechaFin.getText().toString());
                 actividad.setHorarioFijo(horarioFijo.isChecked());
                 actividad.setIdUsaurio(user.getUid());
+                //  actividad.getIdTareas().add("dxsxsxs");
 
                 Toast.makeText(getApplicationContext(),edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
-                myRef = FirebaseDatabase.getInstance().getReference().child("actividades");
+                myRef = FirebaseDatabase.getInstance().getReference().child("");
                 String key = myRef.push().getKey();
                 //Log.i("MyAPP", myRef.getKey());
                 myRef=database.getReference(PATH_ACTIVIDADES+key);
                 myRef.setValue(actividad);
+
+                List<Usuario> usuarios = focus.getUsuarios();
+                for (Usuario usuario: usuarios) {
+                    if (usuario.getId() == user.getUid()){
+                        usuario.getIdActividades().add(key);
+                        myRef = FirebaseDatabase.getInstance().getReference().child("");
+                        String keyActivity = myRef.push().getKey();
+                        myRef = database.getReference(PATH_USUARIOS + user.getUid());
+                        myRef.setValue(usuario);
+                    }
+                }
+
+               /* Usuario usuario = new Usuario();
+                usuario.getIdActividades().add(key);
+                usuario.getIdActividades().add("dccddccdcd");
+                usuario.setNombres("anyi");
+                myRef = FirebaseDatabase.getInstance().getReference().child("");
+                String keyActivity = myRef.push().getKey();
+                myRef = database.getReference(PATH_USUARIOS + user.getUid());
+                myRef.setValue(usuario);*/
+
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
             }
         });
