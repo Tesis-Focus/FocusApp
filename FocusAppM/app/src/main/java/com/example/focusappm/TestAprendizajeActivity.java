@@ -1,6 +1,8 @@
 package com.example.focusappm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +14,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
 
     ArrayList<String> listDatos;
     RecyclerView recycler;
+    AdapterDatos adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,26 @@ public class TestAprendizajeActivity extends AppCompatActivity {
             listDatos.add("Dato # "+i+" ");
         }
 
-        AdapterDatos adapter = new AdapterDatos(listDatos);
+        adapter = new AdapterDatos(listDatos);
+       // new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recycler);
+        ItemTouchHelper.Callback callback = new MyItemTouchHelper(adapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        adapter.setmTouchHelper(itemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recycler);
         recycler.setAdapter(adapter);
     }
+
+    /*ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            listDatos.remove(viewHolder.getAdapterPosition());
+            adapter.notifyDataSetChanged();
+
+        }
+    };*/
 }
