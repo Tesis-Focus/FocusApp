@@ -54,8 +54,6 @@
 
                         app:layout_constraintEnd_toStartOf="@+id/btnAgregarTarea"
 
-                        app:layout_constraintEnd_toStartOf="@+id/agregarTarea"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 

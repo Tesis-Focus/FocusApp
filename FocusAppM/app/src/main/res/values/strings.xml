@@ -58,10 +58,4 @@
         <item>conocer cosas nuevas</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string-array name="Complejidad">
-        <item>bajo</item>
-        <item>medio</item>
-        <item>alto</item>
-    </string-array>
 </resources>

@@ -46,7 +46,7 @@ public class HomeAppActivity extends AppCompatActivity {
 
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
 
-        agregarTarea = (ImageButton) findViewById(R.id.agregarTarea);
+        agregarTarea = (ImageButton) findViewById(R.id.btnAgregarTarea);
 
         setUpView();
         setUpViewPageAdapter();

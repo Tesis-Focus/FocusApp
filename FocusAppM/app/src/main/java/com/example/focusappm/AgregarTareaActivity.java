@@ -15,6 +15,11 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 
 public class AgregarTareaActivity extends AppCompatActivity {
@@ -31,16 +36,23 @@ public class AgregarTareaActivity extends AppCompatActivity {
     Button btnGuardarTarea;
     Calendar calendario;
     DatePickerDialog datePickerDialog;
-    private String complej;
-    private String clasif;
     private String activ;
-    private String area;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    public static final String PATH_ACTIVIDADES = "actividades/";
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_tarea);
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
@@ -76,68 +88,14 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
 
-        sprComplejidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                complej = (String) sprComplejidad.getSelectedItem();
-                Toast.makeText(getBaseContext(), "Item: " + sprComplejidad.getSelectedItem() + " " + complej,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
         ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
         sprClasificacion.setAdapter(adapterClasif);
-
-        sprClasificacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                clasif = (String) sprClasificacion.getSelectedItem();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Bajo_Medio_Alto, android.R.layout.simple_spinner_item);
         sprActividad.setAdapter(adapterActiv);
 
-        sprActividad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                activ = (String) sprActividad.getSelectedItem();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);
-
-        sprArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                area = (String) sprArea.getSelectedItem();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,11 +105,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
                 tarea.setTema(txtTemaTarea.getText().toString());
-                tarea.setComplejidad(complej);
-                System.out.println("Complejidad" + complej);
-                tarea.setClasificacion(clasif);
-                System.out.println("Clasificacion" + clasif);
-                tarea.setArea(area);
+                tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
+                tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
+                tarea.setArea(sprArea.getSelectedItem().toString());
                 tarea.setFechaInicio("00/00/0000");
                 tarea.setFechaAsignacion("00/00/0000");  //El dia que ingresa la tarea
                 tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
