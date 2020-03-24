@@ -33,13 +33,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class RegistroActivity extends AppCompatActivity {
 
     public static final String PATH_USUARIOS = "usuarios/";
+    public static final Focus focus= new Focus();
 
     FirebaseDatabase database;
     FirebaseAuth mAuth;
@@ -205,7 +208,15 @@ public class RegistroActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if(user != null){
-            Usuario usuario = new Usuario(user.getUid(),nombre,apellido,fechaNacimiento,"Usuario",email);
+            // List<String> idActividades = new ArrayList<String>();
+            Usuario usuario = new Usuario();
+            usuario.setId(user.getUid());
+            usuario.setNombres(nombre);
+            usuario.setApellidos(apellido);
+            usuario.setFechaNacimiento(fechaNacimiento);
+            usuario.setRol("Usuario");
+            usuario.setEmail(email);
+            focus.getUsuarios().add(usuario);
             myRef = database.getReference(PATH_USUARIOS+user.getUid());
             myRef.setValue(usuario);
             Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
