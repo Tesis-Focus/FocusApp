@@ -1,12 +1,11 @@
 package com.example.focusappm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,10 +16,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
@@ -36,13 +40,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
     Button btnGuardarTarea;
     Calendar calendario;
     DatePickerDialog datePickerDialog;
-    private String activ;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
-    public static final String PATH_ACTIVIDADES = "actividades/";
     FirebaseAuth mAuth;
     FirebaseUser user;
+    public static final String PATH_TAREAS = "tareas";
 
 
     @Override
@@ -51,6 +54,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_tarea);
 
         database = FirebaseDatabase.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -91,8 +95,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
         sprClasificacion.setAdapter(adapterClasif);
 
-        ArrayAdapter<CharSequence> adapterActiv = ArrayAdapter.createFromResource(this, R.array.Bajo_Medio_Alto, android.R.layout.simple_spinner_item);
-        sprActividad.setAdapter(adapterActiv);
+        spinnerActiv();
 
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);
@@ -109,10 +112,50 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
                 tarea.setArea(sprArea.getSelectedItem().toString());
                 tarea.setFechaInicio("00/00/0000");
-                tarea.setFechaAsignacion("00/00/0000");  //El dia que ingresa la tarea
+
+                Calendar fechAsig = Calendar.getInstance();
+                int dia = fechAsig.get(Calendar.DAY_OF_MONTH);
+                int mes = fechAsig.get(Calendar.MONTH);
+                int anio = fechAsig.get(Calendar.YEAR);
+
+                tarea.setFechaAsignacion(dia+"/"+(mes+1)+"/"+anio);  //El dia que ingresa la tarea
                 tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
                 tarea.setFechaFinalizacion("00/00/0000");
-                //Log.i("Nombre",txtNombTarea.getText().toString());
+
+                Toast.makeText(getApplicationContext(),txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
+                myRef = FirebaseDatabase.getInstance().getReference().child("");
+                //String key = myRef.push().getKey();
+                myRef = database.getReference(PATH_TAREAS);
+                myRef.setValue(tarea);
+
+            }
+        });
+
+    }
+
+    public void spinnerActiv(){
+
+        List<String> actividades = new ArrayList<>();
+        myRef.child("actividades").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot ds: dataSnapshot.getChildren() ){
+
+                        String nombre = ds.child("nombre").getValue().toString();
+                        actividades.add(nombre);
+                    }
+
+                    ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, actividades);
+                    sprActividad.setAdapter(adapterAct);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

@@ -15,6 +15,9 @@ import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeAppActivity extends AppCompatActivity {
 
@@ -27,47 +30,23 @@ public class HomeAppActivity extends AppCompatActivity {
     Button btnVerTareas;
     ImageButton btnAgregarTarea;
     Button btnActividades;
-
-
     ImageButton agregarActividad;
-    ImageButton agregarTarea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_app);
         mAuth = FirebaseAuth.getInstance();
-
         btnPerfiles = findViewById(R.id.btnPerfiles);
         btnVerTareas = findViewById(R.id.btnVerTareas);
         btnAgregarTarea = findViewById(R.id.btnAgregarTarea);
         btnActividades = findViewById(R.id.btnActividades);
-
-
-        agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
-
-        agregarTarea = (ImageButton) findViewById(R.id.btnAgregarTarea);
+        agregarActividad = findViewById(R.id.agregarActividad);
 
         setUpView();
         setUpViewPageAdapter();
-
-        agregarActividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        agregarTarea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getBaseContext(),TestAprendizajeActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -144,6 +123,13 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
+        agregarActividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
