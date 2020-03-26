@@ -128,9 +128,6 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validarCampos()){
                     registro();
-                    persisitir();
-                    Toast.makeText(getApplicationContext(),"Usuario creado con éxito", Toast.LENGTH_LONG);
-                    updateUI(user);
                 }
             }
         });
@@ -190,11 +187,14 @@ public class RegistroActivity extends AppCompatActivity {
                     if(user!=null){
                         UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
                         upcrb.setDisplayName(edttxtNombre.getText().toString()+" "+edttxtApellido.getText().toString());
+                        persisitir();
                         user.updateProfile(upcrb.build());
+                        updateUI(user);
                     }
                 }
             }
         });
+
     }
     public void persisitir(){
         String nombre,apellido,email,id;
@@ -219,7 +219,7 @@ public class RegistroActivity extends AppCompatActivity {
             focus.getUsuarios().add(usuario);
             myRef = database.getReference(PATH_USUARIOS+user.getUid());
             myRef.setValue(usuario);
-            Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Registro realizado con éxito", Toast.LENGTH_LONG).show();
         }
     }
 }

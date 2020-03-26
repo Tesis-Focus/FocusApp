@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class PerfilesActivity extends AppCompatActivity {
 
     ListView perfiles = null;
+    Button btnAgregarPerfil;
+
     private ArrayList<String> nombres;
 
     @Override
@@ -24,6 +27,15 @@ public class PerfilesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfiles);
 
         perfiles = findViewById(R.id.misPerfiles);
+        btnAgregarPerfil = findViewById(R.id.btnAgregarPerfil);
+
+        btnAgregarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),AgregarPerfilActivity.class);
+                startActivity(i);
+            }
+        });
 
         nombres = new ArrayList<String>();
         nombres.add("Anyi");
