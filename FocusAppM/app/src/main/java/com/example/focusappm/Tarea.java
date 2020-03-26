@@ -15,7 +15,7 @@ public class Tarea {
     private String fechaInicio;
     private String fechaFinalizacion;
     private Date fechaEntrega;
-    private String nombActividad;
+    private String idActividad;
 
     public Tarea(){
 
@@ -122,12 +122,12 @@ public class Tarea {
     }
      */
 
-    public String getNombActividad() {
-        return nombActividad;
+    public String getIdActividad() {
+        return idActividad;
     }
 
-    public void setNombActividad(String nombActividad) {
-        this.nombActividad = nombActividad;
+    public void setIdActividad(String idActividad) {
+        this.idActividad = idActividad;
     }
 }
 

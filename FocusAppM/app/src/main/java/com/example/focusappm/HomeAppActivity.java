@@ -23,8 +23,7 @@ public class HomeAppActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
-
-    ImageButton agregarActividad,btnPerfiles;
+    ImageButton agregarActividad,btnPerfiles, agregarTarea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +33,7 @@ public class HomeAppActivity extends AppCompatActivity {
 
         btnPerfiles = findViewById(R.id.btnPerfiles);
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
+        agregarTarea = findViewById(R.id.agregarTarea);
         setUpView();
         setUpViewPageAdapter();
 
@@ -50,6 +50,14 @@ public class HomeAppActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        agregarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
+                startActivity(intentAgrTarea);
             }
         });
 
