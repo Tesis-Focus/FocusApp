@@ -27,8 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class AgregarTareaActivity extends AppCompatActivity {
+
+
 
     EditText txtFechaEntrega;
     ImageButton btnFechaEntrega;
@@ -42,12 +45,15 @@ public class AgregarTareaActivity extends AppCompatActivity {
     Button btnGuardarTarea;
     Calendar calendario;
     DatePickerDialog datePickerDialog;
+    ArrayList<String> nombre_Actividades;
+    ArrayList<String> id_Actividades;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
     FirebaseAuth mAuth;
     FirebaseUser user;
     public static final String PATH_TAREAS = "tareas/";
+    public static final String PATH_ACTIVIDADES = "actividades/";
 
 
     @Override
@@ -70,6 +76,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         sprArea = findViewById(R.id.sprArea);
         sprActividad = findViewById(R.id.sprActividad);
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
+
+        nombre_Actividades = new ArrayList<String>();
+        id_Actividades = new ArrayList<String>();
 
 
         btnFechaEntrega.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +116,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 Tarea tarea = new Tarea();
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
@@ -114,29 +124,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
                 tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
                 tarea.setArea(sprArea.getSelectedItem().toString());
+                String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
+                tarea.setIdActividad(id_Actividad);
 
-
-
-                myRef.child("actividades").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                            Actividad act = ds.getValue(Actividad.class);
-                            if(act.getIdUsaurio().equalsIgnoreCase(user.getUid()) && act.getNombre().equalsIgnoreCase(txtNombTarea.getText().toString())){
-
-                                String idAct = act.getIdActividad();
-                                Log.i("TAG", "IDACT: " + idAct);
-                                tarea.setIdActividad(idAct);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
                 tarea.setFechaInicio("00/00/0000");
                 Calendar fechAsig = Calendar.getInstance();
@@ -162,8 +153,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
     public void spinnerActiv(){
 
-        List<String> actividades = new ArrayList<>();
-        myRef.child("actividades").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -176,13 +166,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     if(actvActual.getIdUsaurio().equalsIgnoreCase(user.getUid())){
 
                         //Log.i("TAG", "EXACTO");
-                        String nombre = ds.child("nombre").getValue().toString();
-                        actividades.add(nombre);
+                        String nombre = actvActual.getNombre();
+                        nombre_Actividades.add(nombre);
+                        id_Actividades.add(actvActual.getIdActividad());
                     }
-
-                    ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, actividades);
-                    sprActividad.setAdapter(adapterAct);
                 }
+                ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
+                sprActividad.setAdapter(adapterAct);
             }
 
             @Override
