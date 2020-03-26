@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Actividad {
-    private String id;
+    private String idActividad;
     private String nombre;
     private String descripcion;
     private String tipo;
@@ -21,12 +21,12 @@ public class Actividad {
 
     }
 
-    public String getId() {
-        return id;
+    public String getIdActividad() {
+        return idActividad;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdActividad(String idActividad) {
+        this.idActividad = idActividad;
     }
 
     public String getNombre() {
