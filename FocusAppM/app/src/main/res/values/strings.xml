@@ -2,6 +2,21 @@
     <string name="app_name">FocusAppM</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="cursos">
+        <item>-</item>
+        <item>1º</item>
+        <item>2º</item>
+        <item>3º</item>
+        <item>4º</item>
+        <item>5º</item>
+        <item>4º</item>
+        <item>7º</item>
+        <item>8º</item>
+        <item>9º</item>
+        <item>10º</item>
+        <item>11º</item>
+    </string-array>
+
     <string-array name="Bajo_Medio_Alto">
         <item>-</item>
         <item>Bajo</item>

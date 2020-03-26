@@ -11,7 +11,6 @@ public class Usuario {
     private Date fechaNacimiento;
     private String rol;
     private String email;
-    private List<String> idActividades = new ArrayList<String>() ;
 
     public Usuario() {
 
@@ -65,7 +64,4 @@ public class Usuario {
         this.email = email;
     }
 
-    public List<String> getIdActividades() { return idActividades;    }
-
-    public void setIdActividades(List<String> idActividades) {  this.idActividades = idActividades;  }
 }

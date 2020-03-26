@@ -53,7 +53,7 @@
                 android:text="Nombre" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edtxNombrePB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -66,11 +66,37 @@
                 android:text="Apellidos" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/edtxApellidosPB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha nacimiento"
+                tools:text="Fecha nacimiento" />
+
+            <EditText
+                android:id="@+id/edtxFechaNacPB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Curso" />
+
+            <Spinner
+                android:id="@+id/spnCursoPB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/cursos" />
 
         </LinearLayout>
     </ScrollView>

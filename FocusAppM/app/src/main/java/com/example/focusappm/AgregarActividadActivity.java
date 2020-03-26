@@ -194,7 +194,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         recogerFecha.show();
     }
 
-    public void relacionUsurAct(Actividad actividad){
+    /*public void relacionUsurAct(Actividad actividad){
 
         myRef = database.getReference(PATH_USUARIOS);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -231,5 +231,5 @@ public class AgregarActividadActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 }
