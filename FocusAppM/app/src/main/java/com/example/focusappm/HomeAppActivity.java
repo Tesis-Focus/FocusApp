@@ -1,5 +1,6 @@
 package com.example.focusappm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -10,13 +11,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeAppActivity extends AppCompatActivity {
@@ -26,24 +39,41 @@ public class HomeAppActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
+    FirebaseUser user;
+    ListView lwPerfiles;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     ImageButton agregarActividad,btnPerfiles, agregarTarea;
+    List<Usuario> beneficiarios;
+    List<String> nombresBeneficiarios;
+    private final static String PATH_USUARIOS = "usuarios/";
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_app);
         mAuth = FirebaseAuth.getInstance();
-
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
         btnPerfiles = findViewById(R.id.btnPerfiles);
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
         agregarTarea = findViewById(R.id.agregarTarea);
+        lwPerfiles = findViewById(R.id.lwPerfiles);
+        beneficiarios = new ArrayList<>();
+        nombresBeneficiarios = new ArrayList<>();
+        user = mAuth.getCurrentUser();
         setUpView();
         setUpViewPageAdapter();
+        cargarPerfilesB();
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),PerfilesActivity.class);
+                i.putExtra("beneficiarios", (Serializable) beneficiarios);
+                i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 startActivity(i);
             }
         });
@@ -52,6 +82,8 @@ public class HomeAppActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
+                intent.putExtra("beneficiarios", (Serializable) beneficiarios);
+                intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 startActivity(intent);
             }
         });
@@ -60,6 +92,8 @@ public class HomeAppActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
+                intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
+                intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 startActivity(intentAgrTarea);
             }
         });
@@ -82,6 +116,32 @@ public class HomeAppActivity extends AppCompatActivity {
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void cargarPerfilesB(){
+
+        myRef = database.getReference(PATH_USUARIOS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    Usuario beneficiario = sn.getValue(Usuario.class);
+                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
+                        beneficiarios.add(beneficiario);
+                        nombresBeneficiarios.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
+                        Log.i("beneficiarios", "onDataChange: "+(beneficiario.getNombres()+" "+beneficiario.getApellidos()));
+                    }
+                }
+                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombresBeneficiarios);
+                adapter.notifyDataSetChanged();
+                lwPerfiles.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setUpView(){

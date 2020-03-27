@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -49,8 +51,11 @@ public class AgregarActividadActivity extends AppCompatActivity {
     ImageButton btnFechaFin;
     Spinner spnTipo;
     Spinner spnMotivacion;
-    Spinner spnDesempenio;
+    Spinner spnDesempenio, spnBeneficiariosAgrAc;
     CheckBox horarioFijo;
+    List<String> nombresBeneficiarios;
+    List<Usuario> beneficiarios;
+    ArrayAdapter<String> adapter;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -80,7 +85,13 @@ public class AgregarActividadActivity extends AppCompatActivity {
         spnTipo = findViewById(R.id.spnTipo);
         spnMotivacion = findViewById(R.id.spnMotivacion);
         spnDesempenio = findViewById(R.id.spnDesempeno);
+        spnBeneficiariosAgrAc = findViewById(R.id.spnBeneficiariosAgrAc);
         horarioFijo = findViewById(R.id.chbxHorarioFijo);
+        nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
+        beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
+        adapter.notifyDataSetChanged();
+        spnBeneficiariosAgrAc.setAdapter(adapter);
 
         btnFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +120,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 actividad.setFechaInicio(edttxtFechaIni.getText().toString());
                 actividad.setFechaFinal(edttxtFechaFin.getText().toString());
                 actividad.setHorarioFijo(horarioFijo.isChecked());
-                actividad.setIdUsaurio(user.getUid());
-                //actividad.getIdTareas().add("dxsxsxs");
 
+                String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
+
+                actividad.setIdUsaurio(idBeneficiario);
                 Toast.makeText(getApplicationContext(),edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
                 String key = myRef.push().getKey();
@@ -119,44 +131,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 myRef = database.getReference(PATH_ACTIVIDADES+key);
                 actividad.setIdActividad(myRef.getKey());
                 myRef.setValue(actividad);
-
-                //relacionUsurAct(actividad);
-
-                /*
-                String idActv = actividad.getId();
-                Usuario usrActual = new Usuario();
-                usrActual.setId(user.getUid());
-                usrActual.getIdActividades().add(idActv);
-
-                String keyActivity = myRef.push().getKey();
-                myRef = database.getReference(PATH_USUARIOS +  keyActivity);
-                myRef.setValue(usrActual);
-
-
-                List<Usuario> usuarios = focus.getUsuarios();
-                System.out.println("Tamaño: " + usuarios.size());
-
-                for (Usuario usuario: usuarios) {
-                    System.out.println("Usuarios " + usuario);
-                    if (usuario.getId() == user.getUid()){
-                        usuario.getIdActividades().add(key);
-                        myRef = FirebaseDatabase.getInstance().getReference().child("");
-                        String keyActivity = myRef.push().getKey();
-                        myRef = database.getReference(PATH_USUARIOS +  keyActivity);
-                        myRef.setValue(usuario);
-                    }
-                }
-
-                //user.getUid() +
-
-               /* Usuario usuario = new Usuario();
-                usuario.getIdActividades().add(key);
-                usuario.getIdActividades().add("dccddccdcd");
-                usuario.setNombres("anyi");
-                myRef = FirebaseDatabase.getInstance().getReference().child("");
-                String keyActivity = myRef.push().getKey();
-                myRef = database.getReference(PATH_USUARIOS + user.getUid());
-                myRef.setValue(usuario);*/
 
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
             }
@@ -194,42 +168,29 @@ public class AgregarActividadActivity extends AppCompatActivity {
         recogerFecha.show();
     }
 
-    /*public void relacionUsurAct(Actividad actividad){
+    private void cargarPerfilesB(){
 
         myRef = database.getReference(PATH_USUARIOS);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-
-                    Usuario usrActual = singleSnapshot.getValue(Usuario.class);
-                    //System.out.println("AQUI");
-                    Log.i("TAG", "Encontró usuario " + usrActual.getNombres());
-                    //Log.i("TAG", "USUARIO ACTUAL " + usrActual.getId());
-                    //Log.i("TAG", "USUARIO ACTUAL USER " + user.getUid());
-
-                    if(usrActual.getId().equalsIgnoreCase(user.getUid())){
-
-                        Log.i("TAG", "EXACTO: " + user.getUid());
-                        usrActual.getIdActividades().add(actividad.getIdActividad());
-                        Log.i("TAG", "tamaño: " + usrActual.getIdActividades().size());
-
-                        myRef = database.getReference().child("").child("idActividad");
-                        String keyActivity = myRef.push().getKey();
-                        myRef = database.getReference(PATH_USUARIOS + keyActivity);
-                        myRef.setValue(usrActual);
-
+                for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    Usuario beneficiario = sn.getValue(Usuario.class);
+                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
+                        beneficiarios.add(beneficiario);
+                        nombresBeneficiarios.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
+                        Log.i("beneficiarios", "onDataChange: "+(beneficiario.getNombres()+" "+beneficiario.getApellidos()));
                     }
                 }
-
+                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
+                adapter.notifyDataSetChanged();
+                spnBeneficiariosAgrAc.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
-
         });
-
-
-    }*/
+    }
 }

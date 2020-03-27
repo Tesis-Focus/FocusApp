@@ -48,11 +48,11 @@ public class PerfilesActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         perfiles = findViewById(R.id.misPerfiles);
         btnAgregarPerfil = findViewById(R.id.btnAgregarPerfil);
-        nombres = new ArrayList<String>();
-        usuariosBeneficiarios = new ArrayList<Usuario>();
-
-        cargarPerfilesB();
-
+        nombres = (ArrayList<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
+        usuariosBeneficiarios = (ArrayList<Usuario>) getIntent().getSerializableExtra("nombreBeneficiarios");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombres);
+        adapter.notifyDataSetChanged();
+        perfiles.setAdapter(adapter);
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -68,31 +68,6 @@ public class PerfilesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),AgregarPerfilActivity.class);
                 startActivity(i);
-            }
-        });
-    }
-
-    private void cargarPerfilesB(){
-
-        myRef = database.getReference(PATH_USUARIOS);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot sn : dataSnapshot.getChildren()){
-                    Usuario beneficiario = sn.getValue(Usuario.class);
-                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
-                        usuariosBeneficiarios.add(beneficiario);
-                        nombres.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
-                    }
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombres);
-                adapter.notifyDataSetChanged();
-                perfiles.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
