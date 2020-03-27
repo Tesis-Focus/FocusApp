@@ -32,7 +32,7 @@ public class PerfilesActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth mAuth;
 
-    private final static String PATH_BENEFICIARIOS="beneficiarios/";
+    private final static String PATH_USUARIOS="usuarios/";
 
     private ArrayList<String> nombres;
     private ArrayList<Usuario> usuariosBeneficiarios;
@@ -74,7 +74,7 @@ public class PerfilesActivity extends AppCompatActivity {
 
     private void cargarPerfilesB(){
 
-        myRef = database.getReference(PATH_BENEFICIARIOS);
+        myRef = database.getReference(PATH_USUARIOS);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

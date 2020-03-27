@@ -39,7 +39,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     DatabaseReference myRef;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private final static String PATH_BENEFICIARIOS = "beneficiarios/";
+    private final static String PATH_USUARIOS = "usuarios/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         nuevoBene.setId(key);
         nuevoBene.setIdUsuario(user.getUid());
-        myRef = database.getReference(PATH_BENEFICIARIOS+key);
+        myRef = database.getReference(PATH_USUARIOS+key);
         myRef.setValue(nuevoBene);
         Toast.makeText(getApplicationContext(),"perfil agregado correctamente",Toast.LENGTH_LONG).show();
     }
