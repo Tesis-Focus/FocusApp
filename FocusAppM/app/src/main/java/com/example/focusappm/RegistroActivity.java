@@ -172,6 +172,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
         return esValido;
     }
+
     public void registro(){
         String email,password;
         
@@ -216,6 +217,7 @@ public class RegistroActivity extends AppCompatActivity {
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setRol("Usuario");
             usuario.setEmail(email);
+            usuario.setCurso("NA");
             focus.getUsuarios().add(usuario);
             myRef = database.getReference(PATH_USUARIOS+user.getUid());
             myRef.setValue(usuario);

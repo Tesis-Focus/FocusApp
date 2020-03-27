@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import org.drools.*;
+import org.drools.core.marshalling.impl.ProtobufMessages;
+import org.kie.internal.runtime.StatefulKnowledgeSession;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
