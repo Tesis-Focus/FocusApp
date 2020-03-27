@@ -80,7 +80,7 @@ public class PerfilesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
                     Usuario beneficiario = sn.getValue(Usuario.class);
-                    if(beneficiario.getIdUsuario().equals(user.getUid())){
+                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
                         usuariosBeneficiarios.add(beneficiario);
                         nombres.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
                     }

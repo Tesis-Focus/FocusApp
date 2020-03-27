@@ -1,12 +1,10 @@
 package com.example.focusappm;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Usuario implements Serializable {
-    private String id;
+    private String idBeneficiario;
     private String idUsuario;
     private String nombres;
     private String apellidos;
@@ -27,12 +25,12 @@ public class Usuario implements Serializable {
 
     }
 
-    public String getId() {
-        return id;
+    public String getIdBeneficiario() {
+        return idBeneficiario;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdBeneficiario(String idBeneficiario) {
+        this.idBeneficiario = idBeneficiario;
     }
 
     public String getNombres() {

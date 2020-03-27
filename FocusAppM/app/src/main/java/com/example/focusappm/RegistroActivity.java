@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -30,13 +28,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 
 public class RegistroActivity extends AppCompatActivity {
@@ -211,7 +206,7 @@ public class RegistroActivity extends AppCompatActivity {
         if(user != null){
             // List<String> idActividades = new ArrayList<String>();
             Usuario usuario = new Usuario();
-            usuario.setId(user.getUid());
+            usuario.setIdBeneficiario(user.getUid());
             usuario.setNombres(nombre);
             usuario.setApellidos(apellido);
             usuario.setFechaNacimiento(fechaNacimiento);

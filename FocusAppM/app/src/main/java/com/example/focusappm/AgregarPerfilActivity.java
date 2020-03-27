@@ -21,8 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,7 +103,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         nuevoBene.setEmail(user.getEmail());
         myRef = database.getReference();
         String key = myRef.push().getKey();
-        nuevoBene.setId(key);
+        nuevoBene.setIdBeneficiario(key);
         nuevoBene.setIdUsuario(user.getUid());
         myRef = database.getReference(PATH_USUARIOS+key);
         myRef.setValue(nuevoBene);
