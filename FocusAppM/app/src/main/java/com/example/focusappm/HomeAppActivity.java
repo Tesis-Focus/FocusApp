@@ -6,18 +6,18 @@ import androidx.viewpager.widget.ViewPager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import org.drools.*;
-import org.drools.core.marshalling.impl.ProtobufMessages;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
+
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+
 
 public class HomeAppActivity extends AppCompatActivity {
 
@@ -65,6 +65,7 @@ public class HomeAppActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
