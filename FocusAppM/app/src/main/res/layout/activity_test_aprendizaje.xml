@@ -15,10 +15,135 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerId"
+        <TextView
+            android:id="@+id/preguntaUno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent" />
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="421dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerId"
+                android:layout_width="match_parent"
+                android:layout_height="565dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="102dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="16dp"
+                android:padding="5dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/siguienteUno"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteUno" />
+
+        <Button
+            android:id="@+id/atrasDos"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasDos" />
+
+        <Button
+            android:id="@+id/siguienteDos"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteDos" />
+
+        <Button
+            android:id="@+id/atrasTres"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasTres" />
+
+        <Button
+            android:id="@+id/siguienteTres"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteTres" />
+
+        <Button
+            android:id="@+id/atrasCuatro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasCuatro" />
+
+        <Button
+            android:id="@+id/siguienteCuatro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteCuatro" />
+
+        <Button
+            android:id="@+id/atrasCinco"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasCinco" />
+
+        <Button
+            android:id="@+id/siguienteCinco"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteCinco" />
+
+        <Button
+            android:id="@+id/atrasSeis"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasSeis" />
+
+        <Button
+            android:id="@+id/siguienteSeis"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteSeis" />
+
+        <Button
+            android:id="@+id/atrasSiete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasSiete" />
+
+        <Button
+            android:id="@+id/siguienteSiete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteSiete" />
+
+        <Button
+            android:id="@+id/atrasOcho"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasOcho" />
+
+        <Button
+            android:id="@+id/siguienteOcho"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SiguienteOcho" />
+
+        <Button
+            android:id="@+id/atrasNueve"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AtrasNueve" />
+
+        <Button
+            android:id="@+id/terminar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Terminar" />
+
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

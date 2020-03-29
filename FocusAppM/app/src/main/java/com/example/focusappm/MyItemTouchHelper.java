@@ -29,7 +29,7 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback {
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView,viewHolder);
         viewHolder.itemView.setBackgroundColor(
-                ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.colorAccent)
+                ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.colorScheme)
         );
     }
 

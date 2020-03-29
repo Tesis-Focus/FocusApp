@@ -26,12 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <ListView
-            android:id="@+id/lwPerfiles"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
         <ImageButton
             android:id="@+id/btnPerfiles"
             android:layout_width="wrap_content"
@@ -39,6 +33,12 @@
             android:layout_weight="0.10"
             android:background="#FFFFFF"
             app:srcCompat="@drawable/ic_group_black_24dp" />
+
+        <ListView
+            android:id="@+id/lwPerfiles"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -108,7 +108,7 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/mostrarActividades"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
