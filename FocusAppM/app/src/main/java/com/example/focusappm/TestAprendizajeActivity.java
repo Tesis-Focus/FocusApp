@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class TestAprendizajeActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
-    public static final String PATH_ESTILOS = "EstiloAprendizaje/";
+    public static final String PATH_ESTILOS = "estilosAprendizaje/";
     FirebaseAuth mAuth;
     FirebaseUser user;
 
@@ -38,15 +43,16 @@ public class TestAprendizajeActivity extends AppCompatActivity {
     RecyclerView recycler;
     AdapterDatos adapter;
     TextView preguntaUno;
-    Button siguienteUno;
-    Button siguienteDos, atrasDos;
-    Button siguienteTres, atrasTres;
-    Button siguienteCuatro, atrasCuatro;
-    Button siguienteCinco, atrasCinco;
-    Button siguienteSeis, atrasSeis;
-    Button siguienteSiete, atrasSiete;
-    Button siguienteOcho, atrasOcho;
-    Button atrasNueve, terminar;
+    ImageButton siguienteUno, atrasDos;
+    ImageButton siguienteDos;
+    ImageButton siguienteTres, atrasTres;
+    ImageButton siguienteCuatro, atrasCuatro;
+    ImageButton siguienteCinco, atrasCinco;
+    ImageButton siguienteSeis, atrasSeis;
+    ImageButton siguienteSiete, atrasSiete;
+    ImageButton siguienteOcho, atrasOcho;
+    ImageButton atrasNueve;
+    Button terminar;
 
 
 
@@ -417,6 +423,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 siguienteOcho.setVisibility(View.VISIBLE);
                 atrasOcho.setVisibility(View.VISIBLE);
                 atrasNueve.setVisibility(View.GONE);
+                terminar.setVisibility(View.GONE);
 
                 mostrarPreguntaOcho();
                 inicializar();
@@ -445,24 +452,66 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                         valoresSeis.get(2)+valoresSiete.get(2)+valoresOcho.get(2)+valoresNueve.get(2))*100/90);
                 estilo.setEa((valoresUno.get(3)+valoresDos.get(3)+valoresTres.get(3)+valoresCuatro.get(3)+valoresCinco.get(3)+
                         valoresSeis.get(3)+valoresSiete.get(3)+valoresOcho.get(3)+valoresNueve.get(3))*100/90);
+                estilo.setIdUsuario(mAuth.getCurrentUser().getUid());
+
+                TreeMap<Integer, String> mapa = new TreeMap<Integer, String>();
+                mapa.put(estilo.getEc(), "EC");
+                mapa.put(estilo.getOr(), "OR");
+                mapa.put(estilo.getCa(), "CA");
+                mapa.put(estilo.getEa(), "EA");
+
+                int cont=0;
+                String menor="", menorm="", mayor="", mayorm="";
+                for (Map.Entry<Integer, String> entry : mapa.entrySet()) {
+                    if(cont ==3){
+                        mayorm=entry.getValue();
+                    }
+                    if(cont ==2){
+                        mayor = entry.getValue();
+                    }
+                    if(cont ==1){
+                        menor = entry.getValue();
+                    }
+                    if(cont ==0){
+                        menorm = entry.getValue();
+                    }
+                    cont++;
+                }
+
+                if(mayorm.equals("EC") && mayor.equals("OR") || mayorm.equals("OR") && mayor.equals("EC")){
+                    estilo.setDominate("Divergente");
+                }
+                if(mayorm.equals("EC") && mayor.equals("EA") || mayorm.equals("EA") && mayor.equals("EC")){
+                    estilo.setDominate("Acomodador");
+                }
+                if(mayorm.equals("CA") && mayor.equals("OR") || mayorm.equals("OR") && mayor.equals("CA")){
+                    estilo.setDominate("Asimilador");
+                }
+                if(mayorm.equals("CA") && mayor.equals("EA") || mayorm.equals("EA") && mayor.equals("CA")){
+                    estilo.setDominate("Convergente");
+                }
+
+                if(menor.equals("EC") && menorm.equals("OR") || menor.equals("OR") && menorm.equals("EC")){
+                    estilo.setSecundario("Divergente");
+                }
+                if(menor.equals("EC") && menorm.equals("EA") || menor.equals("EA") && menorm.equals("EC")){
+                    estilo.setSecundario("Acomodador");
+                }
+                if(menor.equals("CA") && menorm.equals("OR") || menor.equals("OR") && menorm.equals("CA")){
+                    estilo.setSecundario("Asimilador");
+                }
+                if(menor.equals("CA") && menorm.equals("EA") || menor.equals("EA") && menorm.equals("CA")){
+                    estilo.setSecundario("Convergente");
+                }
+
 
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
                 String key = myRef.push().getKey();
                 myRef = database.getReference(PATH_ESTILOS+key);
-                // actividad.setIdActividad(myRef.getKey());
                 myRef.setValue(estilo);
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
 
-                // Log.i("My", "value " +(ec + or + ca + ea));
-                Log.i("MyAPPVal1", valoresUno.toString());
-                Log.i("MyAPPVal2", valoresDos.toString());
-                Log.i("MyAPPVal3", valoresTres.toString());
-                Log.i("MyAPPVal4", valoresCuatro.toString());
-                Log.i("MyAPPVal5", valoresCinco.toString());
-                Log.i("MyAPPVal6", valoresSeis.toString());
-                Log.i("MyAPPVal7", valoresSiete.toString());
-                Log.i("MyAPPVal8", valoresOcho.toString());
-                Log.i("MyAPPVal9", valoresNueve.toString());
+
 
             }
         });

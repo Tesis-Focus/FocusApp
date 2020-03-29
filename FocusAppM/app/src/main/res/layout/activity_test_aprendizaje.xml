@@ -38,110 +38,268 @@
                 android:layout_marginEnd="0dp"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="16dp"
-                android:padding="5dp" />
+                android:padding="5dp" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/siguienteUno"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteUno" />
 
-        <Button
-            android:id="@+id/atrasDos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasDos" />
+            android:layout_height="113dp">
 
-        <Button
-            android:id="@+id/siguienteDos"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteDos" />
+            <Button
+                android:id="@+id/terminar"
+                android:layout_width="161dp"
+                android:layout_height="41dp"
+                android:text="Terminar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.905" />
 
-        <Button
-            android:id="@+id/atrasTres"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasTres" />
+            <ImageButton
+                android:id="@+id/siguienteUno"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteTres"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteTres" />
+            <ImageButton
+                android:id="@+id/atrasDos"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasCuatro"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasCuatro" />
+            <ImageButton
+                android:id="@+id/siguienteDos"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteCuatro"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteCuatro" />
+            <ImageButton
+                android:id="@+id/atrasTres"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasCinco"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasCinco" />
+            <ImageButton
+                android:id="@+id/siguienteTres"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteCinco"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteCinco" />
+            <ImageButton
+                android:id="@+id/atrasCuatro"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasSeis"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasSeis" />
+            <ImageButton
+                android:id="@+id/siguienteCuatro"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteSeis"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteSeis" />
+            <ImageButton
+                android:id="@+id/atrasCinco"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasSiete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasSiete" />
+            <ImageButton
+                android:id="@+id/siguienteCinco"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteSiete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteSiete" />
+            <ImageButton
+                android:id="@+id/atrasSeis"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasOcho"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasOcho" />
+            <ImageButton
+                android:id="@+id/siguienteSeis"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/siguienteOcho"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SiguienteOcho" />
+            <ImageButton
+                android:id="@+id/atrasSiete"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
 
-        <Button
-            android:id="@+id/atrasNueve"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="AtrasNueve" />
+            <ImageButton
+                android:id="@+id/siguienteSiete"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
 
-        <Button
-            android:id="@+id/terminar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Terminar" />
+            <ImageButton
+                android:id="@+id/atrasOcho"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
+
+            <ImageButton
+                android:id="@+id/siguienteOcho"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/next" />
+
+            <ImageButton
+                android:id="@+id/atrasNueve"
+                android:layout_width="67dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="56dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/prev" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>
