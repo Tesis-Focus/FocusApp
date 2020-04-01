@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:background="@color/colorScheme"
+    android:weightSum="100"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="#b2b2ff"
+        android:layout_height="match_parent"
+        android:padding="20sp"/>
+
 
     <TextView
         android:id="@+id/idDato"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="320dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="33dp"
+        android:layout_weight="95"
         android:text="Mensaje"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:gravity="center_vertical"
+        android:lines="2"
+        android:padding="10dp" />
+
+
+</LinearLayout>

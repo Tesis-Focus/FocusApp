@@ -43,6 +43,7 @@ public class HomeAppActivity extends AppCompatActivity {
     ListView lwPerfiles;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    Button mostrarActividades;
     ImageButton agregarActividad,btnPerfiles, agregarTarea;
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
@@ -61,6 +62,7 @@ public class HomeAppActivity extends AppCompatActivity {
         btnPerfiles = findViewById(R.id.btnPerfiles);
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
         agregarTarea = findViewById(R.id.agregarTarea);
+        mostrarActividades = findViewById(R.id.mostrarActividades);
         lwPerfiles = findViewById(R.id.lwPerfiles);
         beneficiarios = new ArrayList<>();
         nombresBeneficiarios = new ArrayList<>();
@@ -100,6 +102,16 @@ public class HomeAppActivity extends AppCompatActivity {
                 startActivity(intentAgrTarea);
             }
         });
+
+        mostrarActividades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getBaseContext(), TestAprendizajeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
