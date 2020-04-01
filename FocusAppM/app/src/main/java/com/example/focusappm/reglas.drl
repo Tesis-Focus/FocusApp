@@ -1,9 +1,0 @@
-import com.example.focusappm.Usuario
-
-rule "test"
-    when
-        usuarioObject: Usuario();
-    then
-        usuarioObject.setNombres("AHHHHHHHHHHHHHHHHHH!!");
-        Log.i("TAG", "onCreate: sirveee");
-    end

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,16 +49,15 @@ public class PerfilesActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         perfiles = findViewById(R.id.misPerfiles);
         btnAgregarPerfil = findViewById(R.id.btnAgregarPerfil);
-        nombres = (ArrayList<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
-        usuariosBeneficiarios = (ArrayList<Usuario>) getIntent().getSerializableExtra("nombreBeneficiarios");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombres);
-        adapter.notifyDataSetChanged();
-        perfiles.setAdapter(adapter);
+        nombres = new ArrayList<>();
+        usuariosBeneficiarios = new ArrayList<>();
+        cargarPerfilesB();
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             Toast.makeText(PerfilesActivity.this, "Has pulsado: "+ nombres.get(position), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),DetallePerfilActivity.class);
+            Log.e("Error", "onItemClick: "+ usuariosBeneficiarios.get(position));
             intent.putExtra("Beneficiario", usuariosBeneficiarios.get(position));
             startActivity(intent);
         }
@@ -68,6 +68,32 @@ public class PerfilesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),AgregarPerfilActivity.class);
                 startActivity(i);
+            }
+        });
+    }
+
+    private void cargarPerfilesB(){
+
+        myRef = database.getReference(PATH_USUARIOS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    Usuario beneficiario = sn.getValue(Usuario.class);
+                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
+                        usuariosBeneficiarios.add(beneficiario);
+                        nombres.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
+                        Log.i("beneficiarios", "onDataChange: "+(beneficiario.getNombres()+" "+beneficiario.getApellidos()));
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombres);
+                adapter.notifyDataSetChanged();
+                perfiles.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

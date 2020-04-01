@@ -50,6 +50,7 @@ public class HomeAppActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,8 @@ public class HomeAppActivity extends AppCompatActivity {
         setUpView();
         setUpViewPageAdapter();
         cargarPerfilesB();
+
+
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
             @Override

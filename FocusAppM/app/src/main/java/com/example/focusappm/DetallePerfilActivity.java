@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +25,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
-
-        Usuario beneficiario = (Usuario)getIntent().getSerializableExtra("Beneficiario");
+        Usuario beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
         edtxNombreDetallePB.setText(beneficiario.getNombres());
         edtxApellidosDetallePB.setText(beneficiario.getApellidos());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
