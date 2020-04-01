@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.android.material.tabs.TabLayout;
@@ -27,9 +28,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineListener;
+import org.jeasy.rules.core.DefaultRulesEngine;
+import org.jeasy.rules.core.RuleBuilder;
+import org.jeasy.rules.mvel.MVELRule;
+import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 
 
 public class HomeAppActivity extends AppCompatActivity {
@@ -51,7 +65,6 @@ public class HomeAppActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +83,7 @@ public class HomeAppActivity extends AppCompatActivity {
         setUpView();
         setUpViewPageAdapter();
         cargarPerfilesB();
-
+        testRule();
 
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
@@ -189,5 +202,24 @@ public class HomeAppActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void testRule()  {
+        Usuario usuario = new Usuario();
+        usuario.setNombres("prueba");
+        Facts facts = new Facts();
+        facts.put("user",usuario);
+
+       MVELRule rule = new MVELRule()
+               .name("regla de prueba")
+               .description("es la regla de prueba")
+               .priority(1)
+               .when("user.getNombres().equals(\"prueba\")")
+               .then("user.setApellidos(\"sirve\");");
+
+       Rules rules = new Rules();
+       rules.register(rule);
+       RulesEngine rulesEngine = new DefaultRulesEngine();
+       rulesEngine.fire(rules,facts);
+       Log.i("testRule", "testRule: "+usuario.getApellidos());
     }
 }
