@@ -75,10 +75,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         sprArea = findViewById(R.id.sprArea);
         sprActividad = findViewById(R.id.sprActividad);
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
-
         nombre_Actividades = new ArrayList<String>();
         id_Actividades = new ArrayList<String>();
-
 
         btnFechaEntrega.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +106,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         spinnerActiv();
 
+        /*
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);
 
@@ -148,7 +147,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
+         */
+
     }
+
+
 
     public void spinnerActiv(){
 
@@ -179,6 +182,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 }
 
