@@ -7,7 +7,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,15 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
-
-
     EditText txtFechaEntrega;
+    EditText txtHoraEntrega;
     ImageButton btnFechaEntrega;
+    ImageButton btnHoraEntrega;
     EditText txtNombTarea;
     EditText txtDescripTarea;
     EditText txtTemaTarea;
@@ -68,6 +65,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
+        txtHoraEntrega = findViewById(R.id.txtHoraEntrega);
+        btnHoraEntrega = findViewById(R.id.btnHoraEntrega);
         txtNombTarea = findViewById(R.id.txtNombTarea);
         txtDescripTarea = findViewById(R.id.txtDescripTarea);
         txtTemaTarea = findViewById(R.id.txtTemaTarea);

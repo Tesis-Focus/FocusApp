@@ -69,47 +69,83 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView14"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="  Nombre"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="  Hora de entrega"
                     android:textColor="#000000" />
 
-                <EditText
-                    android:id="@+id/txtNombTarea"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
+                    <EditText
+                        android:id="@+id/txtHoraEntrega"
+                        android:layout_width="79dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:inputType="textPersonName" />
+
+                    <ImageButton
+                        android:id="@+id/btnHoraEntrega"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="  Nombre"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/txtNombTarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
                 android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="61dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textView29"
+                    android:layout_width="57dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="  Descipción"
+                    android:text="  Descripción"
                     android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/txtDescripTarea"
                     android:layout_width="wrap_content"
-                    android:layout_height="58dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
@@ -117,108 +153,80 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingTop="5dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="128dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="  Tema"
                     android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/txtTemaTarea"
-                    android:layout_width="278dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingTop="5dp"
-                android:paddingBottom="30dp">
+                android:paddingBottom="15dp">
 
                 <Spinner
                     android:id="@+id/sprComplejidad"
                     android:layout_width="match_parent"
-                    android:layout_height="43dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:orientation="vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="30dp">
+                    android:layout_height="41dp"
+                    android:paddingBottom="15dp" />
 
                 <Spinner
                     android:id="@+id/sprClasificacion"
                     android:layout_width="match_parent"
-                    android:layout_height="47dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="30dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="30dp">
+                    android:layout_height="40dp"
+                    android:paddingBottom="15dp" />
 
                 <Spinner
                     android:id="@+id/sprArea"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" />
+                    android:layout_height="42dp"
+                    android:paddingBottom="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  Seleccione la actividad"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+
+                    <Spinner
+                        android:id="@+id/sprActividad"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingBottom="15dp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnGuardarTarea"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:orientation="vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="30dp">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="  Seleccione la actividad"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/sprActividad"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="30dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:orientation="vertical"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp">
-
-                <Button
-                    android:id="@+id/btnGuardarTarea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Guardar Tarea" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Guardar Tarea" />
 
         </LinearLayout>
     </ScrollView>

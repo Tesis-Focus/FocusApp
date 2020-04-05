@@ -52,23 +52,28 @@
 
     <string-array name="Complejidad">
         <item>Seleccione la complejidad</item>
-        <item>bajo</item>
-        <item>medio</item>
-        <item>alto</item>
+        <item>Bajo</item>
+        <item>Medio</item>
+        <item>Alto</item>
     </string-array>
 
     <string-array name="Clasificacion">
-        <item>Seleccione la clasificacion</item>
+        <item>Seleccione la clasificación</item>
         <item>Tarea</item>
         <item>Taller</item>
         <item>Proyecto</item>
+        <item>Estudio para evaluación</item>
+        <item>Exposición</item>
+        <item>Trabajo manual</item>
     </string-array>
 
     <string-array name="Area">
         <item>Seleccione el área</item>
-        <item>Lectura</item>
-        <item>Escritura</item>
-        <item>Pensamiento lógico</item>
+        <item>Lectura crítica</item>
+        <item>Comunicación escrita</item>
+        <item>Razonamiento cuantitativo</item>
+        <item>Inglés</item>
+        <item>Competencias ciudadanas</item>
 
     </string-array>
 
