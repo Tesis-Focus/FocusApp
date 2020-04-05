@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,9 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
+    Spinner spnBeneficiariosAgrTar;
     EditText txtFechaEntrega;
     EditText txtHoraEntrega;
     ImageButton btnFechaEntrega;
@@ -44,6 +47,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     ArrayList<String> nombre_Actividades;
     ArrayList<String> id_Actividades;
+    List<String> nombresBeneficiarios;
+    List<Usuario> beneficiarios;
+    ArrayAdapter<String> adapterBenef;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -63,6 +69,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
         txtHoraEntrega = findViewById(R.id.txtHoraEntrega);
@@ -77,6 +84,28 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
         nombre_Actividades = new ArrayList<String>();
         id_Actividades = new ArrayList<String>();
+        nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
+        beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
+        adapterBenef = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
+        adapterBenef.notifyDataSetChanged();
+        spnBeneficiariosAgrTar.setAdapter(adapterBenef);
+
+        spnBeneficiariosAgrTar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrTar.getSelectedItemPosition()).getIdBeneficiario();
+                Log.i("TAG", "idBeneficiario: " + idBeneficiario);
+
+                spinnerActiv(idBeneficiario);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         btnFechaEntrega.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +133,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
         sprClasificacion.setAdapter(adapterClasif);
 
-        spinnerActiv();
-
-        /*
         ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
         sprArea.setAdapter(adapterArea);
 
@@ -146,14 +172,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
             }
         });
-
-         */
-
     }
 
 
+    public void spinnerActiv(String idBeneficiario){
 
-    public void spinnerActiv(){
+        //Log.i("TAG", "Beneficiario funcion" + idBeneficiario);
 
         myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -161,19 +185,23 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
 
-                    Actividad actvActual = ds.getValue(Actividad.class);
-                    //Log.i("TAG", "USUARIO ACTUAL " + actvActual.getIdUsaurio());
-                    //Log.i("TAG", "USUARIO ACTUAL USER " + user.getUid());
+                    Actividad actActual = ds.getValue(Actividad.class);
 
-                    if(actvActual.getIdUsaurio().equalsIgnoreCase(user.getUid())){
+                    if(idBeneficiario.equalsIgnoreCase(actActual.getIdUsaurio())){
 
-                        //Log.i("TAG", "EXACTO");
-                        String nombre = actvActual.getNombre();
+                        //Log.i("TAG", "Iguales: " + idBeneficiario + actActual.getIdUsaurio());
+                        String nombre = actActual.getNombre();
                         nombre_Actividades.add(nombre);
-                        id_Actividades.add(actvActual.getIdActividad());
+                        id_Actividades.add(actActual.getIdActividad());
                     }
+
+                    //Log.i("TAG", "IdUsuario: " + actActual.getIdUsaurio());
+                    //Log.i("TAG", "IdBeneficiario: " + idBeneficiario);
+
                 }
+
                 ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
+                adapterAct.notifyDataSetChanged();
                 sprActividad.setAdapter(adapterAct);
             }
 
@@ -183,8 +211,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
 }
 
 

@@ -24,11 +24,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingBottom="20dp"
                 android:text="Agregar Tarea"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="  Seleccione el beneficiario"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/spnBeneficiariosAgrTar"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
