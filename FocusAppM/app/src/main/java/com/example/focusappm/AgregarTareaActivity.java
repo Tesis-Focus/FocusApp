@@ -26,7 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
@@ -94,6 +96,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                nombre_Actividades.clear();
+                id_Actividades.clear();
                 String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrTar.getSelectedItemPosition()).getIdBeneficiario();
                 Log.i("TAG", "idBeneficiario: " + idBeneficiario);
 
@@ -186,23 +190,22 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
 
                     Actividad actActual = ds.getValue(Actividad.class);
+                    Usuario usrActual = ds.getValue(Usuario.class);
+                    //Log.i("TAG", "Beneficiario: " + usrActual.getNombres());
 
-                    if(idBeneficiario.equalsIgnoreCase(actActual.getIdUsaurio())){
+                    if(idBeneficiario.equalsIgnoreCase(actActual.getIdUsaurio())) {
 
                         //Log.i("TAG", "Iguales: " + idBeneficiario + actActual.getIdUsaurio());
                         String nombre = actActual.getNombre();
                         nombre_Actividades.add(nombre);
                         id_Actividades.add(actActual.getIdActividad());
+                        //Log.i("TAG", "Actividad: " + nombre);
                     }
-
-                    //Log.i("TAG", "IdUsuario: " + actActual.getIdUsaurio());
-                    //Log.i("TAG", "IdBeneficiario: " + idBeneficiario);
-
                 }
 
                 ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
-                adapterAct.notifyDataSetChanged();
                 sprActividad.setAdapter(adapterAct);
+                //adapterAct.notifyDataSetChanged();
             }
 
             @Override
@@ -212,7 +215,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         });
 
     }
-
 
 }
 
