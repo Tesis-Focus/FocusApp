@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +27,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +58,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapterBenef;
+
+    public final Calendar c = Calendar.getInstance();
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -115,6 +126,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                obtenerFecha();
+
+                /*
                 calendario = Calendar.getInstance();
                 int dia = calendario.get(Calendar.DAY_OF_MONTH);
                 int mes = calendario.get(Calendar.MONTH);
@@ -128,6 +142,28 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     }
                 }, anio, mes, dia);
                 datePickerDialog.show();
+
+                 */
+            }
+        });
+
+        btnHoraEntrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                calendario = Calendar.getInstance();
+                int hora = calendario.get(Calendar.HOUR_OF_DAY);
+                int minutos = calendario.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AgregarTareaActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        txtHoraEntrega.setText(hourOfDay +":"+ minute);
+                    }
+                }, hora, minutos,false);
+                timePickerDialog.show();
+
             }
         });
 
@@ -144,27 +180,24 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 Tarea tarea = new Tarea();
+                Date fechaAsig = new Date();
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
                 tarea.setTema(txtTemaTarea.getText().toString());
                 tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
                 tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
+                tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
                 tarea.setArea(sprArea.getSelectedItem().toString());
+                tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                 tarea.setIdActividad(id_Actividad);
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
                 tarea.setFechaInicio("00/00/0000");
-                Calendar fechAsig = Calendar.getInstance();
-                int dia = fechAsig.get(Calendar.DAY_OF_MONTH);
-                int mes = fechAsig.get(Calendar.MONTH);
-                int anio = fechAsig.get(Calendar.YEAR);
-
-                tarea.setFechaAsignacion(dia + "/" + (mes + 1) + "/" + anio);  //El dia que ingresa la tarea
-                tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                tarea.setFechaAsignacion(dateFormat.format(fechaAsig));  //El dia que ingresa la tarea
                 tarea.setFechaFinalizacion("00/00/0000");
 
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
@@ -173,7 +206,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 myRef = database.getReference(PATH_TAREAS + key);
                 tarea.setIdTarea(myRef.getKey());
                 myRef.setValue(tarea);
-
             }
         });
     }
@@ -214,6 +246,29 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void obtenerFecha(){
+
+        DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                final int mesActual = month + 1;
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
+
+                txtFechaEntrega.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+            }
+        };
+
+        DatePickerDialog recogerFecha = new DatePickerDialog(this, dateList, anio, mes, dia);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            recogerFecha.setOnDateSetListener(dateList);
+        }
+
+        recogerFecha.show();
     }
 
 }

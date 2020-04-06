@@ -11,10 +11,11 @@ public class Tarea {
     private String complejidad;
     private String area;
     private String clasificacion;
-    private Date fechaAsignacion;
+    private String fechaAsignacion;
     private String fechaInicio;
     private String fechaFinalizacion;
-    private Date fechaEntrega;
+    private String fechaEntrega;
+    private String horaEntrega;
     private String idActividad;
 
     public Tarea(){
@@ -77,17 +78,12 @@ public class Tarea {
         this.clasificacion = clasificacion;
     }
 
-    public Date getFechaAsignacion() {
+    public String getFechaAsignacion() {
         return fechaAsignacion;
     }
 
-    /*
-    public void setFechaAsignacion(Date fechaAsignacion) {
+    public void setFechaAsignacion(String fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
-    }
-     */
-
-    public void setFechaAsignacion(String s) {
     }
 
     public String getFechaInicio() {
@@ -99,7 +95,6 @@ public class Tarea {
     }
 
     public String getFechaFinalizacion() {
-
         return fechaFinalizacion;
     }
 
@@ -107,20 +102,21 @@ public class Tarea {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public Date getFechaEntrega() {
+    public String getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String s) {
+    public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
-
-    /*
-    public void setFechaEntrega(Date fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
+    public String getHoraEntrega() {
+        return horaEntrega;
     }
-     */
+
+    public void setHoraEntrega(String horaEntrega) {
+        this.horaEntrega = horaEntrega;
+    }
 
     public String getIdActividad() {
         return idActividad;
