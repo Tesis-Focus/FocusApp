@@ -59,9 +59,12 @@
 
     <string-array name="Clasificacion">
         <item>Seleccione la clasificacion</item>
-        <item>Tarea</item>
-        <item>Taller</item>
         <item>Proyecto</item>
+        <item>Taller</item>
+        <item>Estudiar para evaculación</item>
+        <item>Tarea</item>
+        <item>Exposición</item>
+        <item>Trabajo manual</item>
     </string-array>
 
     <string-array name="Area">
