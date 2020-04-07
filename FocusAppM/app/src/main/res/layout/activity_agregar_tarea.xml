@@ -16,18 +16,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:orientation="vertical"></LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp"
                 android:text="Agregar Tarea"
                 android:textAlignment="center"
                 android:textColor="#000000"
@@ -35,18 +32,35 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="  Seleccione el beneficiario"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/spnBeneficiariosAgrTar"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:id="@+id/textView13"
-                    android:layout_width="388dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:paddingTop="5dp"
                     android:text="  Fecha de entrega"
                     android:textColor="#000000" />
 
@@ -75,53 +89,83 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:text="  Nombre"
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="  Hora de entrega"
                     android:textColor="#000000" />
 
-                <EditText
-                    android:id="@+id/txtNombTarea"
-                    android:layout_width="304dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
+                    <EditText
+                        android:id="@+id/txtHoraEntrega"
+                        android:layout_width="79dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:inputType="textPersonName" />
+
+                    <ImageButton
+                        android:id="@+id/btnHoraEntrega"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="  Nombre"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/txtNombTarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="0dp"
-                    android:layout_height="43dp"
+                    android:id="@+id/textView29"
+                    android:layout_width="57dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="  Descipción"
+                    android:text="  Descripción"
                     android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/txtDescripTarea"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
@@ -129,16 +173,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -147,106 +187,66 @@
 
                 <EditText
                     android:id="@+id/txtTemaTarea"
-                    android:layout_width="278dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:orientation="vertical">
-
-                <Spinner
-                    android:id="@+id/sprComplejidad"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:orientation="vertical">
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:orientation="vertical">
-
-                <Spinner
-                    android:id="@+id/sprClasificacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="vertical">
-
-                <Spinner
-                    android:id="@+id/sprArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="27dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="  Seleccione la actividad"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/sprActividad"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp">
 
-                <Button
-                    android:id="@+id/btnGuardarTarea"
+                <Spinner
+                    android:id="@+id/sprComplejidad"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Guardar Tarea" />
+                    android:layout_height="41dp"
+                    android:paddingBottom="15dp" />
+
+                <Spinner
+                    android:id="@+id/sprClasificacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingBottom="15dp" />
+
+                <Spinner
+                    android:id="@+id/sprArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:paddingBottom="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  Seleccione la actividad"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+
+                    <Spinner
+                        android:id="@+id/sprActividad"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:paddingBottom="15dp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnGuardarTarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar Tarea" />
 
         </LinearLayout>
     </ScrollView>

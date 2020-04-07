@@ -124,8 +124,6 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override
@@ -194,7 +192,6 @@ public class HomeAppActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
