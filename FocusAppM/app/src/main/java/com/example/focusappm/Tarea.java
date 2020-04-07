@@ -17,7 +17,7 @@ public class Tarea {
     private String fechaEntrega;
     private String horaEntrega;
     private String idActividad;
-    private Integer tiempoPromedio;
+    private Double tiempoPromedio;
 
     public Tarea(){
 
@@ -127,11 +127,11 @@ public class Tarea {
         this.idActividad = idActividad;
     }
 
-    public Integer getTiempoPromedio() {
+    public Double getTiempoPromedio() {
         return tiempoPromedio;
     }
 
-    public void setTiempoPromedio(Integer tiempoPromedio) {
+    public void setTiempoPromedio(Double tiempoPromedio) {
         this.tiempoPromedio = tiempoPromedio;
     }
 }

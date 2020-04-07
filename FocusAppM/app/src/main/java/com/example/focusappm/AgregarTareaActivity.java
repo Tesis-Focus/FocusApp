@@ -179,8 +179,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  ReglasTiempo reglas = new ReglasTiempo();
+                ReglasTiempo reglas = new ReglasTiempo();
                 Tarea tarea = new Tarea();
+                Tarea nueva = new Tarea();
                 Date fechaAsig = new Date();
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
@@ -192,7 +193,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                 tarea.setIdActividad(id_Actividad);
-               // reglas.asignarTiempos(tarea);
+                tarea = reglas.asignarTiempos(tarea);
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
