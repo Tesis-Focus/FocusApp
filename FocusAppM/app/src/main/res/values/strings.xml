@@ -25,7 +25,7 @@
     </string-array>
 
     <string-array name="Desempeno">
-        <item>Seleccione su desempeño</item>
+        <item>-</item>
         <item>Bajo</item>
         <item>Medio</item>
         <item>Alto</item>
@@ -36,7 +36,7 @@
     </string-array>
 
     <string-array name="TipoActividad">
-        <item>Seleccione el tipo</item>
+        <item>-</item>
         <item>académica</item>
         <item>extracurricular</item>
         <item>médica</item>
@@ -44,14 +44,14 @@
     </string-array>
 
     <string-array name="MotivacionActividad">
-        <item>Selecciona la motivacion</item>
+        <item>-</item>
         <item>pasar la evaluacion</item>
         <item>aprender mucho</item>
         <item>conocer cosas nuevas</item>
     </string-array>
 
     <string-array name="Complejidad">
-        <item>Seleccione la complejidad</item>
+        <item>-</item>
         <item>Bajo</item>
         <item>Medio</item>
         <item>Alto</item>

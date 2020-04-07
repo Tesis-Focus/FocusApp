@@ -42,7 +42,6 @@ public class PerfilesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfiles);
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -55,9 +54,9 @@ public class PerfilesActivity extends AppCompatActivity {
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            Toast.makeText(PerfilesActivity.this, "Has pulsado: "+ nombres.get(position), Toast.LENGTH_LONG).show();
+            //Toast.makeText(PerfilesActivity.this, "Has pulsado: "+ nombres.get(position), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),DetallePerfilActivity.class);
-            Log.e("Error", "onItemClick: "+ usuariosBeneficiarios.get(position));
+            //Log.e("Error", "onItemClick: "+ usuariosBeneficiarios.get(position));
             intent.putExtra("Beneficiario", usuariosBeneficiarios.get(position));
             startActivity(intent);
         }

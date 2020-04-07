@@ -19,8 +19,8 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,17 +28,21 @@
 
         <ImageButton
             android:id="@+id/btnPerfiles"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             android:background="#FFFFFF"
+            android:padding="5sp"
+            android:paddingStart="5sp"
             app:srcCompat="@drawable/ic_group_black_24dp" />
 
-        <ListView
-            android:id="@+id/lwPerfiles"
+        <Spinner
+            android:id="@+id/spnPerfiles"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.8" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
+            app:tabMode="fixed"
+            app:tabRippleColor="#4D6200EE"></com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPage"
@@ -69,33 +74,33 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="409dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="2dp">
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Tareas" />
+                android:text="Tareas"
+                android:textAllCaps="false" />
 
             <ImageButton
                 android:id="@+id/agregarTarea"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="0.35"
                 app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
@@ -105,19 +110,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="2dp"
+            android:paddingBottom="8dp">
 
             <Button
                 android:id="@+id/mostrarActividades"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:text="Actividades" />
+                android:text="Actividades"
+                android:textAllCaps="false" />
 
             <ImageButton
                 android:id="@+id/agregarActividad"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="0.35"
                 app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />

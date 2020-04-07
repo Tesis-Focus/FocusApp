@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 
 import com.google.android.material.tabs.TabLayout;
@@ -28,22 +27,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.api.RulesEngineListener;
 import org.jeasy.rules.core.DefaultRulesEngine;
-import org.jeasy.rules.core.RuleBuilder;
 import org.jeasy.rules.mvel.MVELRule;
-import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.jeasy.rules.support.YamlRuleDefinitionReader;
 
 
 public class HomeAppActivity extends AppCompatActivity {
@@ -54,7 +46,7 @@ public class HomeAppActivity extends AppCompatActivity {
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    ListView lwPerfiles;
+    Spinner spnPerfiles;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button mostrarActividades;
@@ -76,7 +68,7 @@ public class HomeAppActivity extends AppCompatActivity {
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
         agregarTarea = findViewById(R.id.agregarTarea);
         mostrarActividades = findViewById(R.id.mostrarActividades);
-        lwPerfiles = findViewById(R.id.lwPerfiles);
+        spnPerfiles = findViewById(R.id.spnPerfiles);
         beneficiarios = new ArrayList<>();
         nombresBeneficiarios = new ArrayList<>();
         user = mAuth.getCurrentUser();
@@ -158,9 +150,8 @@ public class HomeAppActivity extends AppCompatActivity {
                         Log.i("beneficiarios", "onDataChange: "+(beneficiario.getNombres()+" "+beneficiario.getApellidos()));
                     }
                 }
-                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombresBeneficiarios);
-                adapter.notifyDataSetChanged();
-                lwPerfiles.setAdapter(adapter);
+                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
+                spnPerfiles.setAdapter(adapter);
             }
 
             @Override

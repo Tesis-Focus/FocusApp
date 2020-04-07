@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class RegistroActivity extends AppCompatActivity {
     DatabaseReference myRef;
     TextView edttxtFechaNacimiento,edttxtNombre,edttxtApellido,edttxtEmail,edttxtContrasena,edttxtConfirmaContra;
     Button btnRegistro;
+    ImageButton btnRegistroFechaNac;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
@@ -61,7 +63,8 @@ public class RegistroActivity extends AppCompatActivity {
         edttxtContrasena = findViewById(R.id.edttxtContrasena);
         edttxtFechaNacimiento = findViewById(R.id.edttxtFechaNacimiento);
         edttxtConfirmaContra = findViewById(R.id.edttxtConfirmaContra);
-        edttxtFechaNacimiento.setOnClickListener(new View.OnClickListener() {
+        btnRegistroFechaNac = findViewById(R.id.btnRegistroFechaNac);
+        btnRegistroFechaNac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -164,6 +167,10 @@ public class RegistroActivity extends AppCompatActivity {
         if(!edttxtContrasena.getText().toString().matches(edttxtConfirmaContra.getText().toString())){
             esValido = false;
             edttxtContrasena.setError("las contraseñas no coinciden");
+        }
+        if(edttxtContrasena.getText().toString().length() <= 5 ){
+            esValido = false;
+            edttxtContrasena.setError("la contraseña es muy corta");
         }
         return esValido;
     }
