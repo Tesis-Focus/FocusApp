@@ -11,13 +11,16 @@ import org.jeasy.rules.mvel.MVELRule;
 public class ReglasTiempo {
 
     public ReglasTiempo() {
-
     }
 
-    public Tarea asignarTiempos(Tarea tarea) {
+
+    public Tarea asignarTiempos(Tarea tarea, String desempenioAct) {
+
         Facts facts = new Facts();
         facts.put("tarea", tarea);
+        facts.put("desempeñoAct", desempenioAct);
 
+        //Reglas de tiempo base
         MVELRule ruleProyecto = new MVELRule()
                 .name("regla tiempo proyecto")
                 .priority(1)
@@ -54,7 +57,6 @@ public class ReglasTiempo {
                 .when("tarea.getClasificacion().equals(\"Trabajo manual\")")
                 .then("tarea.setTiempoPromedio(359.28);");
 
-
         Rules rules = new Rules();
         rules.register(ruleProyecto);
         rules.register(ruleTaller);
@@ -65,6 +67,49 @@ public class ReglasTiempo {
 
         RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(rules, facts);
+
+        Log.i("testRule", "testRule1: " + tarea.getTiempoPromedio());
+
+        Double porcentaje = (tarea.getTiempoPromedio() * 15) / 100;
+
+        facts.put("tiempoPorcentaje", porcentaje);
+
+        Log.i("testRule", "testRule1: " + porcentaje);
+
+        //Reglas de tiempo por complejidad
+        MVELRule ruleComplejidadAlta = new MVELRule()
+                .name("regla tiempo complejidad alta")
+                .priority(1)
+                .when("tarea.getComplejidad().equals(\"Alto\")")
+                .then("tarea.setTiempoPromedio(tarea.getTiempoPromedio()+tiempoPorcentaje);");
+
+        MVELRule ruleComplejidadBaja = new MVELRule()
+                .name("regla tiempo complejidad baja")
+                .priority(1)
+                .when("tarea.getComplejidad().equals(\"Bajo\")")
+                .then("tarea.setTiempoPromedio(tarea.getTiempoPromedio()-tiempoPorcentaje);");
+
+        //Reglas de tiempo por desempeño
+        MVELRule ruleDesempeñoAlto = new MVELRule()
+                .name("regla tiempo desempeño alto")
+                .priority(1)
+                .when("desempeñoAct.equals(\"Alto\")")
+                .then("tarea.setTiempoPromedio(tarea.getTiempoPromedio()-tiempoPorcentaje);");
+
+        MVELRule ruleDesempeñoBajo = new MVELRule()
+                .name("regla tiempo desempeño bajo")
+                .priority(1)
+                .when("desempeñoAct.equals(\"Bajo\")")
+                .then("tarea.setTiempoPromedio(tarea.getTiempoPromedio()+tiempoPorcentaje);");
+
+
+        Rules rulesPorcentaje = new Rules();
+        rulesPorcentaje.register(ruleComplejidadAlta);
+        rulesPorcentaje.register(ruleComplejidadBaja);
+        rulesPorcentaje.register(ruleDesempeñoAlto);
+        rulesPorcentaje.register(ruleDesempeñoBajo);
+        rulesEngine.fire(rulesPorcentaje, facts);
+
         return tarea;
 
     }
