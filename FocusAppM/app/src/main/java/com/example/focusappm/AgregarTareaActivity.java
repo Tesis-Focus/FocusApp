@@ -54,6 +54,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     Calendar calendario;
     DatePickerDialog datePickerDialog;
     ArrayList<String> nombre_Actividades;
+    ArrayList<String> desempenoActividades;
     ArrayList<String> id_Actividades;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
@@ -96,6 +97,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         sprActividad = findViewById(R.id.sprActividad);
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
         nombre_Actividades = new ArrayList<String>();
+        desempenoActividades = new ArrayList<String>();
         id_Actividades = new ArrayList<String>();
         nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
         beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
@@ -108,6 +110,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 nombre_Actividades.clear();
+                desempenoActividades.clear();
                 id_Actividades.clear();
                 String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrTar.getSelectedItemPosition()).getIdBeneficiario();
                 Log.i("TAG", "idBeneficiario: " + idBeneficiario);
@@ -179,8 +182,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ReglasTiempo reglas = new ReglasTiempo();
                 Tarea tarea = new Tarea();
+                Tarea nueva = new Tarea();
                 Date fechaAsig = new Date();
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
@@ -191,7 +195,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setArea(sprArea.getSelectedItem().toString());
                 tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
+                String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
+
+                Log.i("test",desempenoActividad );
+
                 tarea.setIdActividad(id_Actividad);
+                tarea = reglas.asignarTiempos(tarea,desempenoActividad);
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
@@ -229,7 +238,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                         //Log.i("TAG", "Iguales: " + idBeneficiario + actActual.getIdUsaurio());
                         String nombre = actActual.getNombre();
+                        String desempeno = actActual.getDesempeño();
                         nombre_Actividades.add(nombre);
+                        desempenoActividades.add(desempeno);
                         id_Actividades.add(actActual.getIdActividad());
                         //Log.i("TAG", "Actividad: " + nombre);
                     }
@@ -272,5 +283,3 @@ public class AgregarTareaActivity extends AppCompatActivity {
     }
 
 }
-
-
