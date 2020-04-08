@@ -18,9 +18,18 @@ public class Tarea {
     private String horaEntrega;
     private String idActividad;
     private Double tiempoPromedio;
+    private int prioridad;
 
     public Tarea(){
 
+    }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
     }
 
     public String getIdTarea() {

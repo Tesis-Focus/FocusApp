@@ -1,6 +1,7 @@
 package com.example.focusappm;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -126,6 +127,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 myRef.setValue(actividad);
 
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
+
+                Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
     }

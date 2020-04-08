@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -201,6 +202,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 tarea.setIdActividad(id_Actividad);
                 tarea = reglas.asignarTiempos(tarea,desempenoActividad);
+                reglas.asignarPrioridad(tarea,desempenoActividad);
+                Log.i("TAG", "onClick: "+tarea.getPrioridad());
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
@@ -215,6 +218,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 myRef = database.getReference(PATH_TAREAS + key);
                 tarea.setIdTarea(myRef.getKey());
                 myRef.setValue(tarea);
+
+                Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
     }
