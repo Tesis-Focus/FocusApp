@@ -14,6 +14,7 @@ import android.view.ViewGroup;
  */
 public class SemanaFragment extends Fragment {
 
+
     public SemanaFragment() {
         // Required empty public constructor
     }

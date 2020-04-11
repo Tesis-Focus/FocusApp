@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d47747db-b97b-4778-bff9-cbdb65fd8f0d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FocusAppM/app/src/main/java/com/example/focusappm/Actividad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FocusAppM/app/src/main/java/com/example/focusappm/AgregarActividadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/FocusAppM/app/src/main/java/com/example/focusappm/AgregarActividadActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FocusAppM/app/src/main/res/layout/activity_agregar_actividad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FocusAppM/app/src/main/res/layout/activity_agregar_actividad.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FocusAppM/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FocusAppM/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +15,7 @@
   </component>
   <component name="ProjectId" id="1YUnLfkeUYhkkhxTzgUKXGmfXXd" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FocusAppM" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
