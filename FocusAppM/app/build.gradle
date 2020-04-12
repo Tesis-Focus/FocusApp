@@ -38,7 +38,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jeasy/easy-rules
     implementation 'org.jeasy:easy-rules-core:3.4.0'
     implementation group: 'org.jeasy', name: 'easy-rules-mvel', version: '3.4.0'
-    implementation 'com.github.alamkanak:android-week-view:1.2.6'
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
