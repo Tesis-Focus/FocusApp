@@ -2,28 +2,27 @@ package com.example.focusappm;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import org.yaml.snakeyaml.events.Event;
+import com.alamkanak.weekview.DateTimeInterpreter;
+import com.alamkanak.weekview.EmptyViewLongPressListener;
+import com.alamkanak.weekview.EventClickListener;
+import com.alamkanak.weekview.EventLongPressListener;
+import com.alamkanak.weekview.MonthChangeListener;
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewDisplayable;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SemanaFragment extends Fragment {
+public class SemanaFragment extends AppCompatActivity
+        implements EventClickListener<Event>, MonthChangeListener<Event>,
+        EventLongPressListener<Event>, EmptyViewLongPressListener{
 
 
-    public SemanaFragment() {
-        // Required empty public constructor
-    }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_semana, container, false);
-    }
+
 }

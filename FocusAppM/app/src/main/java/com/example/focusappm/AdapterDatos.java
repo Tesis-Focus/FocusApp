@@ -31,6 +31,8 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         return new ViewHolderDatos(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
         holder.asignarDatos(listDatos.get(position));
@@ -73,7 +75,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
-            dato = itemView.findViewById(R.id.idDato);
+            //dato = itemView.findViewById(R.id.idDato);
             mGestureDetector= new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
         }
