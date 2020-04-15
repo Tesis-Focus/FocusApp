@@ -202,7 +202,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 tarea.setIdActividad(id_Actividad);
                 tarea = reglas.asignarTiempos(tarea,desempenoActividad);
-                reglas.asignarPrioridad(tarea,desempenoActividad);
+                tarea = reglas.asignarPrioridad(tarea,desempenoActividad);
                 Log.i("TAG", "onClick: "+tarea.getPrioridad());
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
