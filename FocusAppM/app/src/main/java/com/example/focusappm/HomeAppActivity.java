@@ -75,8 +75,6 @@ public class HomeAppActivity extends AppCompatActivity {
         setUpView();
         setUpViewPageAdapter();
         cargarPerfilesB();
-        testRule();
-
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,39 +188,5 @@ public class HomeAppActivity extends AppCompatActivity {
 
             }
         });
-    }
-    public void testRule()  {
-        Usuario usuarioUno = new Usuario();
-        usuarioUno.setNombres("prueba");
-        List<Usuario> usuarios = new ArrayList <>();
-        usuarios.add(usuarioUno);
-        Usuario usuarioDos = new Usuario();
-        usuarioDos.setNombres("prueba");
-        usuarios.add(usuarioDos);
-        Usuario usuarioTres = new Usuario();
-        usuarioTres.setNombres("prueba");
-        usuarios.add(usuarioTres);
-
-        for (Usuario usuario: usuarios) {
-            Facts facts = new Facts();
-            facts.put("user", usuario);
-
-            MVELRule rule = new MVELRule()
-                    .name("regla de prueba")
-                    .description("es la regla de prueba")
-                    .priority(1)
-                    .when("user.getNombres().equals(\"prueba\")")
-                    .then("user.setApellidos(\"sirve\");");
-
-            Rules rules = new Rules();
-            rules.register(rule);
-            RulesEngine rulesEngine = new DefaultRulesEngine();
-            rulesEngine.fire(rules, facts);
-            Log.i("testRule", "testRule: " + usuario.getApellidos());
-        }
-
-        Log.i("testRule", "testRule0: " + usuarios.get(0).getApellidos());
-        Log.i("testRule", "testRule1: " + usuarios.get(1).getApellidos());
-        Log.i("testRule", "testRule1: " + usuarioDos.getNombres());
     }
 }

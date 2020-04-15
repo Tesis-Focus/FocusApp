@@ -119,38 +119,51 @@ public class ReglasTiempo {
         tarea.setPrioridad(0);
         Facts facts = new Facts();
         facts.put("tarea",tarea);
-        facts.put("desempenio",desempenio);
+        RulesEngine rulesEngine = new DefaultRulesEngine();
 
         MVELRule prioridadProyecto = new MVELRule()
                 .name("regla prioridad por Proyecto")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Proyecto\")")
+                .when("tarea.getClasificacion().equals(\"Proyecto\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
         MVELRule prioridadTaller = new MVELRule()
                 .name("regla prioridad por Taller")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Taller\")")
+                .when("tarea.getClasificacion().equals(\"Taller\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
         MVELRule prioridadEstudioEval = new MVELRule()
                 .name("regla prioridad por estudio para Evalaucion")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Estudio para evaluación\")")
+                .when("tarea.getClasificacion().equals(\"Estudio para evaluación\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
         MVELRule prioridadTarea = new MVELRule()
                 .name("regla prioridad por Tarea")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Tarea\")")
+                .when("tarea.getClasificacion().equals(\"Tarea\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
         MVELRule prioridadExpo = new MVELRule()
                 .name("regla prioridad por Exposicion")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Exposición\")")
+                .when("tarea.getClasificacion().equals(\"Exposición\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
         MVELRule prioridadTrabajoManual = new MVELRule()
                 .name("regla prioridad por Trabajo Manual")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Trabajo manual\")")
+                .when("tarea.getClasificacion().equals(\"Trabajo manual\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
+
+        Rules reglasPrioridad = new Rules();
+        reglasPrioridad.register(prioridadProyecto);
+        reglasPrioridad.register(prioridadTaller);
+        reglasPrioridad.register(prioridadEstudioEval);
+        reglasPrioridad.register(prioridadTarea);
+        reglasPrioridad.register(prioridadExpo);
+        reglasPrioridad.register(prioridadTrabajoManual);
+
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad: 1-"+tarea.getPrioridad());
+
+        facts.put("desempenio",desempenio);
 
         MVELRule prioridadDesempenioAlto = new MVELRule()
                 .name("regla prioridad por desempenio alto")
@@ -167,6 +180,15 @@ public class ReglasTiempo {
                 .priority(1)
                 .when("desempenio.equals(\"Trabajo manual\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
+
+
+
+        reglasPrioridad.register(prioridadDesempenioAlto);
+        reglasPrioridad.register(prioridadDesempenioMedio);
+        reglasPrioridad.register(prioridadDesempenioBajo);
+
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad: 2-"+tarea.getPrioridad());
 
         MVELRule prioridadComplejidadBajo = new MVELRule()
                 .name("regla prioridad por complejidad bajo")
@@ -185,26 +207,13 @@ public class ReglasTiempo {
                 .when("tarea.getComplejidad().equals(\"Alto\")")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
 
-        Rules reglasPrioridad = new Rules();
-        reglasPrioridad.register(prioridadProyecto);
-        reglasPrioridad.register(prioridadTaller);
-        reglasPrioridad.register(prioridadEstudioEval);
-        reglasPrioridad.register(prioridadTarea);
-        reglasPrioridad.register(prioridadExpo);
-        reglasPrioridad.register(prioridadTrabajoManual);
-
-        reglasPrioridad.register(prioridadDesempenioAlto);
-        reglasPrioridad.register(prioridadDesempenioMedio);
-        reglasPrioridad.register(prioridadDesempenioBajo);
 
         reglasPrioridad.register(prioridadComplejidadBajo);
         reglasPrioridad.register(prioridadComplejidadMedio);
         reglasPrioridad.register(prioridadComplejidadAlto);
 
-        RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(reglasPrioridad,facts);
-
-        Log.i("TAG", "asignarPrioridad: "+tarea.getPrioridad());
+        Log.i("test", "asignarPrioridad: 3-"+tarea.getPrioridad());
 
         return tarea;
     }
