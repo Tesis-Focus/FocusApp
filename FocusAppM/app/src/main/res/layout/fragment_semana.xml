@@ -5,37 +5,4 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SemanaFragment">
-
-    <com.alamkanak.weekview.WeekView
-        android:id="@+id/weekView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:columnGap="1dp"
-        app:eventCornerRadius="4dp"
-        app:eventTextColor="@android:color/white"
-        app:headerRowBottomLineColor="@color/header_bottom_line"
-        app:headerRowBottomLineWidth="1dp"
-        app:headerRowPadding="12dp"
-        app:horizontalScrollingEnabled="false"
-        app:hourHeight="60dp"
-        app:nowLineColor="@color/accent"
-        app:nowLineDotColor="@color/accent"
-        app:nowLineDotRadius="5dp"
-        app:nowLineStrokeWidth="1dp"
-        app:numberOfVisibleDays="7"
-        app:overlappingEventGap="1dp"
-        app:showFirstDayOfWeekFirst="true"
-        app:showHeaderRowBottomLine="true"
-        app:showNowLine="true"
-        app:showNowLineDot="true"
-        app:showTimeColumnSeparator="true"
-        app:singleDayHorizontalMargin="8dp"
-        app:timeColumnBackgroundColor="#ffffffff"
-        app:timeColumnPadding="8dp"
-        app:timeColumnSeparatorColor="@color/header_bottom_line"
-        app:timeColumnSeparatorStrokeWidth="1dp"
-        app:timeColumnTextColor="@color/toolbar_text"
-        app:timeColumnTextSize="12sp"
-        app:todayHeaderTextColor="@color/accent" />
-
 </FrameLayout>

@@ -1,17 +1,21 @@
 package com.example.focusappm;
 
+import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import org.yaml.snakeyaml.events.Event;
-import com.alamkanak.weekview.DateTimeInterpreter;
-import com.alamkanak.weekview.EmptyViewLongPressListener;
-import com.alamkanak.weekview.EventClickListener;
-import com.alamkanak.weekview.EventLongPressListener;
-import com.alamkanak.weekview.MonthChangeListener;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewDisplayable;
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.util.List;
 
 
 /**
@@ -24,5 +28,16 @@ public class SemanaFragment extends AppCompatActivity
 
 
 
+    WeekView mWeekView;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_semana,container,false);
+        mWeekView = (WeekView)rootView.findViewById(R.id.weekView3);
 
+
+
+        return rootView;
+
+    }
 }

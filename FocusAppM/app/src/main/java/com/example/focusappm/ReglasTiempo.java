@@ -114,75 +114,43 @@ public class ReglasTiempo {
 
     }
 
-    public void asignarPrioridad(Tarea tarea, String desempenio){
+    public Tarea asignarPrioridad(Tarea tarea, String desempenio){
 
-        int valor_prio = 0;
+        tarea.setPrioridad(0);
         Facts facts = new Facts();
         facts.put("tarea",tarea);
-        facts.put("desempenio",desempenio);
+        RulesEngine rulesEngine = new DefaultRulesEngine();
 
         MVELRule prioridadProyecto = new MVELRule()
                 .name("regla prioridad por Proyecto")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Proyecto\")")
-                .then("valor_prio+=3;");
+                .when("tarea.getClasificacion().equals(\"Proyecto\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
         MVELRule prioridadTaller = new MVELRule()
                 .name("regla prioridad por Taller")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Taller\")")
-                .then("valor_prio+=2;");
+                .when("tarea.getClasificacion().equals(\"Taller\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
         MVELRule prioridadEstudioEval = new MVELRule()
                 .name("regla prioridad por estudio para Evalaucion")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Estudio para evaluación\")")
-                .then("valor_prio+=3;");
+                .when("tarea.getClasificacion().equals(\"Estudio para evaluación\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
         MVELRule prioridadTarea = new MVELRule()
                 .name("regla prioridad por Tarea")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Tarea\")")
-                .then("valor_prio+=1;");
+                .when("tarea.getClasificacion().equals(\"Tarea\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
         MVELRule prioridadExpo = new MVELRule()
                 .name("regla prioridad por Exposicion")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Exposición\")")
-                .then("valor_prio+=2;");
+                .when("tarea.getClasificacion().equals(\"Exposición\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
         MVELRule prioridadTrabajoManual = new MVELRule()
                 .name("regla prioridad por Trabajo Manual")
                 .priority(1)
-                .when("tarea.getArea().equals(\"Trabajo manual\")")
-                .then("valor_prio+=2;");
-
-        MVELRule prioridadDesempenioAlto = new MVELRule()
-                .name("regla prioridad por desempenio alto")
-                .priority(1)
-                .when("desempenio.equals(\"Trabajo manual\")")
-                .then("valor_prio+=1;");
-        MVELRule prioridadDesempenioMedio = new MVELRule()
-                .name("regla prioridad por desempenio medio")
-                .priority(1)
-                .when("desempenio.equals(\"Trabajo manual\")")
-                .then("valor_prio+=2;");
-        MVELRule prioridadDesempenioBajo = new MVELRule()
-                .name("regla prioridad por desempenio bajo")
-                .priority(1)
-                .when("desempenio.equals(\"Trabajo manual\")")
-                .then("valor_prio+3;");
-
-        MVELRule prioridadComplejidadBajo = new MVELRule()
-                .name("regla prioridad por complejidad bajo")
-                .priority(1)
-                .when("tarea.getComplejidad().equals(\"Bajo\")")
-                .then("valor_prio+1;");
-        MVELRule prioridadComplejidadMedio = new MVELRule()
-                .name("regla prioridad por complejidad medio")
-                .priority(1)
-                .when("tarea.getComplejidad().equals(\"Bajo\")")
-                .then("valor_prio+2;");
-        MVELRule prioridadComplejidadAlto = new MVELRule()
-                .name("regla prioridad por complejidad Alto")
-                .priority(1)
-                .when("tarea.getComplejidad().equals(\"Alto\")")
-                .then("valor_prio+3;");
+                .when("tarea.getClasificacion().equals(\"Trabajo manual\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
 
         Rules reglasPrioridad = new Rules();
         reglasPrioridad.register(prioridadProyecto);
@@ -192,20 +160,62 @@ public class ReglasTiempo {
         reglasPrioridad.register(prioridadExpo);
         reglasPrioridad.register(prioridadTrabajoManual);
 
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad: 1-"+tarea.getPrioridad());
+
+        facts.put("desempenio",desempenio);
+
+        MVELRule prioridadDesempenioAlto = new MVELRule()
+                .name("regla prioridad por desempenio alto")
+                .priority(1)
+                .when("desempenio.equals(\"Trabajo manual\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
+        MVELRule prioridadDesempenioMedio = new MVELRule()
+                .name("regla prioridad por desempenio medio")
+                .priority(1)
+                .when("desempenio.equals(\"Trabajo manual\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
+        MVELRule prioridadDesempenioBajo = new MVELRule()
+                .name("regla prioridad por desempenio bajo")
+                .priority(1)
+                .when("desempenio.equals(\"Trabajo manual\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
+
+
+
         reglasPrioridad.register(prioridadDesempenioAlto);
         reglasPrioridad.register(prioridadDesempenioMedio);
         reglasPrioridad.register(prioridadDesempenioBajo);
+
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad: 2-"+tarea.getPrioridad());
+
+        MVELRule prioridadComplejidadBajo = new MVELRule()
+                .name("regla prioridad por complejidad bajo")
+                .priority(1)
+                .when("tarea.getComplejidad().equals(\"Bajo\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
+        MVELRule prioridadComplejidadMedio = new MVELRule()
+                .name("regla prioridad por complejidad medio")
+                .priority(1)
+                .when("tarea.getComplejidad().equals(\"Bajo\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
+
+        MVELRule prioridadComplejidadAlto = new MVELRule()
+                .name("regla prioridad por complejidad Alto")
+                .priority(1)
+                .when("tarea.getComplejidad().equals(\"Alto\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
+
 
         reglasPrioridad.register(prioridadComplejidadBajo);
         reglasPrioridad.register(prioridadComplejidadMedio);
         reglasPrioridad.register(prioridadComplejidadAlto);
 
-        RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad: 3-"+tarea.getPrioridad());
 
-        Log.i("rules", "asignarPrioridad: "+valor_prio);
-        tarea.setPrioridad(valor_prio);
-
+        return tarea;
     }
 
 }
