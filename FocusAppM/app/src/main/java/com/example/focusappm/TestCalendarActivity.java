@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.MonthLoader;
@@ -11,6 +12,7 @@ import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TestCalendarActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class TestCalendarActivity extends AppCompatActivity {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
-                Toast.makeText(getApplicationContext(),"sirve click on event",Toast.LENGTH_LONG).show();
+                Log.i("calendar", "onEventClick: ");
             }
         });
 
@@ -34,7 +36,7 @@ public class TestCalendarActivity extends AppCompatActivity {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
                 List<Tarea> tareas = new ArrayList<>();
-                Toast.makeText(getApplicationContext(),"sirve on click month change",Toast.LENGTH_LONG).show();
+                Log.i("calendar", "onMonthChange: ");
                 return tareas;
             }
         });
@@ -42,7 +44,7 @@ public class TestCalendarActivity extends AppCompatActivity {
         mWeekView.setEventLongPressListener(new WeekView.EventLongPressListener() {
             @Override
             public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-                Toast.makeText(getApplicationContext(),"sirve click on long press",Toast.LENGTH_LONG).show();
+                Log.i("calendar", "onEventLongPress: ");
             }
         });
     }
