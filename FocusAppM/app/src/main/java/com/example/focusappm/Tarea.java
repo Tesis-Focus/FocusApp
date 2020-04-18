@@ -1,8 +1,9 @@
 package com.example.focusappm;
+import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Date;
 
-public class Tarea {
+public class Tarea extends WeekViewEvent {
 
     private String idTarea;
     private String nombre;

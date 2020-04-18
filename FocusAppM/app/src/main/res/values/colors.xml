@@ -5,6 +5,10 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSecondary">#FFFFFF</color>
     <color name="colorScheme">#E5E5FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#B1B1B1</color>
+    <color name="light_blue">#84D7FD</color>
+
 
 
 </resources>

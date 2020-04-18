@@ -109,7 +109,7 @@ public class HomeAppActivity extends AppCompatActivity {
         mostrarActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (getBaseContext(), TestAprendizajeActivity.class);
+                Intent intent = new Intent (getBaseContext(), TestCalendarActivity.class);
                 startActivity(intent);
             }
         });

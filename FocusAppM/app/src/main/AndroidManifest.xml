@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestAprendizajeActivity"></activity>
+        <activity android:name=".TestCalendarActivity"></activity>
+        <activity android:name=".TestAprendizajeActivity" />
         <activity android:name=".AgregarActividadActivity" />
-        <activity android:name=".AgregarPerfilActivity"/>
+        <activity android:name=".AgregarPerfilActivity" />
         <activity android:name=".HomeAppActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".InicioActivity">
@@ -21,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VisualizarTareasActivity"/>
-        <activity android:name=".AgregarTareaActivity"/>
-        <activity android:name=".DetallePerfilActivity"/>
-        <activity android:name=".PerfilesActivity"/>
+        <activity android:name=".VisualizarTareasActivity" />
+        <activity android:name=".AgregarTareaActivity" />
+        <activity android:name=".DetallePerfilActivity" />
+        <activity android:name=".PerfilesActivity" />
     </application>
 
 </manifest>
