@@ -12,7 +12,7 @@ public class Horario {
     private int horaFin;
     private int minutoFin;
     private int AM_PM_Fin;
-
+    private String idUsaurio;
 
     public Horario() {
 
@@ -80,5 +80,13 @@ public class Horario {
 
     public void setAM_PM_Fin(int AM_PM_Fin) {
         this.AM_PM_Fin = AM_PM_Fin;
+    }
+
+    public String getIdUsaurio() {
+        return idUsaurio;
+    }
+
+    public void setIdUsaurio(String idUsaurio) {
+        this.idUsaurio = idUsaurio;
     }
 }
