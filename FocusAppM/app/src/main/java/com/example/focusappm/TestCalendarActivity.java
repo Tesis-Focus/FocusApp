@@ -44,6 +44,7 @@ public class TestCalendarActivity extends AppCompatActivity {
     public static final String PATH_HORARIOS = "horarioDisponible/";
     FirebaseAuth mAuth;
     FirebaseUser user;
+    Usuario beneficiario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class TestCalendarActivity extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        beneficiario = (Usuario) getIntent().getSerializableExtra("beneficiario");
+        Log.i("cal", "onCreate: usuario" + beneficiario.getNombres());
 
         agregarEvento = findViewById(R.id.agregarEvento);
         mWeekView = findViewById(R.id.weekView3);
