@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestCalendarActivity">
+    tools:context=".CalendarDisponibleActivity">
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekViewDispo"
@@ -22,9 +22,8 @@
         app:noOfVisibleDays="5"
         app:textSize="12sp"
         app:todayBackgroundColor="#1848adff" />
-
     <ImageButton
-        android:id="@+id/agregarEvento"
+        android:id="@+id/agregarHorarioDisponible"
         android:layout_width="59dp"
         android:layout_height="58dp"
         android:layout_gravity="bottom|end"
@@ -32,5 +31,4 @@
         android:layout_marginBottom="16dp"
         android:baselineAlignBottom="true"
         android:src="@drawable/ic_add_circle_outline_black_24dp" />
-
 </FrameLayout>

@@ -40,7 +40,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
         btnAgregarHorDis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(),TestCalendarActivity.class);
+                Intent i = new Intent(getBaseContext(),CalendarDisponibleActivity.class);
                 i.putExtra("beneficiario",beneficiario);
                 startActivity(i);
             }

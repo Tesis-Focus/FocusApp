@@ -1,6 +1,5 @@
 package com.example.focusappm;
 
-import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,13 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
-
-import java.util.List;
 
 
 /**
@@ -32,7 +26,7 @@ public class SemanaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_semana,container,false);
-        mWeekView = (WeekView)rootView.findViewById(R.id.weekView3);
+        mWeekView = (WeekView)rootView.findViewById(R.id.weekViewDispo);
 
 
 

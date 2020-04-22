@@ -18,7 +18,11 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EventosCalendarioActivity extends AppCompatActivity {
 
@@ -34,7 +38,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     ImageButton btnHoraFin;
     ImageButton btnFecha;
     Calendar calendario;
-    EditText nombre;
     EditText etHoraInicio;
     EditText etHoraFin;
     EditText etFecha;
@@ -47,7 +50,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos_calendario);
 
-        nombre = findViewById(R.id.nombre);
         btnHoraInicio = findViewById(R.id.btnHoraInicio);
         btnHoraFin = findViewById(R.id.btnHoraFin);
         btnFecha = findViewById(R.id.btnFecha);
@@ -68,7 +70,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
-                        // minutoInicio = minute;
+                        minutoInicio = minute;
+                        horaInicio = hourOfDay;
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Inicio = 0;
@@ -80,8 +83,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                         }
 
                         etHoraInicio.setText(hourOfDay +":"+ minute + " " + AM_PM);
-                        minutoInicio = minute;
-                        horaInicio = hourOfDay;
                     }
                 }, horaInicio, minutoInicio,false);
                 timePickerDialog.show();
@@ -99,6 +100,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
+                        minutoFin = minute;
+                        horaFin = hourOfDay;
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Fin = 0;
@@ -108,8 +111,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             AM_PM_Fin = 1;
                         }
                         etHoraFin.setText(hourOfDay +":"+ minute + " " + AM_PM);
-                        minutoFin = minute;
-                        horaFin = hourOfDay;
+
                     }
                 }, horaFin, minutoFin,false);
                 timePickerDialog.show();
@@ -130,6 +132,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -144,20 +147,31 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("calendarAMPMInicio", String.valueOf(AM_PM_Inicio));
-                Log.i("calendarAMPMFin", String.valueOf(AM_PM_Fin));
-                Log.i("calendarDia", String.valueOf(diaDeMes));
-                Intent intent = new Intent();
-                intent.putExtra("nombre", nombre.getText().toString());
-                intent.putExtra("diaMes", diaDeMes);
-                intent.putExtra("horaInicio",horaInicio);
-                intent.putExtra("minutoInicio",minutoInicio);
-                intent.putExtra("AM_PM_Inicio", AM_PM_Inicio);
-                intent.putExtra("AM_PM_Fin", AM_PM_Fin);
-                intent.putExtra("horaFin",horaFin);
-                intent.putExtra("minutoFin",minutoFin);
-                // intent.putExtra("horaFin",etHoraFin.getText().toString());
-                setResult(RESULT_OK, intent);
+
+                Date startTime = null;
+                Date endTime = null;
+
+                try {
+                    startTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
+                    endTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                startTime.setHours(horaInicio);
+                startTime.setMinutes(minutoInicio);
+                endTime.setHours(horaFin);
+                endTime.setMinutes(minutoFin);
+
+                Horario horario = new Horario();
+                horario.setmName("Disponible");
+                horario.setmColor(Color.CYAN);
+                horario.setmStartTime(startTime);
+                horario.setmEndTime(endTime);
+
+                Intent i = new Intent();
+                i.putExtra("horario",horario);
+                setResult(RESULT_OK, i);
                 finish();
 
             }
