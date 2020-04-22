@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.MonthLoader;
@@ -31,7 +33,6 @@ import java.util.List;
 public class TestCalendarActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1;
-
     WeekView mWeekView;
     List <WeekViewEvent> eventosNuevos = new ArrayList<WeekViewEvent>();
     ImageButton agregarEvento;
@@ -60,8 +61,12 @@ public class TestCalendarActivity extends AppCompatActivity {
 
         agregarEvento = findViewById(R.id.agregarEvento);
         mWeekView = findViewById(R.id.weekView3);
+        mWeekView.setNumberOfVisibleDays(5);
 
-
+        // Lets change some dimensions to best fit the view.
+        mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
+        mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
+        mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
 
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
@@ -115,7 +120,8 @@ public class TestCalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),EventosCalendarioActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivityForResult(intent,1);
+
             }
         });
     }

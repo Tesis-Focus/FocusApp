@@ -13,9 +13,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -60,6 +65,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapterBenef;
+    RadioGroup radioGroup;
+    RadioButton radioSi;
+    RadioButton radioNo;
+    boolean motivacion;
 
     public final Calendar c = Calendar.getInstance();
     private final int mes = c.get(Calendar.MONTH);
@@ -105,6 +114,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         adapterBenef = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
         adapterBenef.notifyDataSetChanged();
         spnBeneficiariosAgrTar.setAdapter(adapterBenef);
+        radioSi = findViewById(R.id.radioSi);
+        radioNo = findViewById(R.id.radioNo);
+        radioGroup = findViewById(R.id.radioGroup);
 
         spnBeneficiariosAgrTar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -171,6 +183,25 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
+
+        radioSi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                motivacion = radioSi.isChecked();
+                //Log.i("ESTADO", "ESTA EN SI");
+            }
+        });
+
+        radioNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                motivacion = false;
+                //Log.i("ESTADO", "ESTA EN NO");
+            }
+        });
+
+
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
 
@@ -195,6 +226,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
                 tarea.setArea(sprArea.getSelectedItem().toString());
                 tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
+                tarea.setEstaMotivado(motivacion);
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                 String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
 
@@ -227,6 +259,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void lanzarPlaneacion(Tarea tarea) {
         UtilsFocus.calcularHorarioPorTarea(tarea);
@@ -294,5 +327,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         recogerFecha.show();
     }
+
+
+
 
 }

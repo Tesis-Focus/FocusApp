@@ -161,7 +161,7 @@ public class ReglasTiempo {
         reglasPrioridad.register(prioridadTrabajoManual);
 
         rulesEngine.fire(reglasPrioridad,facts);
-        Log.i("test", "asignarPrioridad: 1-"+tarea.getPrioridad());
+        Log.i("test", "asignarPrioridad Tipo: 1-"+tarea.getPrioridad());
 
         facts.put("desempenio",desempenio);
 
@@ -182,13 +182,12 @@ public class ReglasTiempo {
                 .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
 
 
-
         reglasPrioridad.register(prioridadDesempenioAlto);
         reglasPrioridad.register(prioridadDesempenioMedio);
         reglasPrioridad.register(prioridadDesempenioBajo);
-
         rulesEngine.fire(reglasPrioridad,facts);
-        Log.i("test", "asignarPrioridad: 2-"+tarea.getPrioridad());
+
+        Log.i("test", "asignarPrioridad Desempenio: 2-"+tarea.getPrioridad());
 
         MVELRule prioridadComplejidadBajo = new MVELRule()
                 .name("regla prioridad por complejidad bajo")
@@ -211,15 +210,65 @@ public class ReglasTiempo {
         reglasPrioridad.register(prioridadComplejidadBajo);
         reglasPrioridad.register(prioridadComplejidadMedio);
         reglasPrioridad.register(prioridadComplejidadAlto);
-
         rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad Complejidad: 3-"+tarea.getPrioridad());
 
         MVELRule prioridadMotivacionTrue = new MVELRule()
                 .name("regla prioridad por motivacion verdadera")
                 .priority(1)
-                .when("!tarea.isEstaMotivado()")
+                .when("tarea.isEstaMotivado()")
                 .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
-        Log.i("test", "asignarPrioridad: 3-"+tarea.getPrioridad());
+
+        reglasPrioridad.register(prioridadMotivacionTrue);
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridad Motivacion: 4-"+tarea.getPrioridad());
+
+        //Reglas del area
+
+        MVELRule prioridadLectCrtic = new MVELRule()
+                .name("Regla prioridad area Lectura Critica")
+                .priority(1)
+                .when("tarea.getArea.equals(\"Lectura crítica\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
+
+        MVELRule prioridadRazonCuanti = new MVELRule()
+                .name("Regla prioridad area Razonamiento cuantitativo")
+                .priority(1)
+                .when("tarea.getArea().equals(\"Razonamiento cuantitativo\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
+
+        MVELRule prioridadComuniEscrita = new MVELRule()
+                .name("Regla prioridad area Comunicacion escrita")
+                .priority(1)
+                .when("tarea.getArea().equals(\"Comunicación escrita\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
+
+        MVELRule prioridadComptCiudadanas= new MVELRule()
+                .name("Regla prioridad area Competencias ciudadanas")
+                .priority(1)
+                .when("tarea.getArea().equals(\"Competencias ciudadanas\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+2);");
+
+        MVELRule prioridadIngles= new MVELRule()
+                .name("Regla prioridad area Ingles")
+                .priority(1)
+                .when("tarea.getArea().equals(\"Ingles\")")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+1);");
+
+
+        reglasPrioridad.register(prioridadLectCrtic);
+        reglasPrioridad.register(prioridadRazonCuanti);
+        reglasPrioridad.register(prioridadComuniEscrita);
+        reglasPrioridad.register(prioridadComptCiudadanas);
+        reglasPrioridad.register(prioridadIngles);
+        rulesEngine.fire(reglasPrioridad,facts);
+        Log.i("test", "asignarPrioridadArea: 5-" + tarea.getPrioridad());
+
+
+        //Reglas estilo de aprendizaje
+
+
+
 
         return tarea;
     }
