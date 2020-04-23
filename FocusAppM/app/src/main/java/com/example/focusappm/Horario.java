@@ -94,7 +94,7 @@ public class Horario implements Serializable {
         endTime.set(Calendar.YEAR,mEndTime.getYear());
 
         WeekViewEvent event = new WeekViewEvent(1,"evento",startTime,endTime);
-        event.setColor(Color.CYAN);
+        event.setColor(Color.LTGRAY);
 
         //Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));
         //Log.i("cal", "toWeekViewEvent: End anio: " + endTime.get(Calendar.YEAR)+" mes: "+endTime.get(Calendar.MONTH)+" dia del mes : " + endTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+endTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+endTime.get(Calendar.MINUTE));

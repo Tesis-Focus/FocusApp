@@ -30,7 +30,7 @@ import java.util.List;
 public class CalendarDisponibleActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
-    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
+    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible2/";
     ImageButton agregarHorarioDisponible;
     WeekView mWeekView;
     Usuario beneficiario;
@@ -81,24 +81,22 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                     }
                 }
 
-                /*Calendar startTime = Calendar.getInstance();
+                Calendar startTime = Calendar.getInstance();
                 startTime.set(Calendar.HOUR_OF_DAY, 8);
                 startTime.set(Calendar.MINUTE, 15);
-                startTime.set(Calendar.MONTH, 4 );
-                startTime.set(Calendar.YEAR, 2020);
+                startTime.set(Calendar.MONTH, newMonth );
+                startTime.set(Calendar.YEAR, newYear);
                 Calendar endTime = (Calendar) startTime.clone();
                 endTime.add(Calendar.HOUR, 1);
-                //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
-                endTime.set(Calendar.MONTH, 4 );
+                endTime.set(Calendar.MONTH, newMonth );
                 WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
-                event.setColor(Color.CYAN);
-                eventsYM.add(event);*/
+                event.setColor(Color.LTGRAY);
+                eventsYM.add(event);
 
                 Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
                 return eventsYM;
             }
         });
-
         mWeekView.setEmptyViewClickListener(new WeekView.EmptyViewClickListener() {
             @Override
             public void onEmptyViewClicked(Calendar time) {
