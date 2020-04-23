@@ -73,20 +73,32 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                         if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth)
                             eventsYM.add(horario.toWeekViewEvent());
                     }
-
-                    /*Calendar startTime = Calendar.getInstance();
-                    startTime.set(Calendar.HOUR_OF_DAY, 13);
-                    startTime.set(Calendar.MINUTE, 0);
-                    startTime.set(Calendar.MONTH, newMonth );
-                    startTime.set(Calendar.YEAR, newYear);
-                    Calendar endTime = (Calendar) startTime.clone();
-                    endTime.add(Calendar.HOUR, 1);
-                    //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
-                    endTime.set(Calendar.MONTH, newMonth );
-                    WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
-                    event.setColor(Color.CYAN);
-                    eventsYM.add(event);*/
                 }
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, 13);
+                startTime.set(Calendar.MINUTE, 0);
+                startTime.set(Calendar.MONTH, newMonth );
+                startTime.set(Calendar.YEAR, newYear);
+                Calendar endTime = (Calendar) startTime.clone();
+                endTime.add(Calendar.HOUR, 1);
+                //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
+                endTime.set(Calendar.MONTH, newMonth );
+                WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
+                event.setColor(Color.CYAN);
+                eventsYM.add(event);
+
+                Calendar startTime2 = Calendar.getInstance();
+                startTime2.set(Calendar.HOUR_OF_DAY, 8);
+                startTime2.set(Calendar.MINUTE, 0);
+                startTime2.set(Calendar.MONTH, newMonth );
+                startTime2.set(Calendar.YEAR, newYear);
+                Calendar endTime2 = (Calendar) startTime2.clone();
+                endTime2.add(Calendar.HOUR, 1);
+                //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
+                endTime2.set(Calendar.MONTH, newMonth );
+                WeekViewEvent event2 = new WeekViewEvent(1, "disponible", startTime2, endTime2);
+                event.setColor(Color.CYAN);
+                eventsYM.add(event2);
                 Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
                 return eventsYM;
             }
@@ -118,6 +130,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                 horario.setmId(beneficiario.getIdBeneficiario());
                 myRef = database.getReference(PATH_HORARIO_DISPONIBLE+myRef.push().getKey());
                 myRef.setValue(horario);
+                newEvent = horario.toWeekViewEvent();
                 mWeekView.notifyDatasetChanged();
             }
         }
