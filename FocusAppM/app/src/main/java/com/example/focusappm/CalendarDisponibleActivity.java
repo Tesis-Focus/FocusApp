@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -62,43 +63,18 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                 List<WeekViewEvent> eventsYM = new ArrayList<>();
                 eventsYM.clear();
                 for(Horario horario : horarios){
-                    Calendar startTime = Calendar.getInstance();
-                    startTime.set(Calendar.HOUR_OF_DAY,horario.getmStartTime().getHours());
-                    startTime.set(Calendar.MINUTE, horario.getmStartTime().getMinutes());
-                    newMonth = horario.getmStartTime().getMonth();
-                    startTime.set(Calendar.MONTH,newMonth);
-                    newYear = horario.getmStartTime().getYear();
-                    startTime.set(Calendar.YEAR,newYear);
-                    startTime.set(Calendar.DAY_OF_MONTH, horario.getmStartTime().getDate());
-
-                    Log.i("cal", "HOUR OF DAY start "+ horario.getmStartTime().getHours());
-                    Log.i("cal", "MINUTE start "+ horario.getmStartTime().getMinutes());
-                    Log.i("cal", "MONTH start "+ newMonth);
-                    Log.i("cal", "DAY OF MONTH start "+ horario.getmStartTime().getDate());
-                    Log.i("cal", "YEAR start "+ newYear);
-
-                    Calendar endTime = (Calendar) startTime.clone();
-                    endTime.set(Calendar.HOUR_OF_DAY, horario.getmEndTime().getHours());
-                    endTime.set(Calendar.MINUTE, horario.getmEndTime().getMinutes());
-
-                    Log.i("cal", "HOUR OF DAY end "+ horario.getmEndTime().getHours());
-                    Log.i("cal", "MINUTE end "+ horario.getmEndTime().getMinutes());
-                    Log.i("cal", "MONTH end "+ horario.getmEndTime().getMonth());
-                    Log.i("cal", "DAY OF MONTH end "+ horario.getmEndTime().getDate());
-                    Log.i("cal", "YEAR end "+ horario.getmEndTime().getYear());
-
-                    WeekViewEvent event = new WeekViewEvent(1,horario.getmName(),startTime,endTime);
-                    event.setColor(Color.CYAN);
-                    eventsYM.add(event);
+                    if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth)
+                        eventsYM.add(horario.toWeekViewEvent());
                 }
 
                 Calendar startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY, 3);
+                startTime.set(Calendar.HOUR_OF_DAY, 13);
                 startTime.set(Calendar.MINUTE, 0);
                 startTime.set(Calendar.MONTH, newMonth );
                 startTime.set(Calendar.YEAR, newYear);
                 Calendar endTime = (Calendar) startTime.clone();
                 endTime.add(Calendar.HOUR, 1);
+                //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
                 endTime.set(Calendar.MONTH, newMonth );
                 WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
                 event.setColor(Color.CYAN);

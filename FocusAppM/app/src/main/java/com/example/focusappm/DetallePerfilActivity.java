@@ -74,6 +74,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
                         eventsHorario.add(horario);
                     }
                 }
+                Log.i("cal", "tamanio de eventos llega "+eventsHorario.size());
                 Intent i = new Intent(getBaseContext(),CalendarDisponibleActivity.class);
                 i.putExtra("beneficiario",beneficiario);
                 i.putExtra("eventos",eventsHorario);
