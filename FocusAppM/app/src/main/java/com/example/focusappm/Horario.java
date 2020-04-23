@@ -1,92 +1,89 @@
 package com.example.focusappm;
 
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Horario {
-    private String nombre;
-    private int diaMes;
-    private int horaInicio;
-    private int minutoInicio;
-    private int AM_PM_Inicio;
-    private int horaFin;
-    private int minutoFin;
-    private int AM_PM_Fin;
-    private String idUsaurio;
+public class Horario implements Serializable {
 
-    public Horario() {
+    private String mId;
+    private Date mStartTime;
+    private Date mEndTime;
+    private String mName;
+    private String mLocation;
+    private int mColor;
 
+    public String getmId() {
+        return mId;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Date getmStartTime() {
+        return mStartTime;
     }
 
-    public int getDiaMes() {
-        return diaMes;
+    public void setmStartTime(Date mStartTime) {
+        this.mStartTime = mStartTime;
     }
 
-    public void setDiaMes(int diaMes) {
-        this.diaMes = diaMes;
+    public Date getmEndTime() {
+        return mEndTime;
     }
 
-    public int getHoraInicio() {
-        return horaInicio;
+    public void setmEndTime(Date mEndTime) {
+        this.mEndTime = mEndTime;
     }
 
-    public void setHoraInicio(int horaInicio) {
-        this.horaInicio = horaInicio;
+    public String getmName() {
+        return mName;
     }
 
-    public int getMinutoInicio() {
-        return minutoInicio;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public void setMinutoInicio(int minutoInicio) {
-        this.minutoInicio = minutoInicio;
+    public String getmLocation() {
+        return mLocation;
     }
 
-    public int getAM_PM_Inicio() {
-        return AM_PM_Inicio;
+    public void setmLocation(String mLocation) {
+        this.mLocation = mLocation;
     }
 
-    public void setAM_PM_Inicio(int AM_PM_Inicio) {
-        this.AM_PM_Inicio = AM_PM_Inicio;
+    public int getmColor() {
+        return mColor;
     }
 
-    public int getHoraFin() {
-        return horaFin;
+    public void setmColor(int mColor) {
+        this.mColor = mColor;
     }
 
-    public void setHoraFin(int horaFin) {
-        this.horaFin = horaFin;
+    @Override
+    public String toString() {
+        return "Horario{" +
+                "mId='" + mId + '\'' +
+                ", mStartTime=" + mStartTime.toString() +
+                ", mEndTime=" + mEndTime.toString() +
+                ", mName='" + mName + '\'' +
+                '}';
     }
 
-    public int getMinutoFin() {
-        return minutoFin;
-    }
-
-    public void setMinutoFin(int minutoFin) {
-        this.minutoFin = minutoFin;
-    }
-
-    public int getAM_PM_Fin() {
-        return AM_PM_Fin;
-    }
-
-    public void setAM_PM_Fin(int AM_PM_Fin) {
-        this.AM_PM_Fin = AM_PM_Fin;
-    }
-
-    public String getIdUsaurio() {
-        return idUsaurio;
-    }
-
-    public void setIdUsaurio(String idUsaurio) {
-        this.idUsaurio = idUsaurio;
+    public WeekViewEvent toWeekViewEvent(){
+        WeekViewEvent event = new WeekViewEvent();
+        event.setName(this.getmName());
+        event.setColor(this.getmColor());
+        Calendar startTime = Calendar.getInstance();
+        Calendar endTime = Calendar.getInstance();
+        startTime.set(mStartTime.getYear(),mStartTime.getMonth(),mStartTime.getDate(),mStartTime.getHours(),mStartTime.getMinutes());
+        endTime.set(mEndTime.getYear(),mEndTime.getMonth(),mEndTime.getDate(),mEndTime.getHours(),mEndTime.getMinutes());
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setId(1);
+        return event;
     }
 }
