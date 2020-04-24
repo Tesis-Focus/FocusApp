@@ -83,17 +83,17 @@ public class Horario implements Serializable {
         startTime.set(Calendar.HOUR_OF_DAY, mStartTime.getHours());
         startTime.set(Calendar.DAY_OF_MONTH,mStartTime.getDate());
         startTime.set(Calendar.MINUTE, mStartTime.getMinutes());
-        startTime.set(Calendar.MONTH,mStartTime.getMonth());
+        startTime.set(Calendar.MONTH,mStartTime.getMonth()-1);
         startTime.set(Calendar.YEAR,mStartTime.getYear());
 
         Calendar endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY, mEndTime.getHours());
         endTime.set(Calendar.DAY_OF_MONTH,mEndTime.getDate());
         endTime.set(Calendar.MINUTE, mEndTime.getMinutes());
-        endTime.set(Calendar.MONTH,mEndTime.getMonth());
+        endTime.set(Calendar.MONTH,mEndTime.getMonth()-1);
         endTime.set(Calendar.YEAR,mEndTime.getYear());
 
-        WeekViewEvent event = new WeekViewEvent(1,"evento",startTime,endTime);
+        WeekViewEvent event = new WeekViewEvent(1,getmName(),startTime,endTime);
         event.setColor(Color.LTGRAY);
 
         //Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));

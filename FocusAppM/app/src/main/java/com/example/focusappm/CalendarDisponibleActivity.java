@@ -64,7 +64,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
 
                 List<WeekViewEvent> eventsYM = new ArrayList<>();
                 List<Horario> horarios = (ArrayList) getIntent().getSerializableExtra("eventos");
-                if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH)== newMonth){
+                if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH) == newMonth){
                     eventsYM.add(newEvent);
                 }
                 else{
@@ -80,18 +80,6 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-                Calendar startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY, 8);
-                startTime.set(Calendar.MINUTE, 15);
-                startTime.set(Calendar.MONTH, newMonth );
-                startTime.set(Calendar.YEAR, newYear);
-                Calendar endTime = (Calendar) startTime.clone();
-                endTime.add(Calendar.HOUR, 1);
-                endTime.set(Calendar.MONTH, newMonth );
-                WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
-                event.setColor(Color.LTGRAY);
-                eventsYM.add(event);
 
                 Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
                 return eventsYM;
