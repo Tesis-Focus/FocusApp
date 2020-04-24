@@ -34,6 +34,9 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     int AM_PM_Fin;
     int diaDeMes;
 
+    boolean isPmStart;
+    boolean isPmEnd;
+
     ImageButton btnHoraInicio;
     ImageButton btnHoraFin;
     ImageButton btnFecha;
@@ -70,19 +73,22 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
-                        minutoInicio = minute;
                         horaInicio = hourOfDay;
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Inicio = 0;
+                            isPmStart = false;
 
                         } else {
                             hourOfDay= hourOfDay-12;
                             AM_PM = "PM";
                             AM_PM_Inicio = 1;
+                            isPmStart = true;
                         }
 
                         etHoraInicio.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        minutoInicio = minute;
+
                     }
                 }, horaInicio, minutoInicio,false);
                 timePickerDialog.show();
@@ -100,17 +106,19 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
-                        minutoFin = minute;
                         horaFin = hourOfDay;
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Fin = 0;
+                            isPmEnd = false;
                         } else {
                             hourOfDay= hourOfDay-12;
                             AM_PM = "PM";
                             AM_PM_Fin = 1;
+                            isPmEnd =true;
                         }
                         etHoraFin.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        minutoFin = minute;
 
                     }
                 }, horaFin, minutoFin,false);
@@ -158,10 +166,16 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                startTime.setYear(startTime.getYear()+1900);
+                startTime.setMonth(startTime.getMonth()+1);
                 startTime.setHours(horaInicio);
                 startTime.setMinutes(minutoInicio);
+
+                endTime.setYear(endTime.getYear()+1900);
+                endTime.setMonth(endTime.getMonth()+1);
                 endTime.setHours(horaFin);
                 endTime.setMinutes(minutoFin);
+
 
                 Horario horario = new Horario();
                 horario.setmName("Disponible");

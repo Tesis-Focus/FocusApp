@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,6 +36,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
     Usuario beneficiario;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    WeekViewEvent newEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         myRef = database.getReference();
         agregarHorarioDisponible = findViewById(R.id.agregarHorarioDisponible);
         mWeekView = findViewById(R.id.weekViewDispo);
+        newEvent = null;
 
 
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
@@ -58,9 +61,34 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-                List<WeekViewEvent> events = getEvents(newYear,newMonth);
-                Log.i("cal", "onMonthChange: tam" + events.size());
-                return events;
+
+                List<WeekViewEvent> eventsYM = new ArrayList<>();
+                List<Horario> horarios = (ArrayList) getIntent().getSerializableExtra("eventos");
+                if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH)== newMonth){
+                    eventsYM.add(newEvent);
+                }
+                else{
+                    eventsYM.clear();
+                    for(Horario horario : horarios){
+                        if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth)
+                            eventsYM.add(horario.toWeekViewEvent());
+                    }
+
+                    /*Calendar startTime = Calendar.getInstance();
+                    startTime.set(Calendar.HOUR_OF_DAY, 13);
+                    startTime.set(Calendar.MINUTE, 0);
+                    startTime.set(Calendar.MONTH, newMonth );
+                    startTime.set(Calendar.YEAR, newYear);
+                    Calendar endTime = (Calendar) startTime.clone();
+                    endTime.add(Calendar.HOUR, 1);
+                    //Log.i("cal", "onMonthChange: "+endTime.get(Calendar.HOUR_OF_DAY));
+                    endTime.set(Calendar.MONTH, newMonth );
+                    WeekViewEvent event = new WeekViewEvent(1, "disponible", startTime, endTime);
+                    event.setColor(Color.CYAN);
+                    eventsYM.add(event);*/
+                }
+                Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
+                return eventsYM;
             }
         });
 
@@ -81,33 +109,6 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
 
     }
 
-    private List<WeekViewEvent> getEvents( int newYear, int newMonth) {
-        ArrayList eventsHorario = new ArrayList<>();
-        ArrayList<Horario> horarioArrayList = new ArrayList<>();
-        myRef = database.getReference(PATH_HORARIO_DISPONIBLE);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for ( DataSnapshot sd : dataSnapshot.getChildren()){
-                    Horario horario = sd.getValue(Horario.class);
-                    int anio = horario.getmStartTime().getYear()+1900;
-                    int mes = horario.getmStartTime().getMonth()+1;
-                    if( anio == newYear && newMonth == mes && beneficiario.getIdBeneficiario().equals(horario.getmId())){
-                        WeekViewEvent event = horario.toWeekViewEvent();
-                        eventsHorario.add(event);
-                    }
-                }
-                Log.i("cal", "onDataChange 2: "+eventsHorario.size());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        Log.i("cal", "getEvents: " +eventsHorario.size());
-        return eventsHorario;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -117,6 +118,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                 horario.setmId(beneficiario.getIdBeneficiario());
                 myRef = database.getReference(PATH_HORARIO_DISPONIBLE+myRef.push().getKey());
                 myRef.setValue(horario);
+                mWeekView.notifyDatasetChanged();
             }
         }
     }

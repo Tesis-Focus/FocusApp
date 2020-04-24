@@ -1,5 +1,8 @@
 package com.example.focusappm;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.io.Serializable;
@@ -14,6 +17,7 @@ public class Horario implements Serializable {
     private String mName;
     private String mLocation;
     private int mColor;
+
 
     public String getmId() {
         return mId;
@@ -74,16 +78,22 @@ public class Horario implements Serializable {
     }
 
     public WeekViewEvent toWeekViewEvent(){
-        WeekViewEvent event = new WeekViewEvent();
-        event.setName(this.getmName());
-        event.setColor(this.getmColor());
+
         Calendar startTime = Calendar.getInstance();
-        Calendar endTime = Calendar.getInstance();
-        startTime.set(mStartTime.getYear(),mStartTime.getMonth(),mStartTime.getDate(),mStartTime.getHours(),mStartTime.getMinutes());
-        endTime.set(mEndTime.getYear(),mEndTime.getMonth(),mEndTime.getDate(),mEndTime.getHours(),mEndTime.getMinutes());
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
-        event.setId(1);
+        startTime.set(Calendar.HOUR_OF_DAY, mStartTime.getHours());
+        startTime.set(Calendar.YEAR,mStartTime.getDate());
+        startTime.set(Calendar.MINUTE, mStartTime.getMinutes());
+        startTime.set(Calendar.MONTH,mStartTime.getMonth());
+        startTime.set(Calendar.YEAR,mStartTime.getYear());
+
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.set(Calendar.HOUR_OF_DAY, mEndTime.getHours());
+        endTime.set(Calendar.MINUTE, mEndTime.getMinutes());
+
+        WeekViewEvent event = new WeekViewEvent(1,mName,startTime,endTime);
+        event.setColor(Color.CYAN);
+        Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));
+        Log.i("cal", "toWeekViewEvent: End anio: " + endTime.get(Calendar.YEAR)+" mes: "+endTime.get(Calendar.MONTH)+" dia del mes : " + endTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+endTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+endTime.get(Calendar.MINUTE));
         return event;
     }
 }
