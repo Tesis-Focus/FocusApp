@@ -30,7 +30,7 @@ import java.util.List;
 public class CalendarDisponibleActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
-    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible2/";
+    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
     ImageButton agregarHorarioDisponible;
     WeekView mWeekView;
     Usuario beneficiario;

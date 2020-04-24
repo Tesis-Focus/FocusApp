@@ -31,7 +31,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
     Button btnAgregarHorDis;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible2/";
+    public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
