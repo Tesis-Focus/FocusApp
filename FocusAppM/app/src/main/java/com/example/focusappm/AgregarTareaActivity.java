@@ -219,11 +219,17 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setIdTarea(myRef.getKey());
                 myRef.setValue(tarea);
 
+                lanzarPlaneacion(tarea);
+
                 Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });
+    }
+
+    private void lanzarPlaneacion(Tarea tarea) {
+        UtilsFocus.calcularHorarioPorTarea(tarea);
     }
 
 

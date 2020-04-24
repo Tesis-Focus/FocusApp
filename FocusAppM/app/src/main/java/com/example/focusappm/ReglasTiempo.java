@@ -213,6 +213,12 @@ public class ReglasTiempo {
         reglasPrioridad.register(prioridadComplejidadAlto);
 
         rulesEngine.fire(reglasPrioridad,facts);
+
+        MVELRule prioridadMotivacionTrue = new MVELRule()
+                .name("regla prioridad por motivacion verdadera")
+                .priority(1)
+                .when("!tarea.isEstaMotivado()")
+                .then("tarea.setPrioridad(tarea.getPrioridad()+3);");
         Log.i("test", "asignarPrioridad: 3-"+tarea.getPrioridad());
 
         return tarea;

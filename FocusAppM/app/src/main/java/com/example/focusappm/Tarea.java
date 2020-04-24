@@ -19,10 +19,19 @@ public class Tarea extends WeekViewEvent {
     private String horaEntrega;
     private String idActividad;
     private Double tiempoPromedio;
+    private boolean estaMotivado;
     private int prioridad;
 
     public Tarea(){
 
+    }
+
+    public boolean isEstaMotivado() {
+        return estaMotivado;
+    }
+
+    public void setEstaMotivado(boolean estaMotivado) {
+        this.estaMotivado = estaMotivado;
     }
 
     public int getPrioridad() {
