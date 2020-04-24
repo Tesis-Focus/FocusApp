@@ -81,19 +81,23 @@ public class Horario implements Serializable {
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, mStartTime.getHours());
-        startTime.set(Calendar.YEAR,mStartTime.getDate());
+        startTime.set(Calendar.DAY_OF_MONTH,mStartTime.getDate());
         startTime.set(Calendar.MINUTE, mStartTime.getMinutes());
-        startTime.set(Calendar.MONTH,mStartTime.getMonth());
+        startTime.set(Calendar.MONTH,mStartTime.getMonth()-1);
         startTime.set(Calendar.YEAR,mStartTime.getYear());
 
-        Calendar endTime = (Calendar) startTime.clone();
+        Calendar endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY, mEndTime.getHours());
+        endTime.set(Calendar.DAY_OF_MONTH,mEndTime.getDate());
         endTime.set(Calendar.MINUTE, mEndTime.getMinutes());
+        endTime.set(Calendar.MONTH,mEndTime.getMonth()-1);
+        endTime.set(Calendar.YEAR,mEndTime.getYear());
 
-        WeekViewEvent event = new WeekViewEvent(1,mName,startTime,endTime);
-        event.setColor(Color.CYAN);
-        Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));
-        Log.i("cal", "toWeekViewEvent: End anio: " + endTime.get(Calendar.YEAR)+" mes: "+endTime.get(Calendar.MONTH)+" dia del mes : " + endTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+endTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+endTime.get(Calendar.MINUTE));
+        WeekViewEvent event = new WeekViewEvent(1,getmName(),startTime,endTime);
+        event.setColor(Color.LTGRAY);
+
+        //Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));
+        //Log.i("cal", "toWeekViewEvent: End anio: " + endTime.get(Calendar.YEAR)+" mes: "+endTime.get(Calendar.MONTH)+" dia del mes : " + endTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+endTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+endTime.get(Calendar.MINUTE));
         return event;
     }
 }
