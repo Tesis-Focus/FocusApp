@@ -72,6 +72,8 @@ public class UtilsFocus {
     static boolean validarFecha(Horario horario, Date fechaEntrega, Date fechaAsignacion){
         Log.i("Planeacion", "FechaEntrega " + fechaEntrega);
         Log.i("Planeacion", "fechaAsignacion " + fechaAsignacion);
+        Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
+        Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
         if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
             return true;
         }
