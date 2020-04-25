@@ -71,8 +71,10 @@ public class UtilsFocus {
         Log.i("Planeacion", "fechaAsignacion " + fechaAsignacion);
 
         horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
+        horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
         horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
-        
+        horario.getmEndTime().setDate(horario.getmEndTime().getYear()-1900);
+
         Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
         Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
         if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
