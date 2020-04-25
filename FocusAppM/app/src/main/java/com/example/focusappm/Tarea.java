@@ -12,11 +12,10 @@ public class Tarea extends WeekViewEvent {
     private String complejidad;
     private String area;
     private String clasificacion;
-    private String fechaAsignacion;
-    private String fechaInicio;
-    private String fechaFinalizacion;
-    private String fechaEntrega;
-    private String horaEntrega;
+    private Date fechaAsignacion;
+    private Date fechaInicio;
+    private Date fechaFinalizacion;
+    private Date fechaEntrega;
     private String idActividad;
     private Double tiempoPromedio;
     private boolean estaMotivado;
@@ -98,44 +97,36 @@ public class Tarea extends WeekViewEvent {
         this.clasificacion = clasificacion;
     }
 
-    public String getFechaAsignacion() {
+    public Date getFechaAsignacion() {
         return fechaAsignacion;
     }
 
-    public void setFechaAsignacion(String fechaAsignacion) {
+    public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFinalizacion() {
+    public Date getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(String fechaFinalizacion) {
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public String getFechaEntrega() {
+    public Date getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
+    public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
-    }
-
-    public String getHoraEntrega() {
-        return horaEntrega;
-    }
-
-    public void setHoraEntrega(String horaEntrega) {
-        this.horaEntrega = horaEntrega;
     }
 
     public String getIdActividad() {

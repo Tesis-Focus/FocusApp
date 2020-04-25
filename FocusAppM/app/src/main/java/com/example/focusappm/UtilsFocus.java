@@ -34,12 +34,8 @@ public class UtilsFocus {
         Date fechaEntrega = null, fechaAsignacion = null;
         long diasParaEntrega;
 
-        try {
-            fechaEntrega = new SimpleDateFormat("dd/MM/yyyy").parse(tarea.getFechaEntrega());
-            fechaAsignacion = new SimpleDateFormat("dd/MM/yyyy").parse(tarea.getFechaAsignacion());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        fechaEntrega = tarea.getFechaEntrega();
+        fechaAsignacion = tarea.getFechaAsignacion();
 
         diasParaEntrega = Math.abs(fechaEntrega.getTime() - fechaAsignacion.getTime());
         diasParaEntrega = TimeUnit.DAYS.convert(diasParaEntrega,TimeUnit.MILLISECONDS);
@@ -59,7 +55,7 @@ public class UtilsFocus {
 
                 }
                 Log.i("Planeacion", "tam " + horarios.size());
-                
+
             }
 
             @Override

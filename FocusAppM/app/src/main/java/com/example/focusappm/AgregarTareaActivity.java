@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -192,9 +193,18 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setTema(txtTemaTarea.getText().toString());
                 tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
                 tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
-                tarea.setFechaEntrega(txtFechaEntrega.getText().toString());
+                String hora= txtHoraEntrega.getText().toString();
+                String mHora = hora.split(":")[0];
+                String mMinuto = hora.split(":")[1];
+
+                try {
+                    tarea.setFechaEntrega(new SimpleDateFormat("dd/MM/yyyy").parse(txtFechaEntrega.getText().toString()));
+                    tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
+                    tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 tarea.setArea(sprArea.getSelectedItem().toString());
-                tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                 String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
 
@@ -207,10 +217,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
-                tarea.setFechaInicio("00/00/0000");
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                tarea.setFechaAsignacion(dateFormat.format(fechaAsig));  //El dia que ingresa la tarea
-                tarea.setFechaFinalizacion("00/00/0000");
+                tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
 
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
