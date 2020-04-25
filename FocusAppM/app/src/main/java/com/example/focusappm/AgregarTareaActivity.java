@@ -71,6 +71,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
     public static final String PATH_TAREAS = "tareas/";
     public static final String PATH_ACTIVIDADES = "actividades/";
 
+    String idBeneficiario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +113,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 nombre_Actividades.clear();
                 desempenoActividades.clear();
                 id_Actividades.clear();
-                String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrTar.getSelectedItemPosition()).getIdBeneficiario();
+                idBeneficiario = beneficiarios.get(spnBeneficiariosAgrTar.getSelectedItemPosition()).getIdBeneficiario();
                 Log.i("TAG", "idBeneficiario: " + idBeneficiario);
 
                 spinnerActiv(idBeneficiario);
@@ -217,7 +219,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setIdTarea(myRef.getKey());
                 myRef.setValue(tarea);
 
-                lanzarPlaneacion(tarea);
+                lanzarPlaneacion(tarea, idBeneficiario);
 
                 Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -226,8 +228,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         });
     }
 
-    private void lanzarPlaneacion(Tarea tarea) {
-        UtilsFocus.calcularHorarioPorTarea(tarea);
+    private void lanzarPlaneacion(Tarea tarea, String idBeneficiario) {
+        UtilsFocus.calcularHorarioPorTarea(tarea,idBeneficiario);
     }
 
 
