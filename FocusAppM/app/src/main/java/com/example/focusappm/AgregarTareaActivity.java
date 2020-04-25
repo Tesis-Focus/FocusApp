@@ -33,9 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AgregarTareaActivity extends AppCompatActivity {
 
@@ -183,7 +181,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReglasTiempo reglas = new ReglasTiempo();
+                ReglasDecision reglas = new ReglasDecision();
                 Tarea tarea = new Tarea();
                 Tarea nueva = new Tarea();
                 Date fechaAsig = new Date();

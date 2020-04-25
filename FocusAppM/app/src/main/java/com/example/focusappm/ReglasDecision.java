@@ -8,9 +8,9 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 
-public class ReglasTiempo {
+public class ReglasDecision {
 
-    public ReglasTiempo() {
+    public ReglasDecision() {
     }
 
 
