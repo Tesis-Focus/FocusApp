@@ -34,6 +34,9 @@ public class UtilsFocus {
         Date fechaEntrega = null, fechaAsignacion = null;
         long diasParaEntrega;
 
+        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth()-1);
+        tarea.getFechaAsignacion().setMonth(tarea.getFechaAsignacion().getMonth()-1);
+
         fechaEntrega = tarea.getFechaEntrega();
         fechaAsignacion = tarea.getFechaAsignacion();
 
