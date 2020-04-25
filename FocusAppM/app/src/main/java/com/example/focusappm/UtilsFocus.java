@@ -73,7 +73,7 @@ public class UtilsFocus {
         horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
         horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
         horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
-        horario.getmEndTime().setDate(horario.getmEndTime().getYear()-1900);
+        horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
 
         Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
         Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
