@@ -70,7 +70,7 @@ public class ReglasDecision {
 
         Log.i("testRule", "testRule1: " + tarea.getTiempoPromedio());
 
-        Double porcentaje = (tarea.getTiempoPromedio() * 15) / 100;
+        float porcentaje = (tarea.getTiempoPromedio() * 15) / 100;
 
         facts.put("tiempoPorcentaje", porcentaje);
 
