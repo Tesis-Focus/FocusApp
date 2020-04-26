@@ -1,6 +1,7 @@
 package com.example.focusappm;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Tarea extends WeekViewEvent implements Comparable{
     private float tiempoPromedio;
     private boolean estaMotivado;
     private int prioridad;
-    private List<Horario> horarios;
+    private List<Horario> horarios = new ArrayList<Horario>();
 
     public Tarea(){
 
