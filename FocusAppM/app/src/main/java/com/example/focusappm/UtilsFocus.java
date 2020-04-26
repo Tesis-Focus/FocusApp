@@ -58,7 +58,6 @@ public class UtilsFocus {
 
                 }
                 Log.i("Planeacion", "tam " + horarios.size());
-                float cantDias;
 
                 planeacion(idBeneficiario, finalDiasParaEntrega, horarios);
 
@@ -72,23 +71,6 @@ public class UtilsFocus {
         });
         return tarea;
 
-    }
-
-    static boolean validarFecha(Horario horario, Date fechaEntrega, Date fechaAsignacion){
-        Log.i("Planeacion", "FechaEntrega " + fechaEntrega);
-        Log.i("Planeacion", "fechaAsignacion " + fechaAsignacion);
-
-        horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
-        horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
-        horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
-        horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
-
-        Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
-        Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
-        if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
-            return true;
-        }
-        return false;
     }
 
     static void planeacion(String idBeneficiario, float finalDiasParaEntrega, List<Horario> horariosDisponibles){
@@ -145,6 +127,23 @@ public class UtilsFocus {
         Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
 
         return tarea;
+    }
+
+    static boolean validarFecha(Horario horario, Date fechaEntrega, Date fechaAsignacion){
+        Log.i("Planeacion", "FechaEntrega " + fechaEntrega);
+        Log.i("Planeacion", "fechaAsignacion " + fechaAsignacion);
+
+        horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
+        horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
+        horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
+        horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
+
+        Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
+        Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
+        if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
+            return true;
+        }
+        return false;
     }
 
 }
