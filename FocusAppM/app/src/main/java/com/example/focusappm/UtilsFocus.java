@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static android.content.ContentValues.TAG;
+
 public class UtilsFocus {
 
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
@@ -59,6 +61,7 @@ public class UtilsFocus {
                 }
                 Log.i("Planeacion", "tam " + horarios.size());
 
+                //sortHorarioDisponibles
                 planeacion(idBeneficiario, finalDiasParaEntrega, horarios);
 
 
@@ -90,20 +93,35 @@ public class UtilsFocus {
                 }
 
                 Collections.sort(tareas);
+                Log.i("Planeacion", "Tamano tareas"+tareas.size());
                 for(Tarea tarea: tareas){
                     Log.i("Planeacion", "tareasProrizadas " + tarea.getPrioridad());
 
-                    float cantDias = tarea.getTiempoPromedio() / 60;
-                    if(cantDias <= finalDiasParaEntrega){
-                        for(int i=0; i<horariosDisponibles.size(); i++){
-                            if (tarea.getTiempoPromedio() > 60 ) {
-                                tarea = asignarTiempos(horariosDisponibles,tarea,i,60);
-                            }else {
-                                tarea = asignarTiempos(horariosDisponibles,tarea,i, (int) tarea.getTiempoPromedio());
-                        }
-                    }
-                    } else {
+                    int diasFaltantes = (int)Math.ceil(tarea.getTiempoPromedio() / 60);
 
+                    if(diasFaltantes <= finalDiasParaEntrega){
+
+                        for(int i=0; i<horariosDisponibles.size() && diasFaltantes>0; i++){
+                            if (tarea.getTiempoPromedio() > 60 ) {
+
+                                tarea = asignarTiempos(horariosDisponibles,tarea,i,60);
+                                diasFaltantes -= 1;
+                                //asignar franja de 60 m
+                                //reducir horario disponible
+                                //persistir
+
+
+                            }else{
+                                diasFaltantes -=1 ;
+                                //asignar tiempo total
+                                //reducir horario disponible
+
+                                tarea = asignarTiempos(horariosDisponibles,tarea,i, (int) tarea.getTiempoPromedio());
+                            }
+                        }
+
+                    }else{
+                        Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar.");
                     }
                     Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
                 }

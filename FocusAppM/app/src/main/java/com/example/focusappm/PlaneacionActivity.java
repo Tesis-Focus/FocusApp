@@ -33,9 +33,6 @@ public class PlaneacionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planeacion);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar_disponible);
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         mWeekView = findViewById(R.id.weekViewDispo);
