@@ -27,7 +27,7 @@ public class UtilsFocus {
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
     private final static String PATH_TAREAS = "tareas/";
 
-    public static void calcularHorarioPorTarea(Tarea tarea, String idBeneficiario){
+    public static Tarea calcularHorarioPorTarea(Tarea tarea, String idBeneficiario){
 
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
@@ -70,6 +70,7 @@ public class UtilsFocus {
 
             }
         });
+        return tarea;
 
     }
 
