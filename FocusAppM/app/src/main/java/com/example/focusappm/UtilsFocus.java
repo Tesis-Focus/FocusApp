@@ -115,9 +115,9 @@ public class UtilsFocus {
                     if(cantDias <= finalDiasParaEntrega){
                         for(int i=0; i<horariosDisponibles.size(); i++){
                             if (tarea.getTiempoPromedio() > 60 ) {
-                                asignarTiempos(horariosDisponibles,tarea,i,60);
+                                tarea = asignarTiempos(horariosDisponibles,tarea,i,60);
                             }else {
-                                asignarTiempos(horariosDisponibles,tarea,i, (int) tarea.getTiempoPromedio());
+                                tarea = asignarTiempos(horariosDisponibles,tarea,i, (int) tarea.getTiempoPromedio());
                         }
                     }
                     } else {
@@ -138,7 +138,7 @@ public class UtilsFocus {
         });
     }
 
-    static void asignarTiempos(List<Horario> horariosDisponibles, Tarea tarea, int i, int tiempo){
+    static Tarea asignarTiempos(List<Horario> horariosDisponibles, Tarea tarea, int i, int tiempo){
         Horario horario = horariosDisponibles.get(i);
         horario.getmEndTime().setMinutes(horario.getmStartTime().getMinutes() + tiempo);
         tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempo);
@@ -146,6 +146,8 @@ public class UtilsFocus {
         tarea.getHorarios().add(horario);
 
         Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
+
+        return tarea;
     }
 
 }
