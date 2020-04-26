@@ -239,6 +239,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
     private void lanzarPlaneacion(Tarea tarea, String idBeneficiario) {
         UtilsFocus.calcularHorarioPorTarea(tarea,idBeneficiario);
+        Log.i("Planeacion", "AgregarTarea " + tarea.getHorarios().size());
     }
 
 
