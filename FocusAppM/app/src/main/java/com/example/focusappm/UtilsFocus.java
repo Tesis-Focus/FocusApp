@@ -109,7 +109,10 @@ public class UtilsFocus {
                 }
 
                 Collections.sort(tareas);
-                Log.i("Planeacion", "tareas " + tareas.toString());
+                for(Tarea tarea: tareas){
+                    Log.i("Planeacion", "tareas " + tarea.getPrioridad());
+                }
+
 
             }
 
