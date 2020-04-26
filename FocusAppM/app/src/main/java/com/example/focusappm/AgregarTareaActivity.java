@@ -221,6 +221,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
                 tarea.setIdBeneficiario(idBeneficiario);
 
+                List<Horario> horarios = new ArrayList<Horario>();
+                tarea.setHorarios(horarios);
+
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
                 String key = myRef.push().getKey();

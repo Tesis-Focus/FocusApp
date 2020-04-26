@@ -111,7 +111,6 @@ public class UtilsFocus {
                 for(Tarea tarea: tareas){
                     Log.i("Planeacion", "tareasProrizadas " + tarea.getPrioridad());
 
-
                     float cantDias = tarea.getTiempoPromedio() / 60;
                     if(cantDias <= finalDiasParaEntrega){
                         for(int i=0; i<horariosDisponibles.size(); i++){
@@ -126,10 +125,6 @@ public class UtilsFocus {
                     }
                     Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
                 }
-
-
-
-
             }
 
             @Override
@@ -137,6 +132,7 @@ public class UtilsFocus {
 
             }
         });
+
     }
 
     static Tarea asignarTiempos(List<Horario> horariosDisponibles, Tarea tarea, int i, int tiempo){
