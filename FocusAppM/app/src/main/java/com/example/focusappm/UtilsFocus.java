@@ -64,6 +64,8 @@ public class UtilsFocus {
                     if(cantDias <= finalDiasParaEntrega){
                         planeacion(idBeneficiario);
                     }
+                } else {
+                    planeacion(idBeneficiario);
                 }
 
             }
@@ -107,6 +109,7 @@ public class UtilsFocus {
                         tareas.add(tarea);
                     }
                 }
+
                 for(Tarea tarea: tareas){
                     Log.i("Planeacion", "tareas " + tarea.getPrioridad());
                 }
