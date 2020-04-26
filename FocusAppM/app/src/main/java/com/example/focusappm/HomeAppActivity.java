@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,7 +55,9 @@ public class HomeAppActivity extends AppCompatActivity {
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
     private final static String PATH_USUARIOS = "usuarios/";
+    private final static String PATH_TAREAS = "tareas/";
     ArrayAdapter<String> adapter;
+    String idBeneficiario;
 
 
     @Override
@@ -72,6 +75,7 @@ public class HomeAppActivity extends AppCompatActivity {
         beneficiarios = new ArrayList<>();
         nombresBeneficiarios = new ArrayList<>();
         user = mAuth.getCurrentUser();
+
         setUpView();
         setUpViewPageAdapter();
         cargarPerfilesB();
@@ -109,7 +113,32 @@ public class HomeAppActivity extends AppCompatActivity {
         mostrarActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = dataBase.getReference();
 
+                myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        List<Tarea> tareas = new ArrayList<Tarea>();
+                        ArrayList<Horario> horarios = new ArrayList<Horario>();
+                        idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
+                        for (DataSnapshot ds: dataSnapshot.getChildren()){
+                            Tarea tarea = ds.getValue(Tarea.class);
+                            if(tarea.getIdBeneficiario().equals(idBeneficiario)){
+                                horarios.addAll(tarea.getHorarios());
+                            }
+
+                        }
+                        Intent intent= new Intent(getBaseContext(),PlaneacionActivity.class);
+                        intent.putExtra("eventos", horarios);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
