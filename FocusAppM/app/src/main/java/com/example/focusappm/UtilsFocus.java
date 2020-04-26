@@ -123,8 +123,10 @@ public class UtilsFocus {
                     } else {
 
                     }
-
+                    Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
                 }
+
+
 
 
             }
