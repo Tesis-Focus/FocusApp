@@ -110,9 +110,9 @@ public class Horario implements Serializable, Comparable {
         comparatedStart = horarioCompare.getmStartTime();
 
         if(thisStart.before(comparatedStart))
-            return -1;
-        else
             return 1;
+        else
+            return -1;
 
     }
 }

@@ -143,8 +143,7 @@ public class UtilsFocus {
         tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempo);
         horariosDisponibles.get(i).getmStartTime().setMinutes(horariosDisponibles.get(i).getmStartTime().getMinutes()+tiempo);
         tarea.getHorarios().add(horario);
-
-        Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
+        //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
 
         return tarea;
     }
