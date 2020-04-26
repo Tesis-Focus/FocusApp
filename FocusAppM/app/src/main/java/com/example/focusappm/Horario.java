@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Horario implements Serializable, Comparable {
+public class Horario implements Serializable, Comparable,Cloneable {
 
     private String mId;
     private Date mStartTime;
@@ -114,5 +114,10 @@ public class Horario implements Serializable, Comparable {
         else
             return -1;
 
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

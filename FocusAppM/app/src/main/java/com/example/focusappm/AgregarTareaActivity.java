@@ -221,16 +221,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
                 tarea.setIdBeneficiario(idBeneficiario);
 
-                List<Horario> horarios = new ArrayList<Horario>();
-                Horario horario = new Horario();
-                horario.setmId("ddd");
-                horario.setmColor(899);
-                horario.setmStartTime(new Date());
-                horario.setmEndTime(new Date());
-                horario.setmName("nombreHor");
-                horarios.add(horario);
-                tarea.setHorarios(horarios);
-
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
                 String key = myRef.push().getKey();
@@ -238,18 +228,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setIdTarea(myRef.getKey());
                 myRef.setValue(tarea);
 
-                lanzarPlaneacion(tarea, idBeneficiario);
+                UtilsFocus.planeacion(idBeneficiario);
 
                 Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });
-    }
-
-    private void lanzarPlaneacion(Tarea tarea, String idBeneficiario) {
-        UtilsFocus.calcularHorarioPorTarea(tarea,idBeneficiario);
-        Log.i("Planeacion", "AgregarTarea " + tarea.getHorarios().size());
     }
 
 

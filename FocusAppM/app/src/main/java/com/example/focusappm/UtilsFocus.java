@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,57 +29,11 @@ public class UtilsFocus {
 
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
     private final static String PATH_TAREAS = "tareas/";
-
-    public static Tarea calcularHorarioPorTarea(Tarea tarea, String idBeneficiario){
-
-        FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = dataBase.getReference();
-
-        Date fechaEntrega = null, fechaAsignacion = null;
-        float diasParaEntrega;
-
-        fechaEntrega = tarea.getFechaEntrega();
-        fechaAsignacion = tarea.getFechaAsignacion();
-
-        diasParaEntrega = Math.abs(fechaEntrega.getTime() - fechaAsignacion.getTime());
-        diasParaEntrega = TimeUnit.DAYS.convert((long) diasParaEntrega,TimeUnit.MILLISECONDS);
-        Log.i("Planeacion", "Faltan "+diasParaEntrega+" dias para entregar");
-
-        Date finalFechaEntrega = fechaEntrega;
-        Date finalFechaAsignacion = fechaAsignacion;
-        float finalDiasParaEntrega = diasParaEntrega;
-
-        myRef.child(PATH_HORARIO_DISPONIBLE).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Horario> horarios = new ArrayList<Horario>();
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Horario horario = ds.getValue(Horario.class);
-                    if(horario.getmId().equals(idBeneficiario) && validarFecha(horario, finalFechaEntrega, finalFechaAsignacion)){
-                        horarios.add(horario);
-                    }
-
-                }
-                Log.i("Planeacion", "Lista de horarios disponibles" + horarios.size());
-
-                Collections.sort(horarios);
-                for(Horario h : horarios)
-                    Log.i("Planeacion", "horario start " +h.getmStartTime().toString());
-                planeacion(idBeneficiario, finalDiasParaEntrega, horarios);
+    private final static ArrayList<ArrayList<Horario>> horarioxTarea = new ArrayList<>();
 
 
-            }
+    public static void planeacion(String idBeneficiario){
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return tarea;
-
-    }
-
-    static void planeacion(String idBeneficiario, float finalDiasParaEntrega, List<Horario> horariosDisponibles){
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
 
@@ -86,7 +41,6 @@ public class UtilsFocus {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Tarea> tareas = new ArrayList<Tarea>();
-
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Tarea tarea=ds.getValue(Tarea.class);
                     if(tarea.getIdBeneficiario().equals(idBeneficiario)){
@@ -95,37 +49,13 @@ public class UtilsFocus {
                 }
 
                 Collections.sort(tareas);
-                Log.i("Planeacion", "Tamano tareas"+tareas.size());
+                Log.i("Planeacion", "Tamano tareas "+tareas.size());//BIEN
+
                 for(Tarea tarea: tareas){
-                    Log.i("Planeacion", "tareasProrizadas " + tarea.getPrioridad());
 
-                    int diasFaltantes = (int)Math.ceil(tarea.getTiempoPromedio() / 60);
+                    horarioxTarea.clear();
+                    getHorariosDisponibles( tarea, idBeneficiario);//BIEN
 
-                    if(diasFaltantes <= finalDiasParaEntrega){
-
-                        for(int i=0; i<horariosDisponibles.size() && diasFaltantes>0; i++){
-                            if (tarea.getTiempoPromedio() > 60 ) {
-
-                                tarea = asignarTiempos(horariosDisponibles,tarea,i,60);
-                                diasFaltantes -= 1;
-                                //asignar franja de 60 m
-                                //reducir horario disponible
-                                //persistir
-
-
-                            }else{
-                                diasFaltantes -=1 ;
-                                //asignar tiempo total
-                                //reducir horario disponible
-
-                                tarea = asignarTiempos(horariosDisponibles,tarea,i, (int) tarea.getTiempoPromedio());
-                            }
-                        }
-
-                    }else{
-                        Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar.");
-                    }
-                    Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
                 }
             }
 
@@ -137,32 +67,122 @@ public class UtilsFocus {
 
     }
 
-    static Tarea asignarTiempos(List<Horario> horariosDisponibles, Tarea tarea, int i, int tiempo){
-        Horario horario = horariosDisponibles.get(i);
-        horario.getmEndTime().setMinutes(horario.getmStartTime().getMinutes() + tiempo);
-        tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempo);
-        horariosDisponibles.get(i).getmStartTime().setMinutes(horariosDisponibles.get(i).getmStartTime().getMinutes()+tiempo);
-        tarea.getHorarios().add(horario);
+    private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
+        Horario horarioTarea = null;
+        try {
+            horarioTarea = (Horario)horarioDispo.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        horarioDispo.getmStartTime().setMinutes(horarioDispo.getmStartTime().getMinutes()+tiempoEnMin); //quitar tiempo a horario dispo
+        tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
+        horarioTarea.getmEndTime().setMinutes(horarioTarea.getmStartTime().getMinutes()+tiempoEnMin);//ajustar tiempo de finalizacion del horario de realizacion
+        tarea.getHorarios().add(horarioTarea);
         //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
 
-        return tarea;
+
+    }
+
+    private static void getHorariosDisponibles(Tarea tarea, String idBeneficiario){
+        FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = dataBase.getReference();
+        ArrayList<Horario> horarios = new ArrayList<>();
+        Date fechaEntrega,fechaActual;
+        fechaEntrega = tarea.getFechaEntrega();
+        fechaActual = new Date();
+
+
+        myRef.child(PATH_HORARIO_DISPONIBLE).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                boolean encontro;
+
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    encontro = false;
+                    Horario horario = ds.getValue(Horario.class);
+                    if(horario.getmId().equals(idBeneficiario) && validarFecha(horario, fechaEntrega, fechaActual)){
+                        for(ArrayList<Horario> horarioArrayList : horarioxTarea){
+                            if(horarioArrayList.get(0).getmStartTime().getDate() == horario.getmStartTime().getDate()){
+                                horarioArrayList.add(horario);
+                                encontro = true;
+                                break;
+                            }
+                        }
+                        if(!encontro){
+                            ArrayList<Horario> listaNueva = new ArrayList<>();
+                            listaNueva.add(horario);
+                            horarioxTarea.add(listaNueva);
+                        }
+                    }
+                }
+                Log.i("Planeacion", "Lista de horarios disponibles" + horarioxTarea.size());
+
+                for(ArrayList<Horario> horarioArrayList : horarioxTarea)
+                    Collections.sort(horarioArrayList);
+
+                Date hoy = new Date();
+                float finalDiasParaEntrega = Math.abs(tarea.getFechaEntrega().getTime()-hoy.getTime());
+                finalDiasParaEntrega = TimeUnit.DAYS.convert((long) finalDiasParaEntrega,TimeUnit.MILLISECONDS);
+
+                Log.i("Planeacion", "tarea prioridad " + tarea.getPrioridad());
+
+                int diasxAsignar = (int)Math.ceil(tarea.getTiempoPromedio() / 60);
+
+                if(diasxAsignar <= finalDiasParaEntrega){
+
+                    for(int i=0; i<horarioxTarea.size() && diasxAsignar>0; i++){
+                        if (tarea.getTiempoPromedio() > 60 ) {
+
+                            asignarTiempos(horarioxTarea.get(i).get(0),tarea,60);
+                            diasxAsignar -= 1;
+                            //asignar franja de 60 m
+                            //reducir horario disponible
+                            //persistir
+
+
+                        }else{
+                            diasxAsignar -=1 ;
+                            //asignar tiempo total
+                            //reducir horario disponible
+
+                            asignarTiempos(horarioxTarea.get(i).get(0),tarea, (int) tarea.getTiempoPromedio());
+                        }
+                    }
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = dataBase.getReference();
+                    myRef = database.getReference(PATH_TAREAS+tarea.getIdTarea());
+                    myRef.setValue(tarea);
+
+                }else{
+                    Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar la planeacion, faltan dias D:.");
+                }
+                Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     static boolean validarFecha(Horario horario, Date fechaEntrega, Date fechaAsignacion){
-        Log.i("Planeacion", "FechaEntrega " + fechaEntrega);
-        Log.i("Planeacion", "fechaAsignacion " + fechaAsignacion);
 
         horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
         horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
         horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
         horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
 
-        Log.i("Planeacion", "horarioStartTime " + horario.getmStartTime());
-        Log.i("Planeacion", "horarioEndTime " + horario.getmEndTime());
         if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
             return true;
         }
         return false;
+
     }
 
 }
