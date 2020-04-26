@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Horario implements Serializable {
+public class Horario implements Serializable, Comparable {
 
     private String mId;
     private Date mStartTime;
@@ -99,5 +99,20 @@ public class Horario implements Serializable {
         //Log.i("cal", "toWeekViewEvent: Start anio: " + startTime.get(Calendar.YEAR)+" mes: "+startTime.get(Calendar.MONTH)+" dia del mes : " + startTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+startTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+startTime.get(Calendar.MINUTE));
         //Log.i("cal", "toWeekViewEvent: End anio: " + endTime.get(Calendar.YEAR)+" mes: "+endTime.get(Calendar.MONTH)+" dia del mes : " + endTime.get(Calendar.DAY_OF_MONTH)+" hora del dia "+endTime.get(Calendar.HOUR_OF_DAY)+" minuto: "+endTime.get(Calendar.MINUTE));
         return event;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        Date thisStart, comparatedStart;
+        Horario horarioCompare = (Horario)o;
+        thisStart = this.getmStartTime();
+        comparatedStart = horarioCompare.getmStartTime();
+
+        if(thisStart.before(comparatedStart))
+            return -1;
+        else
+            return 1;
+
     }
 }

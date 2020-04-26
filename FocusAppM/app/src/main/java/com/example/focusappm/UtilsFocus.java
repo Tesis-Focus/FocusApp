@@ -59,9 +59,11 @@ public class UtilsFocus {
                     }
 
                 }
-                Log.i("Planeacion", "tam " + horarios.size());
+                Log.i("Planeacion", "Lista de horarios disponibles" + horarios.size());
 
-                //sortHorarioDisponibles
+                Collections.sort(horarios);
+                for(Horario h : horarios)
+                    Log.i("Planeacion", "horario start " +h.getmStartTime().toString());
                 planeacion(idBeneficiario, finalDiasParaEntrega, horarios);
 
 
