@@ -3,7 +3,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Date;
 
-public class Tarea extends WeekViewEvent {
+public class Tarea extends WeekViewEvent implements Comparable{
 
     private String idTarea;
     private String nombre;
@@ -17,7 +17,8 @@ public class Tarea extends WeekViewEvent {
     private Date fechaFinalizacion;
     private Date fechaEntrega;
     private String idActividad;
-    private Double tiempoPromedio;
+    private String idBeneficiario;
+    private float tiempoPromedio;
     private boolean estaMotivado;
     private int prioridad;
 
@@ -137,12 +138,26 @@ public class Tarea extends WeekViewEvent {
         this.idActividad = idActividad;
     }
 
-    public Double getTiempoPromedio() {
+    public float getTiempoPromedio() {
         return tiempoPromedio;
     }
 
-    public void setTiempoPromedio(Double tiempoPromedio) {
+    public void setTiempoPromedio(float tiempoPromedio) {
         this.tiempoPromedio = tiempoPromedio;
+    }
+
+    public String getIdBeneficiario() {
+        return idBeneficiario;
+    }
+
+    public void setIdBeneficiario(String idBeneficiario) {
+        this.idBeneficiario = idBeneficiario;
+    }
+
+    @Override
+    public int compareTo(Object tarea) {
+        int prioridadTarea = ((Tarea)tarea).getPrioridad();
+        return this.prioridad - prioridadTarea;
     }
 }
 

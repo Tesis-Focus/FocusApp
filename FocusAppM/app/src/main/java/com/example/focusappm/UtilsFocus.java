@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -24,25 +25,27 @@ import java.util.concurrent.TimeUnit;
 public class UtilsFocus {
 
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
+    private final static String PATH_TAREAS = "tareas/";
 
     public static void calcularHorarioPorTarea(Tarea tarea, String idBeneficiario){
 
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
 
-
         Date fechaEntrega = null, fechaAsignacion = null;
-        long diasParaEntrega;
+        float diasParaEntrega;
 
         fechaEntrega = tarea.getFechaEntrega();
         fechaAsignacion = tarea.getFechaAsignacion();
 
         diasParaEntrega = Math.abs(fechaEntrega.getTime() - fechaAsignacion.getTime());
-        diasParaEntrega = TimeUnit.DAYS.convert(diasParaEntrega,TimeUnit.MILLISECONDS);
+        diasParaEntrega = TimeUnit.DAYS.convert((long) diasParaEntrega,TimeUnit.MILLISECONDS);
         Log.i("Planeacion", "Faltan "+diasParaEntrega+" dias para entregar");
 
         Date finalFechaEntrega = fechaEntrega;
         Date finalFechaAsignacion = fechaAsignacion;
+        float finalDiasParaEntrega = diasParaEntrega;
+
         myRef.child(PATH_HORARIO_DISPONIBLE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -55,6 +58,13 @@ public class UtilsFocus {
 
                 }
                 Log.i("Planeacion", "tam " + horarios.size());
+                float cantDias;
+                if (tarea.getTiempoPromedio() > 60){
+                    cantDias = tarea.getTiempoPromedio() / 60;
+                    if(cantDias <= finalDiasParaEntrega){
+                        planeacion(idBeneficiario);
+                    }
+                }
 
             }
 
@@ -81,6 +91,33 @@ public class UtilsFocus {
             return true;
         }
         return false;
+    }
+
+    static void planeacion(String idBeneficiario){
+        FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = dataBase.getReference();
+
+        myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Tarea> tareas = new ArrayList<Tarea>();
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    Tarea tarea=ds.getValue(Tarea.class);
+                    if(tarea.getIdBeneficiario().equals(idBeneficiario)){
+                        tareas.add(tarea);
+                    }
+                }
+
+                Collections.sort(tareas);
+                Log.i("Planeacion", "tareas " + tareas.toString());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

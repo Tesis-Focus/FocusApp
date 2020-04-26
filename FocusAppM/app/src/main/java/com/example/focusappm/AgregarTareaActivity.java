@@ -219,6 +219,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
+                tarea.setIdBeneficiario(idBeneficiario);
 
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
                 myRef = FirebaseDatabase.getInstance().getReference().child("");
