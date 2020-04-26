@@ -222,6 +222,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 tarea.setIdBeneficiario(idBeneficiario);
 
                 List<Horario> horarios = new ArrayList<Horario>();
+                Horario horario = new Horario();
+                horario.setmId("ddd");
+                horario.setmColor(899);
+                horario.setmStartTime(new Date());
+                horario.setmEndTime(new Date());
+                horario.setmName("nombreHor");
+                horarios.add(horario);
                 tarea.setHorarios(horarios);
 
                 Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
