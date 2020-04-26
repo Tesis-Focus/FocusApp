@@ -107,10 +107,14 @@ public class UtilsFocus {
                         tareas.add(tarea);
                     }
                 }
+                for(Tarea tarea: tareas){
+                    Log.i("Planeacion", "tareas " + tarea.getPrioridad());
+                }
+
 
                 Collections.sort(tareas);
                 for(Tarea tarea: tareas){
-                    Log.i("Planeacion", "tareas " + tarea.getPrioridad());
+                    Log.i("Planeacion", "tareasProrizadas " + tarea.getPrioridad());
                 }
 
 
