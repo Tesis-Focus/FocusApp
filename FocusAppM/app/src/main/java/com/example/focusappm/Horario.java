@@ -12,12 +12,20 @@ import java.util.Date;
 public class Horario implements Serializable, Comparable,Cloneable {
 
     private String mId;
+    private String idHorario;
     private Date mStartTime;
     private Date mEndTime;
     private String mName;
     private String mLocation;
     private int mColor;
 
+    public String getIdHorario() {
+        return idHorario;
+    }
+
+    public void setIdHorario(String idHorario) {
+        this.idHorario = idHorario;
+    }
 
     public String getmId() {
         return mId;
@@ -118,6 +126,12 @@ public class Horario implements Serializable, Comparable,Cloneable {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Horario nuevo = new Horario();
+        nuevo.setIdHorario("");
+        nuevo.setmEndTime((Date) this.mEndTime.clone());
+        nuevo.setmId(this.mId);
+        nuevo.setmStartTime((Date) this.mStartTime.clone());
+        nuevo.setmName("");
+        return nuevo;
     }
 }

@@ -30,6 +30,7 @@ public class UtilsFocus {
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
     private final static String PATH_TAREAS = "tareas/";
     private final static ArrayList<ArrayList<Horario>> horarioxTarea = new ArrayList<>();
+    private final static ArrayList<Horario> horarioDispoCambio = new ArrayList<>();
 
 
     public static void planeacion(String idBeneficiario){
@@ -66,33 +67,6 @@ public class UtilsFocus {
 
     }
 
-    private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
-        Horario horarioTarea = null;
-
-        try {
-            horarioTarea = (Horario)horarioDispo.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
-        tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
-        Log.i("Planeacion", "horarioEndAntes " + horarioTarea.getmEndTime());
-        horarioTarea.setmEndTime(horarioDispo.getmStartTime());
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(horarioTarea.getmEndTime());
-        cal.add(Calendar.MINUTE, tiempoEnMin); //ajustar tiempo de finalizacion del horario de realizacion
-        horarioTarea.setmEndTime(cal.getTime());
-
-        Log.i("Planeacion", "tiempo " + tiempoEnMin);
-        Log.i("Planeacion", "horarioStart " + horarioTarea.getmStartTime());
-        Log.i("Planeacion", "horarioEnd " + horarioTarea.getmEndTime());
-        Log.i("Planeacion", "horarioTarea " + tarea.getHorarios().size());
-        tarea.getHorarios().add(horarioTarea);
-        //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
-
-
-    }
 
     private static void getHorariosDisponibles(Tarea tarea, String idBeneficiario){
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
@@ -142,6 +116,7 @@ public class UtilsFocus {
                 Log.i("Planeacion", "tarea prioridad " + tarea.getPrioridad());
 
                 int diasxAsignar = (int)Math.ceil(tarea.getTiempoPromedio() / 60);
+                horarioDispoCambio.clear();
 
                 if(diasxAsignar <= finalDiasParaEntrega){
 
@@ -156,11 +131,12 @@ public class UtilsFocus {
 
 
                         }else if(tarea.getTiempoPromedio() > 0){
+
+                            asignarTiempos(horarioxTarea.get(i).get(0),tarea, (int) tarea.getTiempoPromedio());
                             diasxAsignar -=1 ;
                             //asignar tiempo total
                             //reducir horario disponible
 
-                            asignarTiempos(horarioxTarea.get(i).get(0),tarea, (int) tarea.getTiempoPromedio());
                         }
                     }
 
@@ -168,6 +144,10 @@ public class UtilsFocus {
                     DatabaseReference myRef = dataBase.getReference();
                     myRef = database.getReference(PATH_TAREAS+tarea.getIdTarea());
                     myRef.setValue(tarea);
+                    for(Horario hor : horarioDispoCambio){
+                        myRef = database.getReference(PATH_HORARIO_DISPONIBLE+hor.getIdHorario());
+                        myRef.setValue(hor);
+                    }
 
                 }else{
                     Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar la planeacion, faltan dias D:.");
@@ -181,6 +161,42 @@ public class UtilsFocus {
 
             }
         });
+
+    }
+
+    private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
+        Horario horarioTarea = null;
+
+        try {
+            horarioTarea = (Horario)horarioDispo.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        tarea.setTiempoPromedio((int)tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
+        Log.i("Planeacion", "horarioEndAntes " + horarioTarea.getmEndTime());
+        horarioTarea.setmEndTime(horarioDispo.getmStartTime());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(horarioTarea.getmEndTime());
+        cal.add(Calendar.MINUTE, tiempoEnMin); //ajustar tiempo de finalizacion del horario de realizacion
+        horarioTarea.setmEndTime(cal.getTime());
+
+        Log.i("Planeacion", "tiempo " + tiempoEnMin);
+        Log.i("Planeacion", "horarioStart " + horarioTarea.getmStartTime());
+        Log.i("Planeacion", "horarioEnd " + horarioTarea.getmEndTime());
+        Log.i("Planeacion", "horarioTarea " + tarea.getHorarios().size());
+        tarea.getHorarios().add(horarioTarea);
+
+        horarioDispo.setmStartTime(horarioTarea.getmEndTime());
+
+        Log.i("Planeacion", "horarioStart disponible " + horarioDispo.getmStartTime());
+        Log.i("Planeacion", "horarioEnd disponible" + horarioDispo.getmEndTime());
+
+
+        horarioDispoCambio.add(horarioDispo);
+        //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
+
 
     }
 
