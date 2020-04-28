@@ -174,9 +174,17 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                        String AM_PM ;
                         String minutoFormateado = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
 
-                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado);
+                        if(hourOfDay < 12) {
+                            AM_PM = "AM";
+                        } else {
+                            hourOfDay= hourOfDay-12;
+                            AM_PM = "PM";
+                        }
+
+                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado+ " " + AM_PM);
                     }
                 }, hora, minutos,false);
                 timePickerDialog.show();

@@ -74,6 +74,9 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
                         horaInicio = hourOfDay;
+
+                        String minutoForInicio = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
+
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Inicio = 0;
@@ -86,7 +89,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             isPmStart = true;
                         }
 
-                        etHoraInicio.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        etHoraInicio.setText(hourOfDay +":"+ minutoForInicio + " " + AM_PM);
                         minutoInicio = minute;
 
                     }
@@ -107,6 +110,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
                         horaFin = hourOfDay;
+                        String minutoForFin = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
+
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Fin = 0;
@@ -117,7 +122,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             AM_PM_Fin = 1;
                             isPmEnd =true;
                         }
-                        etHoraFin.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        etHoraFin.setText(hourOfDay +":"+ minutoForFin  + " " + AM_PM);
                         minutoFin = minute;
 
                     }
