@@ -52,7 +52,6 @@ public class UtilsFocus {
                 Log.i("Planeacion", "Tamano tareas "+tareas.size());//BIEN
 
                 for(Tarea tarea: tareas){
-
                     horarioxTarea.clear();
                     getHorariosDisponibles( tarea, idBeneficiario);//BIEN
 
@@ -69,15 +68,26 @@ public class UtilsFocus {
 
     private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
         Horario horarioTarea = null;
+
         try {
             horarioTarea = (Horario)horarioDispo.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
 
-        horarioDispo.getmStartTime().setMinutes(horarioDispo.getmStartTime().getMinutes()+tiempoEnMin); //quitar tiempo a horario dispo
         tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
-        horarioTarea.getmEndTime().setMinutes(horarioTarea.getmStartTime().getMinutes()+tiempoEnMin);//ajustar tiempo de finalizacion del horario de realizacion
+        Log.i("Planeacion", "horarioEndAntes " + horarioTarea.getmEndTime());
+        horarioTarea.setmEndTime(horarioDispo.getmStartTime());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(horarioTarea.getmEndTime());
+        cal.add(Calendar.MINUTE, tiempoEnMin); //ajustar tiempo de finalizacion del horario de realizacion
+        horarioTarea.setmEndTime(cal.getTime());
+
+        Log.i("Planeacion", "tiempo " + tiempoEnMin);
+        Log.i("Planeacion", "horarioStart " + horarioTarea.getmStartTime());
+        Log.i("Planeacion", "horarioEnd " + horarioTarea.getmEndTime());
+        Log.i("Planeacion", "horarioTarea " + tarea.getHorarios().size());
         tarea.getHorarios().add(horarioTarea);
         //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
 
@@ -102,7 +112,10 @@ public class UtilsFocus {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     encontro = false;
                     Horario horario = ds.getValue(Horario.class);
+
+
                     if(horario.getmId().equals(idBeneficiario) && validarFecha(horario, fechaEntrega, fechaActual)){
+
                         for(ArrayList<Horario> horarioArrayList : horarioxTarea){
                             if(horarioArrayList.get(0).getmStartTime().getDate() == horario.getmStartTime().getDate()){
                                 horarioArrayList.add(horario);
@@ -142,7 +155,7 @@ public class UtilsFocus {
                             //persistir
 
 
-                        }else{
+                        }else if(tarea.getTiempoPromedio() > 0){
                             diasxAsignar -=1 ;
                             //asignar tiempo total
                             //reducir horario disponible
@@ -172,11 +185,6 @@ public class UtilsFocus {
     }
 
     static boolean validarFecha(Horario horario, Date fechaEntrega, Date fechaAsignacion){
-
-        horario.getmStartTime().setMonth(horario.getmStartTime().getMonth()-1);
-        horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
-        horario.getmEndTime().setMonth(horario.getmEndTime().getMonth()-1);
-        horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
 
         if(horario.getmEndTime().before(fechaEntrega) && horario.getmStartTime().after(fechaAsignacion)) {
             return true;
