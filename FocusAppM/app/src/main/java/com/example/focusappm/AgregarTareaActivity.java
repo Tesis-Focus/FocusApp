@@ -235,7 +235,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 tarea.setArea(sprArea.getSelectedItem().toString());
-                tarea.setHoraEntrega(txtHoraEntrega.getText().toString());
                 tarea.setEstaMotivado(motivacion);
                 String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                 String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
