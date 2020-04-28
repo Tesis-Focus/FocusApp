@@ -45,7 +45,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
     ImageButton btnHoraEntrega;
     EditText txtNombTarea;
     EditText txtDescripTarea;
-    EditText txtTemaTarea;
     Spinner sprComplejidad;
     Spinner sprClasificacion;
     Spinner sprArea;
@@ -92,7 +91,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnHoraEntrega = findViewById(R.id.btnHoraEntrega);
         txtNombTarea = findViewById(R.id.txtNombTarea);
         txtDescripTarea = findViewById(R.id.txtDescripTarea);
-        txtTemaTarea = findViewById(R.id.txtTemaTarea);
         sprComplejidad = findViewById(R.id.sprComplejidad);
         sprClasificacion = findViewById(R.id.sprClasificacion);
         sprArea = findViewById(R.id.sprArea);
@@ -190,7 +188,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 Date fechaAsig = new Date();
                 tarea.setNombre(txtNombTarea.getText().toString());
                 tarea.setDescripcion(txtDescripTarea.getText().toString());
-                tarea.setTema(txtTemaTarea.getText().toString());
                 tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
                 tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
                 String hora= txtHoraEntrega.getText().toString();
@@ -201,6 +198,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setFechaEntrega(new SimpleDateFormat("dd/MM/yyyy").parse(txtFechaEntrega.getText().toString()));
                     tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
                     tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
+                    tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear()+1900);
+                    tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth()+1);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -218,6 +217,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
 
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                fechaAsig.setYear(fechaAsig.getYear()+1900);
+                fechaAsig.setMonth(fechaAsig.getMonth()+1);
                 tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
                 tarea.setIdBeneficiario(idBeneficiario);
 
