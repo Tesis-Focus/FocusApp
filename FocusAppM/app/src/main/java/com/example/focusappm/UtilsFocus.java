@@ -30,7 +30,7 @@ public class UtilsFocus {
     private final static String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
     private final static String PATH_TAREAS = "tareas/";
     private final static ArrayList<ArrayList<Horario>> horarioxTarea = new ArrayList<>();
-
+    private final static ArrayList<Horario> horariosCambia = new ArrayList<>();
 
     public static void planeacion(String idBeneficiario){
 
@@ -53,7 +53,7 @@ public class UtilsFocus {
 
                 for(Tarea tarea: tareas){
 
-                    horarioxTarea.clear();
+
                     getHorariosDisponibles( tarea, idBeneficiario);//BIEN
 
                 }
@@ -74,20 +74,17 @@ public class UtilsFocus {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-
+        horarioTarea.setmName(tarea.getName());
         horarioDispo.getmStartTime().setMinutes(horarioDispo.getmStartTime().getMinutes()+tiempoEnMin); //quitar tiempo a horario dispo
         tarea.setTiempoPromedio(tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
         horarioTarea.getmEndTime().setMinutes(horarioTarea.getmStartTime().getMinutes()+tiempoEnMin);//ajustar tiempo de finalizacion del horario de realizacion
         tarea.getHorarios().add(horarioTarea);
         //Log.i("Planeacion", "listaHorarios " + tarea.getHorarios().size());
-
-
     }
 
     private static void getHorariosDisponibles(Tarea tarea, String idBeneficiario){
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
-        ArrayList<Horario> horarios = new ArrayList<>();
         Date fechaEntrega,fechaActual;
         fechaEntrega = tarea.getFechaEntrega();
         fechaActual = new Date();
@@ -98,6 +95,7 @@ public class UtilsFocus {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 boolean encontro;
+                horarioxTarea.clear();
 
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     encontro = false;
@@ -132,22 +130,19 @@ public class UtilsFocus {
 
                 if(diasxAsignar <= finalDiasParaEntrega){
 
+                    horariosCambia.clear();
+
                     for(int i=0; i<horarioxTarea.size() && diasxAsignar>0; i++){
                         if (tarea.getTiempoPromedio() > 60 ) {
 
                             asignarTiempos(horarioxTarea.get(i).get(0),tarea,60);
                             diasxAsignar -= 1;
-                            //asignar franja de 60 m
-                            //reducir horario disponible
-                            //persistir
-
+                            horariosCambia.add(horarioxTarea.get(i).get(0));
 
                         }else{
                             diasxAsignar -=1 ;
-                            //asignar tiempo total
-                            //reducir horario disponible
-
                             asignarTiempos(horarioxTarea.get(i).get(0),tarea, (int) tarea.getTiempoPromedio());
+                            horariosCambia.add(horarioxTarea.get(i).get(0));
                         }
                     }
 
@@ -155,6 +150,13 @@ public class UtilsFocus {
                     DatabaseReference myRef = dataBase.getReference();
                     myRef = database.getReference(PATH_TAREAS+tarea.getIdTarea());
                     myRef.setValue(tarea);
+
+
+                    for(Horario horario : horariosCambia){
+                        myRef = database.getReference(PATH_HORARIO_DISPONIBLE+horario.getIdHorario());
+                        myRef.setValue(horario);
+                    }
+
 
                 }else{
                     Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar la planeacion, faltan dias D:.");

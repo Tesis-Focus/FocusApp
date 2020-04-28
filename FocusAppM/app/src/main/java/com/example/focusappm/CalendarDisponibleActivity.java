@@ -109,7 +109,9 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 Horario horario = (Horario) data.getSerializableExtra("horario");
                 horario.setmId(beneficiario.getIdBeneficiario());
-                myRef = database.getReference(PATH_HORARIO_DISPONIBLE+myRef.push().getKey());
+                String idHorario = myRef.push().getKey();
+                horario.setIdHorario(idHorario);
+                myRef = database.getReference(PATH_HORARIO_DISPONIBLE+idHorario);
                 myRef.setValue(horario);
                 newEvent = horario.toWeekViewEvent();
                 mWeekView.notifyDatasetChanged();
