@@ -40,6 +40,7 @@
                     android:id="@+id/textView35"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
                     android:text="  Seleccione el beneficiario"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -53,6 +54,7 @@
                     android:id="@+id/textView34"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
                     android:text="  Seleccione la actividad"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -178,33 +180,6 @@
                         android:layout_weight="0.2"
                         app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:id="@+id/textView38"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:text="Complejidad:"
-                    android:textColor="#000000" />
-
-                <EditText
-                    android:id="@+id/txtTemaTarea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-
             </LinearLayout>
 
             <LinearLayout
