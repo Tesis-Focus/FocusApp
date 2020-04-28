@@ -1,9 +1,11 @@
 package com.example.focusappm;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Tarea extends WeekViewEvent {
+public class Tarea extends WeekViewEvent implements Comparable{
 
     private String idTarea;
     private String nombre;
@@ -12,15 +14,16 @@ public class Tarea extends WeekViewEvent {
     private String complejidad;
     private String area;
     private String clasificacion;
-    private String fechaAsignacion;
-    private String fechaInicio;
-    private String fechaFinalizacion;
-    private String fechaEntrega;
-    private String horaEntrega;
+    private Date fechaAsignacion;
+    private Date fechaInicio;
+    private Date fechaFinalizacion;
+    private Date fechaEntrega;
     private String idActividad;
-    private Double tiempoPromedio;
+    private String idBeneficiario;
+    private float tiempoPromedio;
     private boolean estaMotivado;
     private int prioridad;
+    private List<Horario> horarios = new ArrayList<Horario>();
 
     public Tarea(){
 
@@ -98,44 +101,36 @@ public class Tarea extends WeekViewEvent {
         this.clasificacion = clasificacion;
     }
 
-    public String getFechaAsignacion() {
+    public Date getFechaAsignacion() {
         return fechaAsignacion;
     }
 
-    public void setFechaAsignacion(String fechaAsignacion) {
+    public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFinalizacion() {
+    public Date getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(String fechaFinalizacion) {
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public String getFechaEntrega() {
+    public Date getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
+    public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
-    }
-
-    public String getHoraEntrega() {
-        return horaEntrega;
-    }
-
-    public void setHoraEntrega(String horaEntrega) {
-        this.horaEntrega = horaEntrega;
     }
 
     public String getIdActividad() {
@@ -146,12 +141,34 @@ public class Tarea extends WeekViewEvent {
         this.idActividad = idActividad;
     }
 
-    public Double getTiempoPromedio() {
+    public float getTiempoPromedio() {
         return tiempoPromedio;
     }
 
-    public void setTiempoPromedio(Double tiempoPromedio) {
+    public void setTiempoPromedio(float tiempoPromedio) {
         this.tiempoPromedio = tiempoPromedio;
+    }
+
+    public String getIdBeneficiario() {
+        return idBeneficiario;
+    }
+
+    public void setIdBeneficiario(String idBeneficiario) {
+        this.idBeneficiario = idBeneficiario;
+    }
+
+    public List<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    @Override
+    public int compareTo(Object tarea) {
+        int prioridadTarea = ((Tarea)tarea).getPrioridad();
+        return this.prioridad - prioridadTarea;
     }
 }
 

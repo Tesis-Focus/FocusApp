@@ -8,9 +8,9 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 
-public class ReglasTiempo {
+public class ReglasDecision {
 
-    public ReglasTiempo() {
+    public ReglasDecision() {
     }
 
 
@@ -70,7 +70,7 @@ public class ReglasTiempo {
 
         Log.i("testRule", "testRule1: " + tarea.getTiempoPromedio());
 
-        Double porcentaje = (tarea.getTiempoPromedio() * 15) / 100;
+        float porcentaje = (tarea.getTiempoPromedio() * 15) / 100;
 
         facts.put("tiempoPorcentaje", porcentaje);
 
