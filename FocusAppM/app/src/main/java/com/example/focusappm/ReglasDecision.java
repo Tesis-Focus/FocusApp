@@ -111,7 +111,6 @@ public class ReglasDecision {
         rulesEngine.fire(rulesPorcentaje, facts);
 
         return tarea;
-
     }
 
     public Tarea asignarPrioridad(Tarea tarea, String desempenio){
