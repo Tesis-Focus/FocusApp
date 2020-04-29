@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,10 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     Button guardar;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    public final Calendar c = Calendar.getInstance();
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,14 +140,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         btnFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar calendario = Calendar.getInstance();
-                int dia = calendario.get(Calendar.DAY_OF_MONTH);
-                int mes = calendario.get(Calendar.MONTH);
-                int anio = calendario.get(Calendar.YEAR);
 
-                DatePickerDialog dialog = new DatePickerDialog(EventosCalendarioActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                obtenerFecha();
             }
         });
 
@@ -195,5 +194,29 @@ public class EventosCalendarioActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void obtenerFecha() {
+
+        DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                final int mesActual = month + 1;
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
+
+                etFecha.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+            }
+        };
+
+        DatePickerDialog recogerFecha = new DatePickerDialog(this, dateList, anio, mes, dia);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            recogerFecha.setOnDateSetListener(dateList);
+        }
+
+        recogerFecha.show();
+
     }
 }
