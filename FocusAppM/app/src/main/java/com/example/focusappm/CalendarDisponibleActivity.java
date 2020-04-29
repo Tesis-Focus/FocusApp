@@ -107,7 +107,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE){
             if(resultCode == RESULT_OK){
-                Horario horario = (Horario) data.getSerializableExtra("horario");
+                Horario horario = (Horario) data.getSerializableExtra("horarios");
                 horario.setmId(beneficiario.getIdBeneficiario());
                 String idHorario = myRef.push().getKey();
                 horario.setIdHorario(idHorario);
