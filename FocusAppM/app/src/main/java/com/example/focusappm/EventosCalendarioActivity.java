@@ -175,10 +175,15 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Calendar cal = Calendar.getInstance();
-               // cal.set(Calendar.YEAR,year);
-               // cal.set(Calendar.MONTH,month);
-                //cal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                 cal.setTime(dia);
+                chbxLun.setChecked(false);
+                chbxMar.setChecked(false);
+                chbxMie.setChecked(false);
+                chbxJue.setChecked(false);
+                chbxSab.setChecked(false);
+                chbxDom.setChecked(false);
+                chbxVie.setChecked(false);
+
                 switch (cal.get(Calendar.DAY_OF_WEEK)){
                     case Calendar.SUNDAY: chbxDom.setChecked(true);
                         break;
