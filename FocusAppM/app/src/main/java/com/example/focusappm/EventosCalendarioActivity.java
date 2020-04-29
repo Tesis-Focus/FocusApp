@@ -252,75 +252,75 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         fechaCal.setTime(fecha);
         switch (fechaCal.get(Calendar.DAY_OF_WEEK)){
             case MONDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,6));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(6));}
                 break;
             case TUESDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,5));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(5));}
                 break;
             case WEDNESDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,4));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(4));}
                 break;
             case THURSDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,3));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(3));}
                 break;
             case FRIDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,2));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(2));}
                 break;
             case SATURDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,0));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,1));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(0));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(1));}
                 break;
             case SUNDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(fecha,1));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(fecha,2));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(fecha,3));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(fecha,4));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(fecha,5));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(fecha,6));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(fecha,0));}
+                if(chbxLun.isChecked()){horarios.add(crearHorario(1));}
+                if(chbxMar.isChecked()){horarios.add(crearHorario(2));}
+                if(chbxMie.isChecked()){horarios.add(crearHorario(3));}
+                if(chbxJue.isChecked()){horarios.add(crearHorario(4));}
+                if(chbxVie.isChecked()){horarios.add(crearHorario(5));}
+                if(chbxSab.isChecked()){horarios.add(crearHorario(6));}
+                if(chbxDom.isChecked()){horarios.add(crearHorario(0));}
                 break;
         }
         return horarios;
     }
 
-    private Horario crearHorario(Date fecha,int dias){
-        Date startTime = (Date) fecha.clone();
-        Date endTime = (Date) fecha.clone();
+    private Horario crearHorario(int dias){
+        Date startTime = null;
+        Date endTime = null;
 
         try {
             startTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
@@ -330,16 +330,23 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         }
 
         startTime.setYear(startTime.getYear()+1900);
-        startTime.setMonth(startTime.getMonth()+1);
+        //startTime.setMonth(startTime.getMonth());
         startTime.setDate(startTime.getDate()+dias);
         startTime.setHours(horaInicio);
         startTime.setMinutes(minutoInicio);
 
-        endTime.setTime(endTime.getDate()+dias);
         endTime.setYear(endTime.getYear()+1900);
-        endTime.setMonth(endTime.getMonth()+1);
+        //endTime.setMonth(endTime.getMonth());
+        endTime.setDate(endTime.getDate()+dias);
         endTime.setHours(horaFin);
         endTime.setMinutes(minutoFin);
+
+        Log.i("otro", "\n fecha fin: \t"+endTime.getYear()
+                +"\n mes: \t"+endTime.getMonth()
+                +"\n dia mes: \t"+endTime.getDate()
+                +"\n hora dia: \t"+endTime.getHours()
+                +"\n minuto: \t"+ endTime.getMinutes());
+
 
         Horario horario = new Horario();
         horario.setmName("Disponible");
