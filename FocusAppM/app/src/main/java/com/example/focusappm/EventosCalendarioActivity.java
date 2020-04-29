@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +60,10 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     CheckBox chbxLun,chbxMar,chbxMie,chbxJue,chbxVie,chbxSab,chbxDom;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    public final Calendar c = Calendar.getInstance();
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,9 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
                         horaInicio = hourOfDay;
+
+                        String minutoForInicio = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
+
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Inicio = 0;
@@ -127,6 +135,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String AM_PM ;
                         horaFin = hourOfDay;
+                        String minutoForFin = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
+
                         if(hourOfDay < 12) {
                             AM_PM = "AM";
                             AM_PM_Fin = 0;
@@ -361,4 +371,27 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         return horario;
     }
 
+    private void obtenerFecha() {
+
+        DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                final int mesActual = month + 1;
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
+
+                etFecha.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+            }
+        };
+
+        DatePickerDialog recogerFecha = new DatePickerDialog(this, dateList, anio, mes, dia);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            recogerFecha.setOnDateSetListener(dateList);
+        }
+
+        recogerFecha.show();
+
+    }
 }
