@@ -67,14 +67,15 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                 List<Horario> horarios = (ArrayList) getIntent().getSerializableExtra("eventos");
                 if(!newEvents.isEmpty()){
                     for(WeekViewEvent newEvent : newEvents){
-                        if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH) == newMonth){
+                        if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH) == newMonth-1){
                             eventsYM.add(newEvent);
                         }
                     }
+                    newEvents.clear();
                 } else{
-                    eventsYM.clear();
+
                     for(Horario horario : horarios){
-                        if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth()+1 == newMonth){
+                        if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth-1){
                             eventsYM.add(horario.toWeekViewEvent());
                             Log.i("cal", "\n anio: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.YEAR)
                                                     +"\n mes: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.MONTH)
@@ -118,7 +119,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                     horario.setIdHorario(idHorario);
                     myRef = database.getReference(PATH_HORARIO_DISPONIBLE+idHorario);
                     myRef.setValue(horario);
-                    eventsYM.add(horario.toWeekViewEvent());
+                    newEvents.add(horario.toWeekViewEvent());
                 }
                 mWeekView.notifyDatasetChanged();
             }

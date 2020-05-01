@@ -244,7 +244,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 horario.setmColor(Color.CYAN);
                 horario.setmStartTime(startTime);
                 horario.setmEndTime(endTime);*/
-                ArrayList<Horario> horarios = new ArrayList<>();
+                ArrayList<Horario> horarios;
                 horarios = obtenerHorarios();
                 Intent i = new Intent();
                 i.putExtra("horarios",horarios);
@@ -345,13 +345,13 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         }
 
         startTime.setYear(startTime.getYear()+1900);
-        //startTime.setMonth(startTime.getMonth());
+        startTime.setMonth(startTime.getMonth());
         startTime.setDate(startTime.getDate()+dias);
         startTime.setHours(horaInicio);
         startTime.setMinutes(minutoInicio);
 
         endTime.setYear(endTime.getYear()+1900);
-        //endTime.setMonth(endTime.getMonth());
+        endTime.setMonth(endTime.getMonth());
         endTime.setDate(endTime.getDate()+dias);
         endTime.setHours(horaFin);
         endTime.setMinutes(minutoFin);
