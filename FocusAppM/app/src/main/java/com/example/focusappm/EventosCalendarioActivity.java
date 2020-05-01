@@ -165,9 +165,11 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 int mes = calendario.get(Calendar.MONTH);
                 int anio = calendario.get(Calendar.YEAR);
 
-                DatePickerDialog dialog = new DatePickerDialog(EventosCalendarioActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                //DatePickerDialog dialog = new DatePickerDialog(EventosCalendarioActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //dialog.show();
+
+                obtenerFecha();
             }
         });
 
