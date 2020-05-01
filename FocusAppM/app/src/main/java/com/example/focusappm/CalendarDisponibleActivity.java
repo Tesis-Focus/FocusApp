@@ -73,21 +73,21 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
                     }
                     newEvents.clear();
                 } else{
-
-                    for(Horario horario : horarios){
-                        if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth-1){
+                    eventsYM.clear();
+                    for(Horario horario : horarios) {
+                        if (horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth - 1) {
                             eventsYM.add(horario.toWeekViewEvent());
-                            Log.i("cal", "\n anio: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.YEAR)
-                                                    +"\n mes: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.MONTH)
-                                                    +"\n dia mes: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.DAY_OF_MONTH)
-                                                    +"\n hora dia: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.HOUR_OF_DAY)
-                                                    +"\n minuto: \t"+ horario.toWeekViewEvent().getStartTime().get(Calendar.MINUTE));
+                            Log.i("cal", "\n anio: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.YEAR)
+                                    + "\n mes: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.MONTH)
+                                    + "\n dia mes: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.DAY_OF_MONTH)
+                                    + "\n hora dia: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.HOUR_OF_DAY)
+                                    + "\n minuto: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.MINUTE));
                         }
                     }
                 }
 
                 Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
-                return eventsYM;
+                return (List<? extends WeekViewEvent>) eventsYM.clone();
             }
         });
         mWeekView.setEmptyViewClickListener(new WeekView.EmptyViewClickListener() {
