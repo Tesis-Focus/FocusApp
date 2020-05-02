@@ -3,7 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="cursos">
-        <item>-</item>
+        <item>Seleccione el curso</item>
         <item>1º</item>
         <item>2º</item>
         <item>3º</item>
@@ -17,15 +17,9 @@
         <item>11º</item>
     </string-array>
 
-    <string-array name="Bajo_Medio_Alto">
-        <item>-</item>
-        <item>Bajo</item>
-        <item>Medio</item>
-        <item>Alto</item>
-    </string-array>
 
     <string-array name="Desempeno">
-        <item>-</item>
+        <item>Seleccione el desempeño</item>
         <item>Bajo</item>
         <item>Medio</item>
         <item>Alto</item>
@@ -36,18 +30,11 @@
     </string-array>
 
     <string-array name="TipoActividad">
-        <item>-</item>
+        <item>Seleccione el tipo</item>
         <item>académica</item>
         <item>extracurricular</item>
         <item>médica</item>
         <item>familiar</item>
-    </string-array>
-
-    <string-array name="MotivacionActividad">
-        <item>-</item>
-        <item>pasar la evaluacion</item>
-        <item>aprender mucho</item>
-        <item>conocer cosas nuevas</item>
     </string-array>
 
     <string-array name="Complejidad">

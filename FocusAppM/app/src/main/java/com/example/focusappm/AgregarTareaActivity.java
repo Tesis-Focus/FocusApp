@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -50,6 +52,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
     ImageButton btnHoraEntrega;
     EditText txtNombTarea;
     EditText txtDescripTarea;
+    TextView txtMotivacion;
+    TextView txtClasificacion;
+    TextView txtArea;
     Spinner sprComplejidad;
     Spinner sprClasificacion;
     Spinner sprArea;
@@ -93,6 +98,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        txtArea = findViewById(R.id.texArea);
+        txtClasificacion = findViewById(R.id.textClasificacion);
+        txtMotivacion = findViewById(R.id.txtMotivacion);
         spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
@@ -140,25 +148,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnFechaEntrega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 obtenerFecha();
-
-                /*
-                calendario = Calendar.getInstance();
-                int dia = calendario.get(Calendar.DAY_OF_MONTH);
-                int mes = calendario.get(Calendar.MONTH);
-                int anio = calendario.get(Calendar.YEAR);
-
-                datePickerDialog = new DatePickerDialog(AgregarTareaActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-
-                        txtFechaEntrega.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                    }
-                }, anio, mes, dia);
-                datePickerDialog.show();
-
-                 */
             }
         });
 
@@ -177,6 +167,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         String minutoFormateado = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
 
                         txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado);
+                        txtHoraEntrega.setError(null);
                     }
                 }, hora, minutos,false);
                 timePickerDialog.show();
@@ -189,6 +180,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 motivacion = radioSi.isChecked();
+                txtMotivacion.setError(null);
                 //Log.i("ESTADO", "ESTA EN SI");
             }
         });
@@ -196,8 +188,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
         radioNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 motivacion = false;
+                txtMotivacion.setError(null);
                 //Log.i("ESTADO", "ESTA EN NO");
             }
         });
@@ -215,61 +207,103 @@ public class AgregarTareaActivity extends AppCompatActivity {
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReglasDecision reglas = new ReglasDecision();
-                Tarea tarea = new Tarea();
-                Tarea nueva = new Tarea();
-                Date fechaAsig = new Date();
-                tarea.setNombre(txtNombTarea.getText().toString());
-                tarea.setDescripcion(txtDescripTarea.getText().toString());
-                tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
-                tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
-                String hora= txtHoraEntrega.getText().toString();
-                String mHora = hora.split(":")[0];
-                String mMinuto = hora.split(":")[1];
+                if(validarDatos()) {
+                    ReglasDecision reglas = new ReglasDecision();
+                    Tarea tarea = new Tarea();
+                    Tarea nueva = new Tarea();
+                    Date fechaAsig = new Date();
+                    tarea.setNombre(txtNombTarea.getText().toString());
+                    tarea.setDescripcion(txtDescripTarea.getText().toString());
+                    tarea.setComplejidad(sprComplejidad.getSelectedItem().toString());
+                    tarea.setClasificacion(sprClasificacion.getSelectedItem().toString());
+                    String hora = txtHoraEntrega.getText().toString();
+                    String mHora = hora.split(":")[0];
+                    String mMinuto = hora.split(":")[1];
 
-                try {
-                    tarea.setFechaEntrega(new SimpleDateFormat("dd/MM/yyyy").parse(txtFechaEntrega.getText().toString()));
-                    tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
-                    tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
-                    tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear()+1900);
-                    tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth()+1);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    try {
+                        tarea.setFechaEntrega(new SimpleDateFormat("dd/MM/yyyy").parse(txtFechaEntrega.getText().toString()));
+                        tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
+                        tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
+                        tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear() + 1900);
+                        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth() + 1);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    tarea.setArea(sprArea.getSelectedItem().toString());
+                    tarea.setEstaMotivado(motivacion);
+                    String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
+                    String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
+
+                    Log.i("test", desempenoActividad);
+
+                    tarea.setIdActividad(id_Actividad);
+                    tarea = reglas.asignarTiempos(tarea, desempenoActividad);
+                    tarea = reglas.asignarPrioridad(tarea, desempenoActividad);
+                    Log.i("TAG", "onClick: " + tarea.getPrioridad());
+
+                    Log.i("TAG", "onClick: agregar tarea a actividad " + id_Actividad + " " + nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
+
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    fechaAsig.setYear(fechaAsig.getYear() + 1900);
+                    fechaAsig.setMonth(fechaAsig.getMonth() + 1);
+                    tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
+                    tarea.setIdBeneficiario(idBeneficiario);
+
+                    Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
+                    myRef = FirebaseDatabase.getInstance().getReference().child("");
+                    String key = myRef.push().getKey();
+                    myRef = database.getReference(PATH_TAREAS + key);
+                    tarea.setIdTarea(myRef.getKey());
+                    myRef.setValue(tarea);
+
+                    UtilsFocus.planeacion(idBeneficiario);
+
+                    Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
-                tarea.setArea(sprArea.getSelectedItem().toString());
-                tarea.setEstaMotivado(motivacion);
-                String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
-                String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-
-                Log.i("test",desempenoActividad );
-
-                tarea.setIdActividad(id_Actividad);
-                tarea = reglas.asignarTiempos(tarea,desempenoActividad);
-                tarea = reglas.asignarPrioridad(tarea,desempenoActividad);
-                Log.i("TAG", "onClick: "+tarea.getPrioridad());
-
-                Log.i("TAG", "onClick: agregar tarea a actividad "+id_Actividad+" "+nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
-
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                fechaAsig.setYear(fechaAsig.getYear()+1900);
-                fechaAsig.setMonth(fechaAsig.getMonth()+1);
-                tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
-                tarea.setIdBeneficiario(idBeneficiario);
-
-                Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
-                myRef = FirebaseDatabase.getInstance().getReference().child("");
-                String key = myRef.push().getKey();
-                myRef = database.getReference(PATH_TAREAS + key);
-                tarea.setIdTarea(myRef.getKey());
-                myRef.setValue(tarea);
-
-                UtilsFocus.planeacion(idBeneficiario);
-
-                Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
             }
         });
+    }
+
+    private boolean validarDatos() {
+        boolean esValido = true;
+        if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
+            esValido = false;
+            txtNombTarea.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
+            esValido = false;
+            txtFechaEntrega.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(txtHoraEntrega.getText().toString())){
+            esValido = false;
+            txtHoraEntrega.setError("Requerido");
+        }
+        if(!radioSi.isChecked() && !radioNo.isChecked()){
+            Log.i("ESTADO", "-------");
+            esValido = false;
+            txtMotivacion.setError("Requerido");
+
+        }
+        if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
+            esValido = false;
+            TextView errorText = (TextView)sprComplejidad.getSelectedView();
+            errorText.setError("");
+        }
+        if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
+            esValido = false;
+            TextView errorText = (TextView)sprClasificacion.getSelectedView();
+            errorText.setError("");
+        }
+
+        if(sprArea.getSelectedItem().equals("Seleccione el área")){
+            esValido = false;
+            TextView errorText = (TextView)sprArea.getSelectedView();
+            errorText.setError("");
+        }
+
+        return esValido;
     }
 
 
@@ -322,6 +356,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
 
                 txtFechaEntrega.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+                txtFechaEntrega.setError(null);
             }
         };
 

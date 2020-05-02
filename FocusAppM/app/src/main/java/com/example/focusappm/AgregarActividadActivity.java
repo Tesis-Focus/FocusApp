@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,7 +13,10 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +40,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     private final int dia = c.get(Calendar.DAY_OF_MONTH);
     private final int anio = c.get(Calendar.YEAR);
 
+    TextView txtMotivacion;
     EditText edttxtNomActividad;
     EditText edttxtDescripcion;
     EditText edttxtFechaIni;
@@ -44,12 +49,15 @@ public class AgregarActividadActivity extends AppCompatActivity {
     ImageButton btnFechaIni;
     ImageButton btnFechaFin;
     Spinner spnTipo;
-    Spinner spnMotivacion;
     Spinner spnDesempenio, spnBeneficiariosAgrAc;
     CheckBox horarioFijo;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapter;
+    RadioGroup radioGroup;
+    RadioButton radioSi;
+    RadioButton radioNo;
+    boolean motivacion;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -69,6 +77,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        txtMotivacion = findViewById(R.id.txtMotivacion);
         edttxtFechaIni = findViewById(R.id.edttxtFechaIni);
         edttxtFechaFin = findViewById(R.id.edttxtFechaFin);
         edttxtNomActividad = findViewById(R.id.edttxtNomActividad);
@@ -77,7 +86,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         btnFechaFin = findViewById(R.id.btnFechaFin);
         btnAgregar = findViewById(R.id.btnAceptarAgregarAct);
         spnTipo = findViewById(R.id.spnTipo);
-        spnMotivacion = findViewById(R.id.spnMotivacion);
         spnDesempenio = findViewById(R.id.spnDesempeno);
         spnBeneficiariosAgrAc = findViewById(R.id.spnBeneficiariosAgrAc);
         horarioFijo = findViewById(R.id.chbxHorarioFijo);
@@ -86,6 +94,15 @@ public class AgregarActividadActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
         adapter.notifyDataSetChanged();
         spnBeneficiariosAgrAc.setAdapter(adapter);
+        radioSi = findViewById(R.id.radioSi);
+        radioNo = findViewById(R.id.radioNo);
+        radioGroup = findViewById(R.id.radioGroup);
+
+        ArrayAdapter<CharSequence> adapterDesempeono = ArrayAdapter.createFromResource(this, R.array.Desempeno, android.R.layout.simple_spinner_item);
+        spnDesempenio.setAdapter(adapterDesempeono);
+
+        ArrayAdapter<CharSequence> adapterTipo = ArrayAdapter.createFromResource(this, R.array.TipoActividad, android.R.layout.simple_spinner_item);
+        spnTipo.setAdapter(adapterTipo);
 
         btnFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,39 +117,94 @@ public class AgregarActividadActivity extends AppCompatActivity {
             }
         });
 
+        radioSi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                motivacion = radioSi.isChecked();
+                txtMotivacion.setError(null);
+                //Log.i("ESTADO", "ESTA EN SI");
+            }
+        });
+
+        radioNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                motivacion = false;
+                txtMotivacion.setError(null);
+                //Log.i("ESTADO", "ESTA EN NO");
+            }
+        });
+
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Actividad actividad = new Actividad();
-                System.out.println(edttxtNomActividad.getText().toString());
-                actividad.setNombre(edttxtNomActividad.getText().toString());
-                actividad.setDescripcion(edttxtDescripcion.getText().toString());
-                actividad.setTipo(spnTipo.getSelectedItem().toString());
-                actividad.setMotivacion(spnMotivacion.getSelectedItem().toString());
-                actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
-                Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
-                actividad.setFechaInicio(edttxtFechaIni.getText().toString());
-                actividad.setFechaFinal(edttxtFechaFin.getText().toString());
-                actividad.setHorarioFijo(horarioFijo.isChecked());
+                if (validarDatos()) {
+                    Actividad actividad = new Actividad();
+                    System.out.println(edttxtNomActividad.getText().toString());
+                    actividad.setNombre(edttxtNomActividad.getText().toString());
+                    actividad.setDescripcion(edttxtDescripcion.getText().toString());
+                    actividad.setTipo(spnTipo.getSelectedItem().toString());
+                    actividad.setEstaMotivado(motivacion);
+                    actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
+                    Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
+                    actividad.setFechaInicio(edttxtFechaIni.getText().toString());
+                    actividad.setFechaFinal(edttxtFechaFin.getText().toString());
+                    actividad.setHorarioFijo(horarioFijo.isChecked());
 
-                String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
+                    String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
 
-                actividad.setIdUsaurio(idBeneficiario);
-                Toast.makeText(getApplicationContext(),edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
-                myRef = FirebaseDatabase.getInstance().getReference().child("");
-                String key = myRef.push().getKey();
-                //Log.i("MyAPP", myRef.getKey());
-                myRef = database.getReference(PATH_ACTIVIDADES+key);
-                actividad.setIdActividad(myRef.getKey());
-                myRef.setValue(actividad);
+                    actividad.setIdUsaurio(idBeneficiario);
+                    Toast.makeText(getApplicationContext(), edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
+                    myRef = FirebaseDatabase.getInstance().getReference().child("");
+                    String key = myRef.push().getKey();
+                    //Log.i("MyAPP", myRef.getKey());
+                    myRef = database.getReference(PATH_ACTIVIDADES + key);
+                    actividad.setIdActividad(myRef.getKey());
+                    myRef.setValue(actividad);
 
-                Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Persistencia hecha", Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(getBaseContext(),HomeAppActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                    Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
             }
         });
+    }
+
+    private boolean validarDatos() {
+        boolean esValido = true;
+        if(TextUtils.isEmpty(edttxtNomActividad.getText().toString())){
+            esValido = false;
+            edttxtNomActividad.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
+            esValido = false;
+            edttxtDescripcion.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(edttxtFechaIni.getText().toString())){
+            esValido = false;
+            edttxtFechaIni.setError("");
+        }
+        if(TextUtils.isEmpty(edttxtFechaFin.getText().toString())){
+            esValido = false;
+            edttxtFechaFin.setError("");
+        }
+        if(!radioSi.isChecked() && !radioNo.isChecked()){
+            esValido = false;
+            txtMotivacion.setError("Requerido");
+        }
+        if(spnTipo.getSelectedItem().equals("Seleccione el tipo")){
+            esValido = false;
+            TextView errorText = (TextView)spnTipo.getSelectedView();
+            errorText.setError("");
+        }
+        if(spnDesempenio.getSelectedItem().equals("Seleccione el desempeño")){
+            esValido = false;
+            TextView errorText = (TextView)spnDesempenio.getSelectedView();
+            errorText.setError("");
+        }
+        return esValido;
     }
 
     public void obtenerFecha(final int codigo) {
@@ -146,10 +218,12 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
                 if (codigo == 1){
                     edttxtFechaIni.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+                    edttxtFechaIni.setError(null);
                     System.out.println("edit1");
                 }
                 else{
                     edttxtFechaFin.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+                    edttxtFechaFin.setError(null);
                     System.out.println("edit2");
                 }
 

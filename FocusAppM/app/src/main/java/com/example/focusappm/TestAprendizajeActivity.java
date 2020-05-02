@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +34,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
     public static final String PATH_ESTILOS = "estilosAprendizaje/";
     FirebaseAuth mAuth;
     FirebaseUser user;
+    Usuario beneficiario;
 
 
     ArrayList<String> listDatos;
@@ -61,6 +63,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_aprendizaje);
 
+        beneficiario = (Usuario) getIntent().getSerializableExtra("beneficiario");
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -452,7 +455,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                         valoresSeis.get(2)+valoresSiete.get(2)+valoresOcho.get(2)+valoresNueve.get(2))*100/90);
                 estilo.setEa((valoresUno.get(3)+valoresDos.get(3)+valoresTres.get(3)+valoresCuatro.get(3)+valoresCinco.get(3)+
                         valoresSeis.get(3)+valoresSiete.get(3)+valoresOcho.get(3)+valoresNueve.get(3))*100/90);
-                estilo.setIdUsuario(mAuth.getCurrentUser().getUid());
+                estilo.setIdBeneficiario(beneficiario.getIdBeneficiario());
 
                 TreeMap<Integer, String> mapa = new TreeMap<Integer, String>();
                 mapa.put(estilo.getEc(), "EC");
@@ -510,6 +513,9 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 myRef = database.getReference(PATH_ESTILOS+key);
                 myRef.setValue(estilo);
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
+                startActivity(intent);
 
 
 

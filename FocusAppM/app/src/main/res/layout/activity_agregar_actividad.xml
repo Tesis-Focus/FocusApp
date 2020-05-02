@@ -21,15 +21,15 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Agregar Actividad"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -40,7 +40,8 @@
             <Spinner
                 android:id="@+id/spnBeneficiariosAgrAc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -80,7 +81,7 @@
                 android:id="@+id/spnTipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/TipoActividad" />
+                android:paddingBottom="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +96,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Inicio"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:focusable="false" />
 
                 <ImageButton
                     android:id="@+id/btnFechaIni"
@@ -111,7 +113,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Fin"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:focusable="false" />
 
                 <ImageButton
                     android:id="@+id/btnFechaFin"
@@ -122,18 +125,53 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView20"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Motivación" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
-            <Spinner
-                android:id="@+id/spnMotivacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/MotivacionActividad" />
+                <TextView
+                    android:id="@+id/txtMotivacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="   ¿Te motiva esta actividad?"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <RadioButton
+                            android:id="@+id/radioSi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  ¡Si! 😊"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  No 😕"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView21"
@@ -145,8 +183,8 @@
             <Spinner
                 android:id="@+id/spnDesempeno"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/Desempeno" />
+                android:layout_height="41dp"
+                android:paddingBottom="15dp" />
 
             <CheckBox
                 android:id="@+id/chbxHorarioFijo"
@@ -158,10 +196,7 @@
                 android:id="@+id/btnAceptarAgregarAct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Aceptar" />
+                android:text="Guardar Actividad" />
 
         </LinearLayout>
     </ScrollView>

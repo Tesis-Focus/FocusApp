@@ -9,7 +9,7 @@ public class Actividad {
     private String nombre;
     private String descripcion;
     private String tipo;
-    private String motivacion;
+    private boolean estaMotivado;
     private String desempeño;
     private String fechaInicio;
     private String fechaFinal;
@@ -53,12 +53,12 @@ public class Actividad {
         this.tipo = tipo;
     }
 
-    public String getMotivacion() {
-        return motivacion;
+    public boolean isEstaMotivado() {
+        return estaMotivado;
     }
 
-    public void setMotivacion(String motivacion) {
-        this.motivacion = motivacion;
+    public void setEstaMotivado(boolean estaMotivado) {
+        this.estaMotivado = estaMotivado;
     }
 
     public String getDesempeño() {

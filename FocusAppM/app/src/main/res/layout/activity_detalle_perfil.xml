@@ -97,6 +97,13 @@
                 android:text="Agregar horario disponible"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/btnAgregaEstiloApren"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Realizar test estilo de aprendizaje"
+                android:textAllCaps="false" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
