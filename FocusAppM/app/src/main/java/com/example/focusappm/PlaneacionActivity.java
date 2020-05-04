@@ -35,7 +35,7 @@ public class PlaneacionActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-        mWeekView = findViewById(R.id.weekViewDispo);
+        mWeekView = findViewById(R.id.weekpla);
         newEvent = null;
 
 

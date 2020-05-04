@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:background="#FFFFFF"
+            android:clickable="true"
             android:padding="5sp"
             android:paddingStart="5sp"
             app:srcCompat="@drawable/ic_group_black_24dp" />
@@ -64,10 +65,10 @@
             app:tabMode="fixed"
             app:tabRippleColor="#4D6200EE"></com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <com.example.focusappm.CustomViewPager
             android:id="@+id/viewPage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></androidx.viewpager.widget.ViewPager>
+            android:layout_height="wrap_content"></com.example.focusappm.CustomViewPager>
     </LinearLayout>
 
     <LinearLayout
@@ -85,29 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="2dp">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:text="Tareas"
-                android:textAllCaps="false" />
-
-            <ImageButton
-                android:id="@+id/agregarTarea"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.35"
-                app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:padding="2dp"
             android:paddingBottom="8dp">
 
@@ -116,16 +94,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
+                android:clickable="false"
+                android:enabled="false"
                 android:text="Actividades"
                 android:textAllCaps="false" />
 
-            <ImageButton
-                android:id="@+id/agregarActividad"
+            <Button
+                android:id="@+id/btnTareas"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.35"
-                app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:clickable="false"
+                android:enabled="false"
+                android:text="Tareas"
+                android:textAllCaps="false" />
+
         </LinearLayout>
     </LinearLayout>
 

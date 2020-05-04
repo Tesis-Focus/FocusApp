@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,7 +31,15 @@ public class SemanaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_semana,container,false);
-        mWeekView = (WeekView)rootView.findViewById(R.id.weekViewDispo);
+        mWeekView = (WeekView)rootView.findViewById(R.id.calendarHome);
+
+        mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
+            @Override
+            public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+                return new ArrayList<WeekViewEvent>();
+            }
+        });
+
 
 
 

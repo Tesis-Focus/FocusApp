@@ -47,7 +47,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         agregarHorarioDisponible = findViewById(R.id.agregarHorarioDisponible);
-        mWeekView = findViewById(R.id.weekViewDispo);
+        mWeekView = findViewById(R.id.weekViewCal);
         newEvents = new ArrayList<>();
         eventsYM = new ArrayList<>();
 
