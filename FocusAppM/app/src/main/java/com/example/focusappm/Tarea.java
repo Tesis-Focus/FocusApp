@@ -16,8 +16,6 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     private String area;
     private String clasificacion;
     private Date fechaAsignacion;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
     private Date fechaEntrega;
     private String idActividad;
     private String idBeneficiario;
@@ -108,22 +106,6 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
     }
 
     public Date getFechaEntrega() {
