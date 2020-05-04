@@ -1,11 +1,12 @@
 package com.example.focusappm;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Tarea extends WeekViewEvent implements Comparable{
+public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     private String idTarea;
     private String nombre;

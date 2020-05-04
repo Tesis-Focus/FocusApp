@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -147,8 +149,21 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setEstaMotivado(motivacion);
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
-                    actividad.setFechaInicio(edttxtFechaIni.getText().toString());
-                    actividad.setFechaFinal(edttxtFechaFin.getText().toString());
+
+                    try {
+                        actividad.setFechaInicio(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaIni.getText().toString()));
+                        actividad.getFechaInicio().setYear(actividad.getFechaInicio().getYear() + 1900);
+                        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth() + 1);
+                        actividad.setFechaFinal(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaFin.getText().toString()));
+                        actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear() + 1900);
+                        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth() + 1);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                   // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
+                    // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
                     actividad.setHorarioFijo(horarioFijo.isChecked());
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
@@ -178,10 +193,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtNomActividad.setError("Requerido");
         }
-        if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
+        /*if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
             esValido = false;
             edttxtDescripcion.setError("Requerido");
-        }
+        }*/
         if(TextUtils.isEmpty(edttxtFechaIni.getText().toString())){
             esValido = false;
             edttxtFechaIni.setError("");

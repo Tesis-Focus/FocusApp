@@ -1,18 +1,19 @@
 package com.example.focusappm;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Actividad {
+public class Actividad implements Serializable {
     private String idActividad;
     private String nombre;
     private String descripcion;
     private String tipo;
     private boolean estaMotivado;
     private String desempeño;
-    private String fechaInicio;
-    private String fechaFinal;
+    private Date fechaInicio;
+    private Date fechaFinal;
     private Boolean horarioFijo;
     private String idUsaurio;
     private List<String> idTareas = new ArrayList<String>();
@@ -69,19 +70,19 @@ public class Actividad {
         this.desempeño = desempeño;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFinal() {
+    public Date getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(String fechaFinal) {
+    public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 

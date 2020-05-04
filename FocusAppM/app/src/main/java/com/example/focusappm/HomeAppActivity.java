@@ -51,6 +51,7 @@ public class HomeAppActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button mostrarActividades;
+    Button mostrarTareas;
     ImageButton agregarActividad,btnPerfiles, agregarTarea;
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
@@ -71,6 +72,7 @@ public class HomeAppActivity extends AppCompatActivity {
         agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
         agregarTarea = findViewById(R.id.agregarTarea);
         mostrarActividades = findViewById(R.id.mostrarActividades);
+        mostrarTareas = findViewById(R.id.mostrarTareas);
         spnPerfiles = findViewById(R.id.spnPerfiles);
         beneficiarios = new ArrayList<>();
         nombresBeneficiarios = new ArrayList<>();
@@ -113,7 +115,7 @@ public class HomeAppActivity extends AppCompatActivity {
         mostrarActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+               /* FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = dataBase.getReference();
 
                 myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,7 +140,23 @@ public class HomeAppActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
+                Intent intent = new Intent(getBaseContext(),ActividadesActivity.class);
+               //idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
+                Usuario beneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition());
+               // intent.putExtra("idBeneficiario",idBeneficiario);
+                intent.putExtra("Beneficiario",beneficiario);
+                startActivity(intent);
+            }
+        });
+
+        mostrarTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(),TareasActivity.class);
+                idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
+                intent.putExtra("idBeneficiario",idBeneficiario);
+                startActivity(intent);
             }
         });
 
