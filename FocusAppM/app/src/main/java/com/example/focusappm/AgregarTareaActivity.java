@@ -54,11 +54,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
     EditText txtDescripTarea;
     TextView txtMotivacion;
     TextView txtClasificacion;
-    TextView txtArea;
     TextView txtAreas;
     Spinner sprComplejidad;
     Spinner sprClasificacion;
-    Spinner sprArea;
     Spinner sprActividad;
     Button btnGuardarTarea;
     Calendar calendario;
@@ -105,7 +103,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        txtArea = findViewById(R.id.texArea);
         txtAreas = findViewById(R.id.txtAreas);
         txtClasificacion = findViewById(R.id.textClasificacion);
         txtMotivacion = findViewById(R.id.txtMotivacion);
@@ -118,7 +115,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         txtDescripTarea = findViewById(R.id.txtDescripTarea);
         sprComplejidad = findViewById(R.id.sprComplejidad);
         sprClasificacion = findViewById(R.id.sprClasificacion);
-        sprArea = findViewById(R.id.sprArea);
         sprActividad = findViewById(R.id.sprActividad);
         btnGuardarTarea = findViewById(R.id.btnGuardarTarea);
         nombre_Actividades = new ArrayList<String>();
@@ -248,9 +244,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
         sprClasificacion.setAdapter(adapterClasif);
 
-        ArrayAdapter<CharSequence> adapterArea = ArrayAdapter.createFromResource(this, R.array.Area, android.R.layout.simple_spinner_item);
-        sprArea.setAdapter(adapterArea);
-
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,7 +269,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    tarea.setArea(sprArea.getSelectedItem().toString());
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
@@ -363,12 +355,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
             esValido = false;
             TextView errorText = (TextView)sprClasificacion.getSelectedView();
-            errorText.setError("");
-        }
-
-        if(sprArea.getSelectedItem().equals("Seleccione el área")){
-            esValido = false;
-            TextView errorText = (TextView)sprArea.getSelectedView();
             errorText.setError("");
         }
 

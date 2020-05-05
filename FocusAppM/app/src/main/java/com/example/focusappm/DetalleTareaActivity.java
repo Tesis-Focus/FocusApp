@@ -64,7 +64,14 @@ public class DetalleTareaActivity extends AppCompatActivity {
         }
         complejidad.setText(tarea.getComplejidad());
         clasificacion.setText(tarea.getClasificacion());
-        area.setText(tarea.getArea());
+
+        String todasAreas="";
+        for (int i=0; i<tarea.getAreas().size(); i++){
+           todasAreas= todasAreas+tarea.getAreas().get(i)+",";
+        }
+        todasAreas.subSequence(0,todasAreas.length()-1);
+        area.setText(todasAreas.subSequence(0,todasAreas.length()-1));
+
 
         btnEliminarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
