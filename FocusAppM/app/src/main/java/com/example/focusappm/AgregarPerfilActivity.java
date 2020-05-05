@@ -6,8 +6,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,6 +39,11 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     DatabaseReference myRef;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    public final Calendar c = Calendar.getInstance();
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
+
     private final static String PATH_USUARIOS = "usuarios/";
 
     @Override
@@ -58,14 +65,15 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         btnFechaNacPB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendario = Calendar.getInstance();
+                obtenerFecha();
+               /* Calendar calendario = Calendar.getInstance();
                 int dia = calendario.get(Calendar.DAY_OF_MONTH);
                 int mes = calendario.get(Calendar.MONTH);
                 int anio = calendario.get(Calendar.YEAR);
 
                 DatePickerDialog dialog = new DatePickerDialog(AgregarPerfilActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                dialog.show();*/
             }
         });
 
@@ -91,6 +99,29 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         });
     }
 
+    private void obtenerFecha() {
+        DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                final int mesActual = month + 1;
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
+
+                edtxFechaNacPB.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+                edtxFechaNacPB.setError(null);
+            }
+        };
+
+        DatePickerDialog recogerFecha = new DatePickerDialog(this, dateList, anio, mes, dia);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            recogerFecha.setOnDateSetListener(dateList);
+        }
+
+        recogerFecha.show();
+    }
+
     private void registroBeneficiario(){
         Usuario nuevoBene = new Usuario();
         nuevoBene.setCurso(spnCursoPB.getSelectedItem().toString());
@@ -112,22 +143,26 @@ public class AgregarPerfilActivity extends AppCompatActivity {
 
     private boolean validarCampos() {
         String nombres, apellidos, curso;
-        Date fecha_nacimiento;
+
         Boolean valido = true;
         nombres = edtxNombresPB.getText().toString();
         apellidos = edtxApellidosPB.getText().toString();
         curso = spnCursoPB.getSelectedItem().toString();
-        try{
-            fecha_nacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaNacPB.getText().toString());
-        }catch (Exception e){
-            edtxFechaNacPB.setError("Requerido");
-            return false;
-        }
 
-        if(TextUtils.isEmpty(nombres) || TextUtils.isEmpty(apellidos) || curso.equals("-")){
+        Log.i("Perfil",nombres);
+        Log.i("Perfil", edtxNombresPB.getText().toString());
+
+        if(TextUtils.isEmpty(nombres)){
             valido = false;
-            edtxNombresPB.setError("requerido");
-            edtxApellidosPB.setError("requerido");
+            edtxNombresPB.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(apellidos)){
+            valido = false;
+            edtxApellidosPB.setError("Requerido");
+        }
+        if(TextUtils.isEmpty(edtxFechaNacPB.getText().toString())){
+            valido = false;
+            edtxFechaNacPB.setError("Requerido");
         }
         return valido;
 

@@ -1,11 +1,12 @@
 package com.example.focusappm;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Tarea extends WeekViewEvent implements Comparable{
+public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     private String idTarea;
     private String nombre;
@@ -15,8 +16,6 @@ public class Tarea extends WeekViewEvent implements Comparable{
     private String area;
     private String clasificacion;
     private Date fechaAsignacion;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
     private Date fechaEntrega;
     private String idActividad;
     private String idBeneficiario;
@@ -107,22 +106,6 @@ public class Tarea extends WeekViewEvent implements Comparable{
 
     public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
     }
 
     public Date getFechaEntrega() {

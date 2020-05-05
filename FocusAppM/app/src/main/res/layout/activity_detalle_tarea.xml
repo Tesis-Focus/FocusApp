@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetallePerfilActivity">
+    tools:context=".DetalleTareaActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,14 +18,15 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="135dp"
-                android:layout_height="124dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp"
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:text="Detalle Tarea"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textView30"
@@ -34,23 +35,50 @@
                 android:text="Nombre" />
 
             <EditText
-                android:id="@+id/edtxNombreDetallePB"
+                android:id="@+id/edtxNombreTarea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
                 android:ems="10"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="textPersonName" />
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/textView31"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Apellidos" />
+                android:text="Descripción" />
 
             <EditText
-                android:id="@+id/edtxApellidosDetallePB"
+                android:id="@+id/edtxtDescripcionTarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusable="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de entrega" />
+
+            <EditText
+                android:id="@+id/edtxFechaEntrega"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName" />
+
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivacion" />
+
+            <EditText
+                android:id="@+id/edttxtMotivacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
@@ -60,12 +88,13 @@
                 android:inputType="textPersonName" />
 
             <TextView
+                android:id="@+id/textView36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Grado" />
+                android:text="Complejidad" />
 
             <EditText
-                android:id="@+id/edtxGradoDetallePB"
+                android:id="@+id/edttxtComplejidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
@@ -75,13 +104,29 @@
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/textView37"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha de nacimiento" />
+                android:text="Clasificacion" />
 
             <EditText
-                android:id="@+id/edtxFechaNacDetallePB"
+                android:id="@+id/edttxtClasificacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textViewArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Area" />
+
+            <EditText
+                android:id="@+id/edttxtArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
@@ -91,19 +136,15 @@
                 android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/btnAgregarHorDis"
-                android:layout_width="match_parent"
+                android:id="@+id/btnEliminarTarea"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Agregar horario disponible"
-                android:textAllCaps="false" />
+                android:layout_gravity="right"
+                android:text="Eliminar tarea" />
 
-            <Button
-                android:id="@+id/btnAgregaEstiloApren"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Realizar test estilo de aprendizaje"
-                android:textAllCaps="false" />
+
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

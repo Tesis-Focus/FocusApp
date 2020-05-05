@@ -5,7 +5,7 @@ public class EstiloAprendizaje {
     private Integer or;
     private Integer ca;
     private Integer ea;
-    private String idUsuario;
+    private String idBeneficiario;
     private String dominate;
     private String secundario;
 
@@ -45,12 +45,12 @@ public class EstiloAprendizaje {
         this.ea = ea;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public String getIdBeneficiario() {
+        return idBeneficiario;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdBeneficiario(String idBeneficiario) {
+        this.idBeneficiario = idBeneficiario;
     }
 
     public String getDominate() {

@@ -42,6 +42,7 @@ public class PerfilesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfiles);
+
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -51,6 +52,7 @@ public class PerfilesActivity extends AppCompatActivity {
         nombres = new ArrayList<>();
         usuariosBeneficiarios = new ArrayList<>();
         cargarPerfilesB();
+
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

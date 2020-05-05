@@ -36,7 +36,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
     Usuario beneficiario;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    WeekViewEvent newEvent;
+    ArrayList<WeekViewEvent> newEvents,eventsYM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,9 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         myRef = database.getReference();
         agregarHorarioDisponible = findViewById(R.id.agregarHorarioDisponible);
         mWeekView = findViewById(R.id.weekViewDispo);
-        newEvent = null;
+        newEvents = new ArrayList<>();
+        eventsYM = new ArrayList<>();
+
 
 
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
@@ -62,27 +64,30 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
-                List<WeekViewEvent> eventsYM = new ArrayList<>();
                 List<Horario> horarios = (ArrayList) getIntent().getSerializableExtra("eventos");
-                if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH) == newMonth){
-                    eventsYM.add(newEvent);
-                }
-                else{
+                if(!newEvents.isEmpty()){
+                    for(WeekViewEvent newEvent : newEvents){
+                        if(newEvent != null && newEvent.getStartTime().get(Calendar.YEAR) == newYear && newEvent.getStartTime().get(Calendar.MONTH) == newMonth-1){
+                            eventsYM.add(newEvent);
+                        }
+                    }
+                    newEvents.clear();
+                } else{
                     eventsYM.clear();
-                    for(Horario horario : horarios){
-                        if(horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth){
+                    for(Horario horario : horarios) {
+                        if (horario.getmStartTime().getYear() == newYear && horario.getmStartTime().getMonth() == newMonth - 1) {
                             eventsYM.add(horario.toWeekViewEvent());
-                            Log.i("cal", "\n anio: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.YEAR)
-                                                    +"\n mes: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.MONTH)
-                                                    +"\n dia mes: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.DAY_OF_MONTH)
-                                                    +"\n hora dia: \t"+horario.toWeekViewEvent().getStartTime().get(Calendar.HOUR_OF_DAY)
-                                                    +"\n minuto: \t"+ horario.toWeekViewEvent().getStartTime().get(Calendar.MINUTE));
+                            Log.i("cal", "\n anio: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.YEAR)
+                                    + "\n mes: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.MONTH)
+                                    + "\n dia mes: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.DAY_OF_MONTH)
+                                    + "\n hora dia: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.HOUR_OF_DAY)
+                                    + "\n minuto: \t" + horario.toWeekViewEvent().getStartTime().get(Calendar.MINUTE));
                         }
                     }
                 }
 
                 Log.i("cal", "lista tam " + eventsYM.size() + " year "+newYear+ " month "+newMonth);
-                return eventsYM;
+                return (List<? extends WeekViewEvent>) eventsYM.clone();
             }
         });
         mWeekView.setEmptyViewClickListener(new WeekView.EmptyViewClickListener() {
@@ -107,13 +112,15 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE){
             if(resultCode == RESULT_OK){
-                Horario horario = (Horario) data.getSerializableExtra("horario");
-                horario.setmId(beneficiario.getIdBeneficiario());
-                String idHorario = myRef.push().getKey();
-                horario.setIdHorario(idHorario);
-                myRef = database.getReference(PATH_HORARIO_DISPONIBLE+idHorario);
-                myRef.setValue(horario);
-                newEvent = horario.toWeekViewEvent();
+                ArrayList<Horario> horarios = (ArrayList<Horario>) data.getSerializableExtra("horarios");
+                for(Horario horario : horarios){
+                    horario.setmId(beneficiario.getIdBeneficiario());
+                    String idHorario = myRef.push().getKey();
+                    horario.setIdHorario(idHorario);
+                    myRef = database.getReference(PATH_HORARIO_DISPONIBLE+idHorario);
+                    myRef.setValue(horario);
+                    newEvents.add(horario.toWeekViewEvent());
+                }
                 mWeekView.notifyDatasetChanged();
             }
         }

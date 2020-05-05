@@ -92,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
                     android:ems="10"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:focusable="false" />
 
                 <ImageButton
                     android:id="@+id/btnFechaNacPB"

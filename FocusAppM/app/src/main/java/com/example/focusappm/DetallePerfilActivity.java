@@ -29,8 +29,10 @@ public class DetallePerfilActivity extends AppCompatActivity {
 
     EditText edtxNombreDetallePB,edtxApellidosDetallePB,edtxGradoDetallePB,edtxFechaNacDetallePB;
     Button btnAgregarHorDis;
+    Button btnAgregarEstilo;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    Usuario beneficiario;
     public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
 
     @Override
@@ -41,11 +43,12 @@ public class DetallePerfilActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         btnAgregarHorDis = findViewById(R.id.btnAgregarHorDis);
+        btnAgregarEstilo = findViewById(R.id.btnAgregaEstiloApren);
         edtxNombreDetallePB = findViewById(R.id.edtxNombreDetallePB);
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
-        Usuario beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
+        beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
         edtxNombreDetallePB.setText(beneficiario.getNombres());
         edtxApellidosDetallePB.setText(beneficiario.getApellidos());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,6 +60,15 @@ public class DetallePerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 passEvents();
+            }
+        });
+
+        btnAgregarEstilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getBaseContext(),TestAprendizajeActivity.class);
+                intent.putExtra("beneficiario", beneficiario);
+                startActivity(intent);
             }
         });
     }
