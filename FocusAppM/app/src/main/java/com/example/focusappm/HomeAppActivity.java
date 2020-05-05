@@ -70,13 +70,13 @@ public class HomeAppActivity extends AppCompatActivity {
         btnTareas.setEnabled(false);
 
         setUpView();
-       // setUpViewPageAdapter("");
+        setUpViewPageAdapter("");
         cargarPerfilesB();
 
         spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
             }
 
             @Override
