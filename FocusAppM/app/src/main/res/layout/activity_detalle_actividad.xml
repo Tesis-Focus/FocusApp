@@ -134,6 +134,12 @@
                 android:focusableInTouchMode="false"
                 android:inputType="textPersonName" />
 
+            <Button
+                android:id="@+id/btnEliminarActividad"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Eliminar actividad" />
 
 
         </LinearLayout>

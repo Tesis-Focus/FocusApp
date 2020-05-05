@@ -2,8 +2,15 @@ package com.example.focusappm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,11 +25,19 @@ public class DetalleTareaActivity extends AppCompatActivity {
     EditText complejidad;
     EditText clasificacion;
     EditText area;
+    Button btnEliminarTarea;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    public static final String PATH_TAREAS = "tareas/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_tarea);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         tarea = (Tarea) getIntent().getSerializableExtra("Tarea");
 
@@ -33,6 +48,7 @@ public class DetalleTareaActivity extends AppCompatActivity {
         complejidad = findViewById(R.id.edttxtComplejidad);
         clasificacion = findViewById(R.id.edttxtClasificacion);
         area = findViewById(R.id.edttxtArea);
+        btnEliminarTarea = findViewById(R.id.btnEliminarTarea);
 
         nombre.setText(tarea.getNombre());
         descripcion.setText(tarea.getDescripcion());
@@ -49,6 +65,20 @@ public class DetalleTareaActivity extends AppCompatActivity {
         complejidad.setText(tarea.getComplejidad());
         clasificacion.setText(tarea.getClasificacion());
         area.setText(tarea.getArea());
+
+        btnEliminarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myRef = database.getReference(PATH_TAREAS+tarea.getIdTarea());
+                myRef.removeValue();
+
+                Toast.makeText(getApplicationContext(), "Tarea eliminada", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getBaseContext(), TareasActivity.class);
+                intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
+                startActivity(intent);
+            }
+        });
 
     }
 }

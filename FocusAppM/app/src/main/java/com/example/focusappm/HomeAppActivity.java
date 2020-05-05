@@ -142,10 +142,10 @@ public class HomeAppActivity extends AppCompatActivity {
                     }
                 });*/
                 Intent intent = new Intent(getBaseContext(),ActividadesActivity.class);
-               //idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                Usuario beneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition());
-               // intent.putExtra("idBeneficiario",idBeneficiario);
-                intent.putExtra("Beneficiario",beneficiario);
+                idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
+                //Usuario beneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition());
+                intent.putExtra("idBeneficiario",idBeneficiario);
+               // intent.putExtra("Beneficiario",beneficiario);
                 startActivity(intent);
             }
         });

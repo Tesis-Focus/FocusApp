@@ -60,6 +60,7 @@ public class TareasActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(),DetalleTareaActivity.class);
                 intent.putExtra("Tarea", misTareas.get(position));
+                intent.putExtra("idBeneficiario",idBeneficiario);
                 startActivity(intent);
             }
         });

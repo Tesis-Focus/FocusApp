@@ -49,8 +49,8 @@ import java.util.List;
         nombresActividades = new ArrayList<>();
         misActividades = new ArrayList<>();
 
-        beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
-        idBeneficiario = beneficiario.getIdBeneficiario();
+       // beneficiario = (Usuario) getIntent().getSerializableExtra("idBeneficiario");
+        idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");;
         cargarTareas();
 
         actividades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,6 +61,7 @@ import java.util.List;
                 Actividad actividad = misActividades.get(position);
                 Log.e("ActividadError", "" +misActividades.get(position).getNombre());
                 intent.putExtra("Actividad", misActividades.get(position));
+                intent.putExtra("idBeneficiario",idBeneficiario);
                 startActivity(intent);
             }
         });
