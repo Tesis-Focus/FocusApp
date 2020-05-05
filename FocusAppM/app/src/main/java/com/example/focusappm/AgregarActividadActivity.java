@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,7 +42,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
     private final int dia = c.get(Calendar.DAY_OF_MONTH);
     private final int anio = c.get(Calendar.YEAR);
 
-    TextView txtMotivacion;
     EditText edttxtNomActividad;
     EditText edttxtDescripcion;
     EditText edttxtFechaIni;
@@ -57,7 +58,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
-    boolean motivacion;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -77,7 +77,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        txtMotivacion = findViewById(R.id.txtMotivacion);
         edttxtFechaIni = findViewById(R.id.edttxtFechaIni);
         edttxtFechaFin = findViewById(R.id.edttxtFechaFin);
         edttxtNomActividad = findViewById(R.id.edttxtNomActividad);
@@ -117,23 +116,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
             }
         });
 
-        radioSi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                motivacion = radioSi.isChecked();
-                txtMotivacion.setError(null);
-                //Log.i("ESTADO", "ESTA EN SI");
-            }
-        });
-
-        radioNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                motivacion = false;
-                txtMotivacion.setError(null);
-                //Log.i("ESTADO", "ESTA EN NO");
-            }
-        });
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,11 +126,23 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setNombre(edttxtNomActividad.getText().toString());
                     actividad.setDescripcion(edttxtDescripcion.getText().toString());
                     actividad.setTipo(spnTipo.getSelectedItem().toString());
-                    actividad.setEstaMotivado(motivacion);
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
-                    actividad.setFechaInicio(edttxtFechaIni.getText().toString());
-                    actividad.setFechaFinal(edttxtFechaFin.getText().toString());
+
+                    try {
+                        actividad.setFechaInicio(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaIni.getText().toString()));
+                        actividad.getFechaInicio().setYear(actividad.getFechaInicio().getYear() + 1900);
+                        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth() + 1);
+                        actividad.setFechaFinal(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaFin.getText().toString()));
+                        actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear() + 1900);
+                        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth() + 1);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                   // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
+                    // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
                     actividad.setHorarioFijo(horarioFijo.isChecked());
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
@@ -178,10 +172,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtNomActividad.setError("Requerido");
         }
-        if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
+        /*if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
             esValido = false;
             edttxtDescripcion.setError("Requerido");
-        }
+        }*/
         if(TextUtils.isEmpty(edttxtFechaIni.getText().toString())){
             esValido = false;
             edttxtFechaIni.setError("");
@@ -190,10 +184,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtFechaFin.setError("");
         }
-        if(!radioSi.isChecked() && !radioNo.isChecked()){
-            esValido = false;
-            txtMotivacion.setError("Requerido");
-        }
+
         if(spnTipo.getSelectedItem().equals("Seleccione el tipo")){
             esValido = false;
             TextView errorText = (TextView)spnTipo.getSelectedView();
