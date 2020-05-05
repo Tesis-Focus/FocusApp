@@ -55,6 +55,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     TextView txtMotivacion;
     TextView txtClasificacion;
     TextView txtArea;
+    TextView txtAreas;
     Spinner sprComplejidad;
     Spinner sprClasificacion;
     Spinner sprArea;
@@ -72,6 +73,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
     RadioButton radioSi;
     RadioButton radioNo;
     boolean motivacion;
+    CheckBox lectura;
+    CheckBox escritura;
+    CheckBox razonamiento;
+    CheckBox ingles;
+    CheckBox compentencias;
+
 
     public final Calendar c = Calendar.getInstance();
     private final int mes = c.get(Calendar.MONTH);
@@ -99,6 +106,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         txtArea = findViewById(R.id.texArea);
+        txtAreas = findViewById(R.id.txtAreas);
         txtClasificacion = findViewById(R.id.textClasificacion);
         txtMotivacion = findViewById(R.id.txtMotivacion);
         spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
@@ -124,6 +132,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
         radioSi = findViewById(R.id.radioSi);
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
+        lectura = findViewById(R.id.checkLectura);
+        escritura = findViewById(R.id.checkEscritura);
+        razonamiento = findViewById(R.id.checkRazonamiento);
+        compentencias = findViewById(R.id.checkCompetencias);
+        ingles = findViewById(R.id.checkIngles);
 
         spnBeneficiariosAgrTar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -194,6 +207,40 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
+        lectura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtAreas.setError(null);
+            }
+        });
+
+        escritura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtAreas.setError(null);
+            }
+        });
+
+        razonamiento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtAreas.setError(null);
+            }
+        });
+
+        ingles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtAreas.setError(null);
+            }
+        });
+
+        compentencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtAreas.setError(null);
+            }
+        });
 
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
@@ -233,6 +280,27 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
+                    List<String> areas = new ArrayList<>();
+
+                    if(lectura.isChecked()){
+                        areas.add("Lectura");
+                    }
+                    if(escritura.isChecked()){
+                        areas.add("Escritura");
+                    }
+                    if(razonamiento.isChecked()){
+                        areas.add("Razonamiento");
+                    }
+                    if(ingles.isChecked()){
+                        areas.add("Ingles");
+                    }
+                    if(compentencias.isChecked()){
+                        areas.add("Competencias");
+                    }
+
+                  //  tarea.setAreas(areas);
+                    tarea.getAreas().addAll(areas);
+                    Log.i("testAreas", tarea.getAreas().toString());
 
                     Log.i("test", desempenoActividad);
 
@@ -286,6 +354,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             txtMotivacion.setError("Requerido");
 
         }
+
         if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
             esValido = false;
             TextView errorText = (TextView)sprComplejidad.getSelectedView();
@@ -301,6 +370,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
             esValido = false;
             TextView errorText = (TextView)sprArea.getSelectedView();
             errorText.setError("");
+        }
+
+        if(!lectura.isChecked() && !escritura.isChecked() && !razonamiento.isChecked() && !ingles.isChecked() && !compentencias.isChecked()){
+            Log.i("ESTADO", "-------");
+            esValido = false;
+            txtAreas.setError("Requerido");
+
         }
 
         return esValido;
