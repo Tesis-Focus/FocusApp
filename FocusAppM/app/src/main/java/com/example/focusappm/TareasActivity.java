@@ -57,7 +57,6 @@ public class TareasActivity extends AppCompatActivity {
         tareas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
                 Intent intent = new Intent(getApplicationContext(),DetalleTareaActivity.class);
                 intent.putExtra("Tarea", misTareas.get(position));
                 intent.putExtra("idBeneficiario",idBeneficiario);
@@ -80,6 +79,7 @@ public class TareasActivity extends AppCompatActivity {
                     if(tarea.getIdBeneficiario().equals(idBeneficiario)){
                         misTareas.add(tarea);
                         nombresTareas.add(tarea.getNombre());
+
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nombresTareas);

@@ -30,8 +30,6 @@ import java.util.List;
      String idBeneficiario;
      Usuario beneficiario;
 
-
-
      public static final String PATH_ACTIVIDADES = "actividades/";
 
      private ArrayList<String> nombresActividades;
@@ -51,7 +49,7 @@ import java.util.List;
 
        // beneficiario = (Usuario) getIntent().getSerializableExtra("idBeneficiario");
         idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");;
-        cargarTareas();
+        cargarActividades();
 
         actividades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,7 +66,7 @@ import java.util.List;
 
     }
 
-     private void cargarTareas() {
+     private void cargarActividades() {
 
          myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
              @Override

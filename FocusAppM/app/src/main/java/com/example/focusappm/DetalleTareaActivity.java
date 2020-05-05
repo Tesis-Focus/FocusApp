@@ -1,19 +1,30 @@
 package com.example.focusappm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetalleTareaActivity extends AppCompatActivity {
 
@@ -26,9 +37,16 @@ public class DetalleTareaActivity extends AppCompatActivity {
     EditText clasificacion;
     EditText area;
     Button btnEliminarTarea;
+    Button btnEditarTarea;
+
+    List<Usuario> beneficiarios;
+    List<String> nombresBeneficiarios;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
+    private final static String PATH_USUARIOS = "usuarios/";
     public static final String PATH_TAREAS = "tareas/";
 
     @Override
@@ -36,10 +54,14 @@ public class DetalleTareaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_tarea);
 
+        mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         tarea = (Tarea) getIntent().getSerializableExtra("Tarea");
+        beneficiarios = new ArrayList<>();
+        nombresBeneficiarios = new ArrayList<>();
+        user = mAuth.getCurrentUser();
 
         nombre = findViewById(R.id.edtxNombreTarea);
         descripcion = findViewById(R.id.edtxtDescripcionTarea);
@@ -49,6 +71,7 @@ public class DetalleTareaActivity extends AppCompatActivity {
         clasificacion = findViewById(R.id.edttxtClasificacion);
         area = findViewById(R.id.edttxtArea);
         btnEliminarTarea = findViewById(R.id.btnEliminarTarea);
+        btnEditarTarea = findViewById(R.id.btnEditarTarea);
 
         nombre.setText(tarea.getNombre());
         descripcion.setText(tarea.getDescripcion());
@@ -56,6 +79,7 @@ public class DetalleTareaActivity extends AppCompatActivity {
         tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth()-1);
         tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear()-1900);
         String fechEntrega = df.format(tarea.getFechaEntrega());
+
         fechaEntrega.setText(fechEntrega);
         if(tarea.isEstaMotivado()){
             motivacion.setText("Si");
@@ -72,6 +96,27 @@ public class DetalleTareaActivity extends AppCompatActivity {
         todasAreas.subSequence(0,todasAreas.length()-1);
         area.setText(todasAreas.subSequence(0,todasAreas.length()-1));
 
+        myRef.child(PATH_USUARIOS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    Usuario beneficiario = sn.getValue(Usuario.class);
+                    if(beneficiario.getRol().equals("Beneficiario") && beneficiario.getIdUsuario().equals(user.getUid())){
+                        beneficiarios.add(beneficiario);
+                        nombresBeneficiarios.add(beneficiario.getNombres()+" "+beneficiario.getApellidos());
+                        Log.i("beneficiarios", "onDataChangeDetalle: "+(beneficiario.getNombres()+" "+beneficiario.getApellidos()));
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         btnEliminarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +128,20 @@ public class DetalleTareaActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), TareasActivity.class);
                 intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
+                startActivity(intent);
+            }
+        });
+
+        btnEditarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.i("beneficiarios", "onDataChangeDetalleLista: " +beneficiarios.toArray().toString());
+                Intent intent = new Intent(getBaseContext(), AgregarTareaActivity.class);
+                intent.putExtra("beneficiarios", (Serializable) beneficiarios);
+                intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+                intent.putExtra("tarea",tarea);
+                intent.putExtra("codigo",1);
                 startActivity(intent);
             }
         });
