@@ -10,7 +10,6 @@ public class Actividad implements Serializable {
     private String nombre;
     private String descripcion;
     private String tipo;
-    private boolean estaMotivado;
     private String desempeño;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -52,14 +51,6 @@ public class Actividad implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public boolean isEstaMotivado() {
-        return estaMotivado;
-    }
-
-    public void setEstaMotivado(boolean estaMotivado) {
-        this.estaMotivado = estaMotivado;
     }
 
     public String getDesempeño() {

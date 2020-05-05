@@ -42,7 +42,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
     private final int dia = c.get(Calendar.DAY_OF_MONTH);
     private final int anio = c.get(Calendar.YEAR);
 
-    TextView txtMotivacion;
     EditText edttxtNomActividad;
     EditText edttxtDescripcion;
     EditText edttxtFechaIni;
@@ -59,7 +58,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
-    boolean motivacion;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -79,7 +77,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        txtMotivacion = findViewById(R.id.txtMotivacion);
         edttxtFechaIni = findViewById(R.id.edttxtFechaIni);
         edttxtFechaFin = findViewById(R.id.edttxtFechaFin);
         edttxtNomActividad = findViewById(R.id.edttxtNomActividad);
@@ -119,23 +116,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
             }
         });
 
-        radioSi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                motivacion = radioSi.isChecked();
-                txtMotivacion.setError(null);
-                //Log.i("ESTADO", "ESTA EN SI");
-            }
-        });
-
-        radioNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                motivacion = false;
-                txtMotivacion.setError(null);
-                //Log.i("ESTADO", "ESTA EN NO");
-            }
-        });
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +126,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setNombre(edttxtNomActividad.getText().toString());
                     actividad.setDescripcion(edttxtDescripcion.getText().toString());
                     actividad.setTipo(spnTipo.getSelectedItem().toString());
-                    actividad.setEstaMotivado(motivacion);
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
 
@@ -205,10 +184,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtFechaFin.setError("");
         }
-        if(!radioSi.isChecked() && !radioNo.isChecked()){
-            esValido = false;
-            txtMotivacion.setError("Requerido");
-        }
+
         if(spnTipo.getSelectedItem().equals("Seleccione el tipo")){
             esValido = false;
             TextView errorText = (TextView)spnTipo.getSelectedView();

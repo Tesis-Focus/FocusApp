@@ -17,7 +17,6 @@ public class DetalleActividadActivity extends AppCompatActivity {
     EditText tipo;
     EditText fechaInicio;
     EditText fechaFin;
-    EditText motivacion;
     EditText desempeño;
     EditText horarioFijo;
 
@@ -32,7 +31,6 @@ public class DetalleActividadActivity extends AppCompatActivity {
         tipo = findViewById(R.id.edtxTipo);
         fechaInicio = findViewById(R.id.edtxFechaInicio);
         fechaFin = findViewById(R.id.edttxtFechaFin);
-        motivacion = findViewById(R.id.edttxtMotivacion);
         desempeño = findViewById(R.id.edttxtDesempeño);
         horarioFijo = findViewById(R.id.edttxtHorarioFijo);
 
@@ -50,11 +48,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
         actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear()-1900);
         String fechFinal = df.format(actividad.getFechaFinal());
         fechaFin.setText(fechFinal);
-         if(actividad.isEstaMotivado()){
-             motivacion.setText("Si");
-         }else{
-             motivacion.setText("No");
-         }
+
          desempeño.setText(actividad.getDesempeño());
         if(actividad.getHorarioFijo()){
             horarioFijo.setText("Si");
