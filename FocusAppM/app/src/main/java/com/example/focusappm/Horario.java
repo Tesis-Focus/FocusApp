@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Horario implements Serializable, Comparable,Cloneable {
+public class Horario implements Serializable,Comparable,Cloneable {
 
     private String mId;
     private String idHorario;

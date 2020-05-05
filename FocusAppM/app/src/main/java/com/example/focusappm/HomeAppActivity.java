@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -41,7 +42,6 @@ import org.jeasy.rules.mvel.MVELRule;
 
 
 public class HomeAppActivity extends AppCompatActivity {
-
     private ImageView imageView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
@@ -59,6 +59,7 @@ public class HomeAppActivity extends AppCompatActivity {
     private final static String PATH_TAREAS = "tareas/";
     ArrayAdapter<String> adapter;
     String idBeneficiario;
+    Fragment mes , detalle;
 
 
     @Override
@@ -81,8 +82,20 @@ public class HomeAppActivity extends AppCompatActivity {
         btnTareas.setEnabled(false);
 
         setUpView();
-        setUpViewPageAdapter();
+        setUpViewPageAdapter("");
         cargarPerfilesB();
+
+        spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +119,14 @@ public class HomeAppActivity extends AppCompatActivity {
                         List<Tarea> tareas = new ArrayList<Tarea>();
                         ArrayList<Horario> horarios = new ArrayList<Horario>();
                         idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                        for (DataSnapshot ds: dataSnapshot.getChildren()){
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             Tarea tarea = ds.getValue(Tarea.class);
-                            if(tarea.getIdBeneficiario().equals(idBeneficiario)){
+                            if (tarea.getIdBeneficiario().equals(idBeneficiario)) {
                                 horarios.addAll(tarea.getHorarios());
                             }
 
                         }
-                        Intent intent= new Intent(getBaseContext(),PlaneacionActivity.class);
+                        Intent intent = new Intent(getBaseContext(), PlaneacionActivity.class);
                         intent.putExtra("eventos", horarios);
                         startActivity(intent);
                     }
@@ -127,6 +140,8 @@ public class HomeAppActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,14 +208,28 @@ public class HomeAppActivity extends AppCompatActivity {
 
     }
 
-    private void setUpViewPageAdapter(){
+    private void setUpViewPageAdapter(String idBeneficiario){
 
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
         Fragment mes = new MesFragment();
         Fragment detalle = new SemanaFragment();
-        Bundle bundle = new Bundle();
 
-        viewPageAdapter.addFragment( mes,"Mes");
-        viewPageAdapter.addFragment( detalle,"Detallada");
+        Bundle bundle = new Bundle();
+        bundle.putString("idBeneficiario",idBeneficiario);
+        detalle.setArguments(bundle);
+        mes.setArguments(bundle);
+
+        fragments.add(mes);
+        fragments.add(detalle);
+        names.add("Mes");
+        names.add("Detalle");
+
+        viewPageAdapter.setFragmentList(fragments);
+        viewPageAdapter.setFragmentTitles(names);
+
+        //viewPageAdapter.addFragment( mes,"Mes");
+        //viewPageAdapter.addFragment( detalle,"Detallada");
 
         viewPager.setAdapter(viewPageAdapter);
         viewPager.setPagingEnabled(false);
@@ -222,4 +251,5 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
     }
+
 }
