@@ -281,16 +281,6 @@ public class ReglasDecision {
             Log.i("test", "asignarPrioridadArea: 5-" + tarea.getPrioridad());
 
         }
-
-
-
-
-       /* reglasPrioridad.register(prioridadLectCrtic);
-        reglasPrioridad.register(prioridadRazonCuanti);
-        reglasPrioridad.register(prioridadComuniEscrita);
-        reglasPrioridad.register(prioridadComptCiudadanas);
-        reglasPrioridad.register(prioridadIngles);
-        rulesEngine.fire(reglasPrioridad,facts);*/
         Log.i("test", "asignarPrioridadArea: 5-" + tarea.getPrioridad());
 
 
