@@ -130,7 +130,7 @@
                 android:inputType="textPassword" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/txDesempeno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Confirmar contraseña" />

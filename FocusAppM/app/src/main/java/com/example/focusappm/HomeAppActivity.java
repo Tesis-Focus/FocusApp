@@ -3,11 +3,9 @@ package com.example.focusappm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 
@@ -34,15 +30,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.core.DefaultRulesEngine;
-import org.jeasy.rules.mvel.MVELRule;
-
 
 public class HomeAppActivity extends AppCompatActivity {
-    private ImageView imageView;
+
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
@@ -59,8 +49,6 @@ public class HomeAppActivity extends AppCompatActivity {
     private final static String PATH_TAREAS = "tareas/";
     ArrayAdapter<String> adapter;
     String idBeneficiario;
-    Fragment mes , detalle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,39 +95,30 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),TareasActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
+            }
+        });
+
         mostrarActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = dataBase.getReference();
-
-                myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        List<Tarea> tareas = new ArrayList<Tarea>();
-                        ArrayList<Horario> horarios = new ArrayList<Horario>();
-                        idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            Tarea tarea = ds.getValue(Tarea.class);
-                            if (tarea.getIdBeneficiario().equals(idBeneficiario)) {
-                                horarios.addAll(tarea.getHorarios());
-                            }
-
-                        }
-                        Intent intent = new Intent(getBaseContext(), PlaneacionActivity.class);
-                        intent.putExtra("eventos", horarios);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                Intent i = new Intent(getBaseContext(),ActividadesActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                i.putExtra("beneficiarios",(Serializable)beneficiarios);
+                i.putExtra("nombreBeneficiarios",(Serializable)nombresBeneficiarios);
+                startActivity(i);
             }
         });
 
     }
+
+
 
 
 

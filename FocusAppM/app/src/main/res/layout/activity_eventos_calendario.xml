@@ -6,225 +6,245 @@
     android:layout_height="match_parent"
     tools:context=".EventosCalendarioActivity">
 
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Agregar horario"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:paddingTop="10dp"
-        android:text="Dia del mes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="0dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28">
-
-        <EditText
-            android:id="@+id/fecha"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <ImageButton
-            android:id="@+id/btnFecha"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            app:srcCompat="@android:drawable/ic_menu_today" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Hora Inicio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView36">
-
-        <EditText
-            android:id="@+id/horaInicio"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <ImageButton
-            android:id="@+id/btnHoraInicio"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Hora Fin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-    <Button
-        android:id="@+id/guardarEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Guardar Evento"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37">
-
-        <EditText
-            android:id="@+id/horaFin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <ImageButton
-            android:id="@+id/btnHoraFin"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout8"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guardarEvento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/chbxLun"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lunes" />
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Agregar horario"
+                android:textSize="20sp" />
 
-            <CheckBox
-                android:id="@+id/chbxMier"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Miercoles" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:paddingTop="10dp"
+                android:text="Dia de inicio" />
 
-            <CheckBox
-                android:id="@+id/chbxVie"
+            <LinearLayout
+                android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Viernes" />
+                android:layout_height="59dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/chbxDom"
+                <EditText
+                    android:id="@+id/fecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <ImageButton
+                    android:id="@+id/btnFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    app:srcCompat="@android:drawable/ic_menu_today" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Domingo" />
+                android:layout_weight="1"
+                android:paddingStart="10dp"
+                android:text="Dia de fin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <EditText
+                    android:id="@+id/edtxFechaFin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:ems="10"
+                    android:inputType="date" />
+
+                <ImageButton
+                    android:id="@+id/btnFechaFin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:paddingEnd="10dp"
+                    app:srcCompat="@android:drawable/ic_menu_today" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Hora Inicio" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/horaInicio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <ImageButton
+                    android:id="@+id/btnHoraInicio"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Hora Fin" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/horaFin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <ImageButton
+                    android:id="@+id/btnHoraFin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="10dp"
+                android:text="Se repite en:" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chbxLun"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lunes" />
+
+                    <CheckBox
+                        android:id="@+id/chbxMier"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Miercoles" />
+
+                    <CheckBox
+                        android:id="@+id/chbxVie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Viernes" />
+
+                    <CheckBox
+                        android:id="@+id/chbxDom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Domingo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chbxMar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Martes" />
+
+                    <CheckBox
+                        android:id="@+id/chbxJue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Jueves" />
+
+                    <CheckBox
+                        android:id="@+id/chbxSab"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sábado" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/guardarEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Guardar Evento" />
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/chbxMar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Martes" />
-
-            <CheckBox
-                android:id="@+id/chbxJue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Jueves" />
-
-            <CheckBox
-                android:id="@+id/chbxSab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sábado" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Se repite en:"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
