@@ -69,14 +69,14 @@ public class HomeAppActivity extends AppCompatActivity {
         btnActividades.setEnabled(false);
         btnTareas.setEnabled(false);
 
-        setUpView();
-        setUpViewPageAdapter("");
+        //setUpView();
+        //setUpViewPageAdapter("");
         cargarPerfilesB();
 
         spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                //setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
             }
 
             @Override
@@ -139,6 +139,7 @@ public class HomeAppActivity extends AppCompatActivity {
             Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
             intent.putExtra("beneficiarios", (Serializable) beneficiarios);
             intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            intent.putExtra("codigo",0);
             startActivity(intent);
         }
         if(itemClicked == R.id.mnuAregarTarea){

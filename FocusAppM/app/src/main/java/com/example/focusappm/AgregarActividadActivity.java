@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,6 +52,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     ImageButton btnFechaFin;
     Spinner spnTipo;
     Spinner spnDesempenio, spnBeneficiariosAgrAc;
+    Integer codigo;
     CheckBox horarioFijo;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
@@ -66,6 +68,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
     //public static final String PATH_ACTIVIDADES_TAREAS = "actividades";
     FirebaseAuth mAuth;
     FirebaseUser user;
+
+    Actividad miActividad;
 
 
     @Override
@@ -90,6 +94,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         horarioFijo = findViewById(R.id.chbxHorarioFijo);
         nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
         beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
+        codigo =(Integer) getIntent().getSerializableExtra("codigo");
         adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
         adapter.notifyDataSetChanged();
         spnBeneficiariosAgrAc.setAdapter(adapter);
@@ -102,6 +107,11 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapterTipo = ArrayAdapter.createFromResource(this, R.array.TipoActividad, android.R.layout.simple_spinner_item);
         spnTipo.setAdapter(adapterTipo);
+
+        if(codigo==1){
+            miActividad =(Actividad) getIntent().getSerializableExtra("actividad");
+            llenarDatos();
+        }
 
         btnFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,12 +159,20 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
                     actividad.setIdUsaurio(idBeneficiario);
                     Toast.makeText(getApplicationContext(), edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
-                    myRef = FirebaseDatabase.getInstance().getReference().child("");
-                    String key = myRef.push().getKey();
-                    //Log.i("MyAPP", myRef.getKey());
-                    myRef = database.getReference(PATH_ACTIVIDADES + key);
-                    actividad.setIdActividad(myRef.getKey());
-                    myRef.setValue(actividad);
+
+                    if(codigo==0) {
+                        myRef = FirebaseDatabase.getInstance().getReference().child("");
+                        String key = myRef.push().getKey();
+                        //Log.i("MyAPP", myRef.getKey());
+                        myRef = database.getReference(PATH_ACTIVIDADES + key);
+                        actividad.setIdActividad(myRef.getKey());
+                        myRef.setValue(actividad);
+                    }
+                    if(codigo==1){
+                        myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
+                        miActividad.setIdActividad(miActividad.getIdActividad());
+                        myRef.setValue(actividad);
+                    }
 
                     Toast.makeText(getApplicationContext(), "Persistencia hecha", Toast.LENGTH_LONG).show();
 
@@ -164,6 +182,44 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void llenarDatos() {
+        for (int i=0; i<beneficiarios.size(); i++){
+            if(miActividad.getIdUsaurio().equals(beneficiarios.get(i).getIdBeneficiario())){
+                spnBeneficiariosAgrAc.setSelection(i);
+            }
+        }
+        edttxtNomActividad.setText(miActividad.getNombre());
+        edttxtDescripcion.setText(miActividad.getDescripcion());
+        spnTipo.setSelection(obtenerPosicionItem(spnTipo,miActividad.getTipo()));
+        spnDesempenio.setSelection(obtenerPosicionItem(spnDesempenio,miActividad.getDesempeño()));
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth()-1);
+        miActividad.getFechaInicio().setYear(miActividad.getFechaInicio().getYear()-1900);
+        String fechInicio = df.format(miActividad.getFechaInicio());
+        edttxtFechaIni.setText(fechInicio);
+
+        miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth()-1);
+        miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
+        String fechFin = df.format(miActividad.getFechaFinal());
+        edttxtFechaFin.setText(fechFin);
+
+        if(miActividad.getHorarioFijo()){
+            horarioFijo.setChecked(true);
+        }
+
+
+    }
+    public static int obtenerPosicionItem(Spinner spinner, String nombre) {
+        int posicion = 0;
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(nombre)) {
+                posicion = i;
+            }
+        }
+        return posicion;
     }
 
     private boolean validarDatos() {
