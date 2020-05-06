@@ -17,8 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -218,11 +220,21 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Date fechaini = new Date(),fechafin = new Date();
+                try {
+                    fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+                    fechaini.setYear(fechaini.getYear()+1900);
+                    fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
+                    fechafin.setYear(fechafin.getYear()+1900);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 ArrayList<Horario> horarios;
                 horarios = obtenerHorarios();
                 Intent i = new Intent();
                 i.putExtra("horarios",horarios);
+                i.putExtra("fechaini", fechaini);
+                i.putExtra("fechafin",fechafin);
                 setResult(RESULT_OK, i);
                 finish();
 

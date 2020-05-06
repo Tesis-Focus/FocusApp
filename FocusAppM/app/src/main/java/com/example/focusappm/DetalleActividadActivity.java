@@ -77,12 +77,12 @@ public class DetalleActividadActivity extends AppCompatActivity {
         tipo.setText((actividad.getTipo()));
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth()-1);
+        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth());
         actividad.getFechaInicio().setYear(actividad.getFechaInicio().getYear()-1900);
         String fechInicio = df.format(actividad.getFechaInicio());
         fechaInicio.setText(fechInicio);
 
-        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth()-1);
+        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth());
         actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear()-1900);
         String fechFinal = df.format(actividad.getFechaFinal());
         fechaFin.setText(fechFinal);

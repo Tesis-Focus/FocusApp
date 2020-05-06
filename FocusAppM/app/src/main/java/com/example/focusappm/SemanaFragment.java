@@ -35,6 +35,7 @@ public class SemanaFragment extends Fragment {
 
 
     public final static String PATH_TAREAS = "tareas/";
+    public final static String PATH_ACTIVIDADES = "actividades/";
     public SemanaFragment() {
         // Required empty public constructor
     }
@@ -91,17 +92,17 @@ public class SemanaFragment extends Fragment {
             myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    List<Tarea> tareas = new ArrayList<>();
-                    ArrayList<Horario> horarios = new ArrayList<>();
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         Tarea tarea = ds.getValue(Tarea.class);
                         if(tarea.getIdBeneficiario().equals(idBeneficiario)){
                             for(Horario horario : tarea.getHorarios()){
-                                eventos.add(horario.toWeekViewEvent());
+                                WeekViewEvent e = horario.toWeekViewEvent();
+                                e.setColor(tarea.getColor());
+                                eventos.add(e);
                             }
                         }
                     }
-                    Log.i("Eventos", "onDataChange: se encontraron eventos"+eventos.size());
+                    Log.i("Eventos", "onDataChange: se encontraron eventos tareas"+eventos.size());
                     mWeekView.notifyDatasetChanged();
                 }
 
@@ -111,6 +112,29 @@ public class SemanaFragment extends Fragment {
                 }
             });
 
+            myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        Actividad actividad = ds.getValue(Actividad.class);
+                        if(actividad.getIdUsaurio().equals(idBeneficiario)){
+                            for(Horario h : actividad.getHorarios()){
+                                WeekViewEvent e = h.toWeekViewEvent();
+                                e.setColor(actividad.getColor());
+                                e.setName(actividad.getNombre());
+                                eventos.add(e);
+                            }
+                        }
+                    }
+                    Log.i("Eventos", "onDataChange: se encontraron eventos actividades"+eventos.size());
+                    mWeekView.notifyDatasetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }
 
