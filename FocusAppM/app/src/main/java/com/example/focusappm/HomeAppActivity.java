@@ -127,10 +127,6 @@ public class HomeAppActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -156,6 +152,7 @@ public class HomeAppActivity extends AppCompatActivity {
             Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
             intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
             intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            intentAgrTarea.putExtra("codigo",0);
             startActivity(intentAgrTarea);
         }
         return super.onOptionsItemSelected(item);
