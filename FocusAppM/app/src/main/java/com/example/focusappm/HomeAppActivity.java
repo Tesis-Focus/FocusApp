@@ -3,9 +3,11 @@ package com.example.focusappm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 
@@ -32,7 +36,7 @@ import java.util.List;
 
 
 public class HomeAppActivity extends AppCompatActivity {
-
+    private ImageView imageView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
@@ -105,13 +109,21 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
-        mostrarActividades.setOnClickListener(new View.OnClickListener() {
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),TareasActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
+            }
+        });
+
+        btnActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(),ActividadesActivity.class);
                 i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
-                i.putExtra("beneficiarios",(Serializable)beneficiarios);
-                i.putExtra("nombreBeneficiarios",(Serializable)nombresBeneficiarios);
                 startActivity(i);
             }
         });

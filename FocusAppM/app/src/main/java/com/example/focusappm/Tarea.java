@@ -1,22 +1,20 @@
 package com.example.focusappm;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Tarea extends WeekViewEvent implements Comparable{
+public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     private String idTarea;
     private String nombre;
     private String descripcion;
     private String tema;
     private String complejidad;
-    private String area;
     private String clasificacion;
     private Date fechaAsignacion;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
     private Date fechaEntrega;
     private String idActividad;
     private String idBeneficiario;
@@ -24,6 +22,7 @@ public class Tarea extends WeekViewEvent implements Comparable{
     private boolean estaMotivado;
     private int prioridad;
     private List<Horario> horarios = new ArrayList<Horario>();
+    private List<String> areas = new ArrayList<String>();
 
     public Tarea(){
 
@@ -85,14 +84,6 @@ public class Tarea extends WeekViewEvent implements Comparable{
         this.complejidad = complejidad;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
     public String getClasificacion() {
         return clasificacion;
     }
@@ -107,22 +98,6 @@ public class Tarea extends WeekViewEvent implements Comparable{
 
     public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
     }
 
     public Date getFechaEntrega() {
@@ -163,6 +138,14 @@ public class Tarea extends WeekViewEvent implements Comparable{
 
     public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public List<String> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<String> areas) {
+        this.areas = areas;
     }
 
     @Override

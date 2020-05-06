@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,18 +27,13 @@ import java.util.List;
      ListView actividades;
      FirebaseDatabase database;
      DatabaseReference myRef;
-     Button btnAgregarActividad;
      String idBeneficiario;
      Usuario beneficiario;
-
-
 
      public static final String PATH_ACTIVIDADES = "actividades/";
 
      private ArrayList<String> nombresActividades;
      private ArrayList<Actividad> misActividades;
-     private ArrayList<String> beneficiarios;
-     private ArrayList<Actividad> nombresBeneficiarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +44,12 @@ import java.util.List;
         myRef = database.getReference();
 
         actividades = findViewById(R.id.actividades);
-        btnAgregarActividad = findViewById(R.id.btnAgregarActividad);
         nombresActividades = new ArrayList<>();
         misActividades = new ArrayList<>();
-        beneficiarios = (ArrayList<String>) getIntent().getSerializableExtra("beneficiarios");
-        nombresBeneficiarios = (ArrayList<Actividad>) getIntent().getSerializableExtra("nombreBeneficiarios");
 
        // beneficiario = (Usuario) getIntent().getSerializableExtra("idBeneficiario");
         idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");;
-        cargarTareas();
+        cargarActividades();
 
         actividades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,19 +64,9 @@ import java.util.List;
             }
         });
 
-        btnAgregarActividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(),AgregarActividadActivity.class);
-                i.putExtra("beneficiarios",beneficiarios);
-                i.putExtra("nombreBeneficiarios",nombresBeneficiarios);
-                startActivity(i);
-            }
-        });
-
     }
 
-     private void cargarTareas() {
+     private void cargarActividades() {
 
          myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
