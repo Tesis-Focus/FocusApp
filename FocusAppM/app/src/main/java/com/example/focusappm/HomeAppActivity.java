@@ -3,11 +3,9 @@ package com.example.focusappm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 
@@ -45,7 +42,7 @@ public class HomeAppActivity extends AppCompatActivity {
     Spinner spnPerfiles;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    Button mostrarActividades,btnTareas;
+    Button btnActividades,btnTareas;
     ImageButton btnPerfiles;
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
@@ -62,7 +59,7 @@ public class HomeAppActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         btnPerfiles = findViewById(R.id.btnPerfiles);
-        mostrarActividades = findViewById(R.id.mostrarActividades);
+        btnActividades = findViewById(R.id.btnActividades);
         spnPerfiles = findViewById(R.id.spnPerfiles);
         btnTareas = findViewById(R.id.btnTareas);
         beneficiarios = new ArrayList<>();
@@ -70,7 +67,7 @@ public class HomeAppActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         btnPerfiles.setEnabled(false);
-        mostrarActividades.setEnabled(false);
+        btnActividades.setEnabled(false);
         btnTareas.setEnabled(false);
 
         setUpView();
@@ -181,7 +178,7 @@ public class HomeAppActivity extends AppCompatActivity {
                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
                 spnPerfiles.setAdapter(adapter);
                 btnPerfiles.setEnabled(true);
-                mostrarActividades.setEnabled(true);
+                btnActividades.setEnabled(true);
                 btnTareas.setEnabled(true);
             }
 
