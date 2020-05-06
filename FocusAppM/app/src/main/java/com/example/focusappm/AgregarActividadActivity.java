@@ -170,7 +170,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     }
                     if(codigo==1){
                         myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
-                        miActividad.setIdActividad(miActividad.getIdActividad());
+                        actividad.setIdActividad(miActividad.getIdActividad());
                         myRef.setValue(actividad);
                     }
 
