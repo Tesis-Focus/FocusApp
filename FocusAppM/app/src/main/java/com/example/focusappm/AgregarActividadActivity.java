@@ -36,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import petrov.kristiyan.colorpicker.ColorPicker;
+
 public class AgregarActividadActivity extends AppCompatActivity {
 
     public final Calendar c = Calendar.getInstance();
@@ -47,7 +49,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     EditText edttxtDescripcion;
     EditText edttxtFechaIni;
     EditText edttxtFechaFin;
-    Button btnAgregar;
+    Button btnAgregar,btnColor;
     ImageButton btnFechaIni;
     ImageButton btnFechaFin;
     Spinner spnTipo;
@@ -60,6 +62,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
+    int colorActivity;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -87,6 +90,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         edttxtDescripcion = findViewById(R.id.edttxtDescripcion);
         btnFechaIni = findViewById(R.id.btnFechaIni);
         btnFechaFin = findViewById(R.id.btnFechaFin);
+        btnColor =findViewById(R.id.btnColor);
         btnAgregar = findViewById(R.id.btnAceptarAgregarAct);
         spnTipo = findViewById(R.id.spnTipo);
         spnDesempenio = findViewById(R.id.spnDesempeno);
@@ -126,6 +130,29 @@ public class AgregarActividadActivity extends AppCompatActivity {
             }
         });
 
+        btnColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ColorPicker colorPicker = new ColorPicker(AgregarActividadActivity.this);
+                colorPicker.setTitle("Selecciona un color");
+                colorPicker.show();
+                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        btnColor.setBackgroundColor(color);
+                        colorActivity = color;
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+
+            }
+
+        });
+
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,15 +164,16 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setDescripcion(edttxtDescripcion.getText().toString());
                     actividad.setTipo(spnTipo.getSelectedItem().toString());
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
+                    actividad.setColor(colorActivity);
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
 
                     try {
                         actividad.setFechaInicio(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaIni.getText().toString()));
                         actividad.getFechaInicio().setYear(actividad.getFechaInicio().getYear() + 1900);
-                        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth() + 1);
+                        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth() );
                         actividad.setFechaFinal(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaFin.getText().toString()));
                         actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear() + 1900);
-                        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth() + 1);
+                        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth() );
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -196,12 +224,13 @@ public class AgregarActividadActivity extends AppCompatActivity {
         spnDesempenio.setSelection(obtenerPosicionItem(spnDesempenio,miActividad.getDesempeño()));
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth()-1);
+        miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth());
         miActividad.getFechaInicio().setYear(miActividad.getFechaInicio().getYear()-1900);
         String fechInicio = df.format(miActividad.getFechaInicio());
         edttxtFechaIni.setText(fechInicio);
+        btnColor.setBackgroundColor(miActividad.getColor());
 
-        miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth()-1);
+        miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth());
         miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
         String fechFin = df.format(miActividad.getFechaFinal());
         edttxtFechaFin.setText(fechFin);

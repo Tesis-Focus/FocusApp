@@ -67,7 +67,7 @@ public class SemanaFragment extends Fragment {
                     }
 
                 }
-                Log.i("PRUEBA", "onMonthChange: LLEGA");
+                Log.i("eventos", "onMonthChange: se agregaron para el mes "+ newMonth +" estos eventos "+nuevosEventos.size());
                 return nuevosEventos;
             }
         });
@@ -81,11 +81,11 @@ public class SemanaFragment extends Fragment {
 
     private void obtenerHorarios() {
         Bundle b = getArguments();
-        String idUsuario;
+        String idBeneficiario;
         Log.i("calendario", "obtenerHorarios: " + b.getString("idBeneficiario"));
 
         if(b != null){
-            idUsuario = b.getString("idBeneficiario");
+            idBeneficiario = b.getString("idBeneficiario");
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             DatabaseReference myRef = db.getReference();
             myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,12 +95,13 @@ public class SemanaFragment extends Fragment {
                     ArrayList<Horario> horarios = new ArrayList<>();
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         Tarea tarea = ds.getValue(Tarea.class);
-                        if(tarea.getIdBeneficiario().equals(idUsuario)){
+                        if(tarea.getIdBeneficiario().equals(idBeneficiario)){
                             for(Horario horario : tarea.getHorarios()){
                                 eventos.add(horario.toWeekViewEvent());
                             }
                         }
                     }
+                    Log.i("Eventos", "onDataChange: se encontraron eventos"+eventos.size());
                     mWeekView.notifyDatasetChanged();
                 }
 

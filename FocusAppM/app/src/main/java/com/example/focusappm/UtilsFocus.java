@@ -182,6 +182,7 @@ public class UtilsFocus {
         cal.add(Calendar.MINUTE, tiempoEnMin); //ajustar tiempo de finalizacion del horario de realizacion
         horarioTarea.setmEndTime(cal.getTime());
         horarioTarea.setmName("Desarrollo: "+tarea.getNombre());
+        horarioTarea.setmColor(tarea.getColor());
 
         Log.i("Planeacion", "tiempo " + tiempoEnMin);
         Log.i("Planeacion", "horarioStart " + horarioTarea.getmStartTime());

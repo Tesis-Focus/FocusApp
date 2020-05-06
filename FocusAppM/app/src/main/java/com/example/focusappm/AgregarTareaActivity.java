@@ -65,6 +65,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     ArrayList<String> desempenoActividades;
     ArrayList<String> id_Actividades;
     ArrayList<String> idActiv;
+    ArrayList<Actividad> actividades;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     Integer codigo;
@@ -123,6 +124,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         nombre_Actividades = new ArrayList<String>();
         desempenoActividades = new ArrayList<String>();
         id_Actividades = new ArrayList<String>();
+        actividades = new ArrayList<>();
         idActiv = new ArrayList<String>();
         nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
         beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
@@ -319,9 +321,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     fechaAsig.setYear(fechaAsig.getYear() + 1900);
-                    fechaAsig.setMonth(fechaAsig.getMonth() + 1);
+                    fechaAsig.setMonth(fechaAsig.getMonth() );
                     tarea.setFechaAsignacion(fechaAsig);  //El dia que ingresa la tarea
                     tarea.setIdBeneficiario(idBeneficiario);
+                    tarea.setColor(actividades.get(sprActividad.getSelectedItemPosition()).getColor());
 
                     Toast.makeText(getApplicationContext(), txtNombTarea.getText().toString(), Toast.LENGTH_LONG).show();
 
@@ -353,7 +356,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         txtDescripTarea.setText(miTarea.getDescripcion());
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        miTarea.getFechaEntrega().setMonth(miTarea.getFechaEntrega().getMonth()-1);
+        miTarea.getFechaEntrega().setMonth(miTarea.getFechaEntrega().getMonth());
         miTarea.getFechaEntrega().setYear(miTarea.getFechaEntrega().getYear()-1900);
         String fechEntrega = df.format(miTarea.getFechaEntrega());
         txtFechaEntrega.setText(fechEntrega);
@@ -474,6 +477,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         desempenoActividades.add(desempeno);
                         id_Actividades.add(actActual.getIdActividad());
                         idActiv.add(actActual.getIdActividad());
+                        actividades.add(actActual);
 
                         if(codigo==1){
                             if(miTarea.getIdActividad().equals(actActual.getIdActividad())){

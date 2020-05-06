@@ -15,6 +15,16 @@ public class Actividad implements Serializable {
     private Date fechaFinal;
     private Boolean horarioFijo;
     private String idUsaurio;
+    private int color;
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     private List<String> idTareas = new ArrayList<String>();
 
     public Actividad() {
