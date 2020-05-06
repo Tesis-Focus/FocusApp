@@ -6,21 +6,17 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,11 +47,12 @@ public class EventosCalendarioActivity extends AppCompatActivity {
 
     ImageButton btnHoraInicio;
     ImageButton btnHoraFin;
-    ImageButton btnFecha;
+    ImageButton btnFechainicio;
+    ImageButton btnFechaFin;
     Calendar calendario;
     EditText etHoraInicio;
     EditText etHoraFin;
-    EditText etFecha;
+    EditText etFechaInicio,edtxFechaFin;
     Button guardar;
     CheckBox chbxLun,chbxMar,chbxMie,chbxJue,chbxVie,chbxSab,chbxDom;
 
@@ -79,10 +76,12 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         chbxSab = findViewById(R.id.chbxSab);
         btnHoraInicio = findViewById(R.id.btnHoraInicio);
         btnHoraFin = findViewById(R.id.btnHoraFin);
-        btnFecha = findViewById(R.id.btnFecha);
+        btnFechainicio = findViewById(R.id.btnFecha);
+        btnFechaFin = findViewById(R.id.btnFechaFin);
         etHoraInicio = findViewById(R.id.horaInicio);
         etHoraFin = findViewById(R.id.horaFin);
-        etFecha = findViewById(R.id.fecha);
+        etFechaInicio = findViewById(R.id.fecha);
+        edtxFechaFin = findViewById(R.id.edtxFechaFin);
         guardar = findViewById(R.id.guardarEvento);
         Calendar cal = Calendar.getInstance();
 
@@ -123,6 +122,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
             }
         });
 
+
+
         btnHoraFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,19 +158,17 @@ public class EventosCalendarioActivity extends AppCompatActivity {
             }
         });
 
-        btnFecha.setOnClickListener(new View.OnClickListener() {
+        btnFechainicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar calendario = Calendar.getInstance();
-                int dia = calendario.get(Calendar.DAY_OF_MONTH);
-                int mes = calendario.get(Calendar.MONTH);
-                int anio = calendario.get(Calendar.YEAR);
+                obtenerFecha(etFechaInicio);
+            }
+        });
 
-                //DatePickerDialog dialog = new DatePickerDialog(EventosCalendarioActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                //dialog.show();
-
-                obtenerFecha();
+        btnFechaFin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obtenerFecha(edtxFechaFin);
             }
         });
 
@@ -178,7 +177,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = dayOfMonth+"/"+month+"/"+year;
-                etFecha.setText(date);
+                etFechaInicio.setText(date);
                 diaDeMes = dayOfMonth;
                 Date dia = null;
                 try {
@@ -220,32 +219,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                /*Date startTime = null;
-                Date endTime = null;
-
-                try {
-                    startTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
-                    endTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                startTime.setYear(startTime.getYear()+1900);
-                startTime.setMonth(startTime.getMonth()+1);
-                startTime.setHours(horaInicio);
-                startTime.setMinutes(minutoInicio);
-
-                endTime.setYear(endTime.getYear()+1900);
-                endTime.setMonth(endTime.getMonth()+1);
-                endTime.setHours(horaFin);
-                endTime.setMinutes(minutoFin);
-
-
-                Horario horario = new Horario();
-                horario.setmName("Disponible");
-                horario.setmColor(Color.CYAN);
-                horario.setmStartTime(startTime);
-                horario.setmEndTime(endTime);*/
                 ArrayList<Horario> horarios;
                 horarios = obtenerHorarios();
                 Intent i = new Intent();
@@ -259,79 +232,93 @@ public class EventosCalendarioActivity extends AppCompatActivity {
 
     private ArrayList<Horario> obtenerHorarios(){
         ArrayList<Horario> horarios = new ArrayList<>();
-        Date fecha = null;
+        Date fechaInicio = null;
+        Date fechaFin = null;
         try {
-            fecha = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
+            fechaInicio = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+            fechaFin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Calendar fechaCal  = getInstance();
-        fechaCal.setTime(fecha);
-        switch (fechaCal.get(Calendar.DAY_OF_WEEK)){
-            case MONDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(6));}
-                break;
-            case TUESDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(5));}
-                break;
-            case WEDNESDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(4));}
-                break;
-            case THURSDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(3));}
-                break;
-            case FRIDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(2));}
-                break;
-            case SATURDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(0));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(1));}
-                break;
-            case SUNDAY:
-                if(chbxLun.isChecked()){horarios.add(crearHorario(1));}
-                if(chbxMar.isChecked()){horarios.add(crearHorario(2));}
-                if(chbxMie.isChecked()){horarios.add(crearHorario(3));}
-                if(chbxJue.isChecked()){horarios.add(crearHorario(4));}
-                if(chbxVie.isChecked()){horarios.add(crearHorario(5));}
-                if(chbxSab.isChecked()){horarios.add(crearHorario(6));}
-                if(chbxDom.isChecked()){horarios.add(crearHorario(0));}
-                break;
-        }
+        int semanas = Math.abs(fechaFin.getMonth()-fechaInicio.getMonth());
+        int anios = fechaFin.getYear()-fechaInicio.getYear();
+        int total_semanas = semanas+(anios*12);
+        int numdias = 0;
+
+        Date fechaciclo = (Date) fechaInicio.clone();
+
+        while(fechaciclo.before(fechaFin)){
+
+            Calendar fechaCal  = getInstance();
+            fechaCal.setTime(fechaInicio);
+            switch (fechaCal.get(Calendar.DAY_OF_WEEK)){
+                case MONDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    break;
+                case TUESDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    break;
+                case WEDNESDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    break;
+                case THURSDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    break;
+                case FRIDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    break;
+                case SATURDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    break;
+                case SUNDAY:
+                    if(chbxLun.isChecked()){horarios.add(crearHorario(1+numdias));}
+                    if(chbxMar.isChecked()){horarios.add(crearHorario(2+numdias));}
+                    if(chbxMie.isChecked()){horarios.add(crearHorario(3+numdias));}
+                    if(chbxJue.isChecked()){horarios.add(crearHorario(4+numdias));}
+                    if(chbxVie.isChecked()){horarios.add(crearHorario(5+numdias));}
+                    if(chbxSab.isChecked()){horarios.add(crearHorario(6+numdias));}
+                    if(chbxDom.isChecked()){horarios.add(crearHorario(0+numdias));}
+                    break;
+                }
+                numdias+=7;
+                fechaciclo.setDate(fechaciclo.getDate()+7);
+            }
         return horarios;
     }
 
@@ -340,8 +327,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         Date endTime = null;
 
         try {
-            startTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
-            endTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFecha.getText().toString());
+            startTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+            endTime = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -373,7 +360,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         return horario;
     }
 
-    private void obtenerFecha() {
+    private void obtenerFecha(EditText fechaTexto) {
 
         DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -383,7 +370,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
                 String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
 
-                etFecha.setText(diaFormateado + "/" + mesFormateado + "/" + year);
+                fechaTexto.setText(diaFormateado + "/" + mesFormateado + "/" + year);
             }
         };
 

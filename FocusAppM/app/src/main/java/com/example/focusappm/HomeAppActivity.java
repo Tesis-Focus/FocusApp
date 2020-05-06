@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 
@@ -32,7 +33,7 @@ import java.util.List;
 
 
 public class HomeAppActivity extends AppCompatActivity {
-
+    private ImageView imageView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
@@ -105,6 +106,16 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),TareasActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
+            }
+        });
+
         btnActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +157,6 @@ public class HomeAppActivity extends AppCompatActivity {
             Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
             intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
             intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
-            intentAgrTarea.putExtra("codigo",0);
             startActivity(intentAgrTarea);
         }
         return super.onOptionsItemSelected(item);
