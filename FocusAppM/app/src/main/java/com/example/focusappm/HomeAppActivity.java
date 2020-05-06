@@ -146,6 +146,7 @@ public class HomeAppActivity extends AppCompatActivity {
             Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
             intent.putExtra("beneficiarios", (Serializable) beneficiarios);
             intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            intent.putExtra("codigo",0);
             startActivity(intent);
         }
         if(itemClicked == R.id.mnuAregarTarea){
