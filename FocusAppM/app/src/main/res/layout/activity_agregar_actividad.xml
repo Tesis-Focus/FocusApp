@@ -114,41 +114,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Agregar Horario" />
-
-                <EditText
-                    android:id="@+id/edttxtFechaIni"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:hint="Inicio"
-                    android:inputType="date" />
-
-                <ImageButton
-                    android:id="@+id/btnFechaIni"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    app:srcCompat="@android:drawable/ic_menu_today" />
-
-                <EditText
-                    android:id="@+id/edttxtFechaFin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:hint="Fin"
-                    android:inputType="date" />
-
-                <ImageButton
-                    android:id="@+id/btnFechaFin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    app:srcCompat="@android:drawable/ic_menu_today" />
+                    android:text="Agregar Horario"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
 

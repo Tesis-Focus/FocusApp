@@ -37,6 +37,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
@@ -50,11 +51,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
     EditText edttxtNomActividad;
     EditText edttxtDescripcion;
-    EditText edttxtFechaIni;
-    EditText edttxtFechaFin;
     Button btnAgregar,btnColor,btnAgregarHorarioActividad;
-    ImageButton btnFechaIni;
-    ImageButton btnFechaFin;
     Spinner spnTipo;
     Spinner spnDesempenio, spnBeneficiariosAgrAc;
     Integer codigo;
@@ -66,6 +63,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
+    Date fechaini,fechafin;
     int colorActivity;
 
     FirebaseDatabase database;
@@ -89,12 +87,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        edttxtFechaIni = findViewById(R.id.edttxtFechaIni);
-        edttxtFechaFin = findViewById(R.id.edttxtFechaFin);
         edttxtNomActividad = findViewById(R.id.edttxtNomActividad);
         edttxtDescripcion = findViewById(R.id.edttxtDescripcion);
-        btnFechaIni = findViewById(R.id.btnFechaIni);
-        btnFechaFin = findViewById(R.id.btnFechaFin);
         btnAgregarHorarioActividad = findViewById(R.id.btnAgregarHorarioActividad);
         btnColor =findViewById(R.id.btnColor);
         btnAgregar = findViewById(R.id.btnAceptarAgregarAct);
@@ -112,6 +106,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
         horarioActividad = new ArrayList<>();
+        fechaini =null;
+        fechafin =null;
 
         ArrayAdapter<CharSequence> adapterDesempeono = ArrayAdapter.createFromResource(this, R.array.Desempeno, android.R.layout.simple_spinner_item);
         spnDesempenio.setAdapter(adapterDesempeono);
@@ -124,7 +120,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
             llenarDatos();
         }
 
-        btnFechaIni.setOnClickListener(new View.OnClickListener() {
+        /*btnFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 obtenerFecha(1);
@@ -135,7 +131,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
             public void onClick(View view) {
                 obtenerFecha(2);
             }
-        });
+        });*/
 
         btnColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,19 +178,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     actividad.setColor(colorActivity);
                     actividad.setHorarios(horarioActividad);
+                    actividad.setFechaInicio(fechaini);
+                    actividad.setFechaFinal(fechafin);
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
-
-                    try {
-                        actividad.setFechaInicio(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaIni.getText().toString()));
-                        actividad.getFechaInicio().setYear(actividad.getFechaInicio().getYear() + 1900);
-                        actividad.getFechaInicio().setMonth(actividad.getFechaInicio().getMonth() );
-                        actividad.setFechaFinal(new SimpleDateFormat("dd/MM/yyyy").parse(edttxtFechaFin.getText().toString()));
-                        actividad.getFechaFinal().setYear(actividad.getFechaFinal().getYear() + 1900);
-                        actividad.getFechaFinal().setMonth(actividad.getFechaFinal().getMonth() );
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
 
                    // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
                     // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
@@ -244,13 +230,11 @@ public class AgregarActividadActivity extends AppCompatActivity {
         miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth());
         miActividad.getFechaInicio().setYear(miActividad.getFechaInicio().getYear()-1900);
         String fechInicio = df.format(miActividad.getFechaInicio());
-        edttxtFechaIni.setText(fechInicio);
         btnColor.setBackgroundColor(miActividad.getColor());
 
         miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth());
         miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
         String fechFin = df.format(miActividad.getFechaFinal());
-        edttxtFechaFin.setText(fechFin);
 
         if(miActividad.getHorarioFijo()){
             horarioFijo.setChecked(true);
@@ -278,13 +262,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtDescripcion.setError("Requerido");
         }*/
-        if(TextUtils.isEmpty(edttxtFechaIni.getText().toString())){
+        if(fechaini==null || fechafin == null){
             esValido = false;
-            edttxtFechaIni.setError("");
-        }
-        if(TextUtils.isEmpty(edttxtFechaFin.getText().toString())){
-            esValido = false;
-            edttxtFechaFin.setError("");
+            Toast.makeText(getApplicationContext(),"agrege un horario",Toast.LENGTH_LONG);
         }
 
         if(spnTipo.getSelectedItem().equals("Seleccione el tipo")){
@@ -300,7 +280,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         return esValido;
     }
 
-    public void obtenerFecha(final int codigo) {
+    /*public void obtenerFecha(final int codigo) {
         DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month,
@@ -331,7 +311,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         }
 
         recogerFecha.show();
-    }
+    }*/
 
     private void cargarPerfilesB(){
 
@@ -364,6 +344,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         if(requestCode == REQUEST_CODE_ACTIVIDAD){
             if(resultCode == RESULT_OK){
                 horarioActividad = (ArrayList<Horario>) data.getSerializableExtra("horarios");
+                fechaini = (Date) data.getSerializableExtra("fechaini");
+                fechafin = (Date) data.getSerializableExtra("fechafin");
             }
         }
     }

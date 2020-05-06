@@ -127,6 +127,7 @@ public class SemanaFragment extends Fragment {
                         }
                     }
                     Log.i("Eventos", "onDataChange: se encontraron eventos actividades"+eventos.size());
+                    mWeekView.notifyDatasetChanged();
                 }
 
                 @Override
