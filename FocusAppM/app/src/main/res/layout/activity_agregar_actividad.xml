@@ -109,6 +109,13 @@
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
 
+                <Button
+                    android:id="@+id/btnAgregarHorarioActividad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Agregar Horario" />
+
                 <EditText
                     android:id="@+id/edttxtFechaIni"
                     android:layout_width="0dp"

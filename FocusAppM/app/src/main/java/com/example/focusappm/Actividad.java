@@ -16,6 +16,15 @@ public class Actividad implements Serializable {
     private Boolean horarioFijo;
     private String idUsaurio;
     private int color;
+    ArrayList<Horario> horarios;
+
+    public ArrayList<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
+    }
 
     public int getColor() {
         return color;

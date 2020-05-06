@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -49,7 +52,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     EditText edttxtDescripcion;
     EditText edttxtFechaIni;
     EditText edttxtFechaFin;
-    Button btnAgregar,btnColor;
+    Button btnAgregar,btnColor,btnAgregarHorarioActividad;
     ImageButton btnFechaIni;
     ImageButton btnFechaFin;
     Spinner spnTipo;
@@ -59,6 +62,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapter;
+    ArrayList<Horario> horarioActividad;
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
@@ -68,6 +72,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
     DatabaseReference myRef;
     public static final String PATH_ACTIVIDADES = "actividades/";
     public static final String PATH_USUARIOS = "usuarios/";
+    public static final int REQUEST_CODE_ACTIVIDAD = 2;
     //public static final String PATH_ACTIVIDADES_TAREAS = "actividades";
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -90,6 +95,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         edttxtDescripcion = findViewById(R.id.edttxtDescripcion);
         btnFechaIni = findViewById(R.id.btnFechaIni);
         btnFechaFin = findViewById(R.id.btnFechaFin);
+        btnAgregarHorarioActividad = findViewById(R.id.btnAgregarHorarioActividad);
         btnColor =findViewById(R.id.btnColor);
         btnAgregar = findViewById(R.id.btnAceptarAgregarAct);
         spnTipo = findViewById(R.id.spnTipo);
@@ -105,6 +111,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         radioSi = findViewById(R.id.radioSi);
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
+        horarioActividad = new ArrayList<>();
 
         ArrayAdapter<CharSequence> adapterDesempeono = ArrayAdapter.createFromResource(this, R.array.Desempeno, android.R.layout.simple_spinner_item);
         spnDesempenio.setAdapter(adapterDesempeono);
@@ -153,6 +160,15 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
         });
 
+        btnAgregarHorarioActividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),EventosCalendarioActivity.class);
+                startActivityForResult(i,REQUEST_CODE_ACTIVIDAD);
+            }
+        });
+
+
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +181,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setTipo(spnTipo.getSelectedItem().toString());
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     actividad.setColor(colorActivity);
+                    actividad.setHorarios(horarioActividad);
                     Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
 
                     try {
@@ -340,5 +357,14 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_ACTIVIDAD){
+            if(resultCode == RESULT_OK){
+                horarioActividad = (ArrayList<Horario>) data.getSerializableExtra("horarios");
+            }
+        }
     }
 }
