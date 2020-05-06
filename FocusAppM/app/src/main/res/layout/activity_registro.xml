@@ -43,14 +43,6 @@
                 android:paddingBottom="8dp"
                 android:text="Bienvenido, ingresa tus datos y registrate ahora." />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="16dp"
-                app:srcCompat="@drawable/ic_launcher_background" />
-
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"
@@ -138,7 +130,7 @@
                 android:inputType="textPassword" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/txDesempeno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Confirmar contraseña" />

@@ -2,20 +2,19 @@ package com.example.focusappm;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 
@@ -32,34 +31,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.core.DefaultRulesEngine;
-import org.jeasy.rules.mvel.MVELRule;
-
 
 public class HomeAppActivity extends AppCompatActivity {
-
     private ImageView imageView;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private ViewPageAdapter viewPageAdapter;
     private FirebaseAuth mAuth;
     FirebaseUser user;
     Spinner spnPerfiles;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    Button mostrarActividades;
-    Button mostrarTareas;
-    ImageButton agregarActividad,btnPerfiles, agregarTarea;
+    Button btnActividades,btnTareas;
+    ImageButton btnPerfiles;
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
     private final static String PATH_USUARIOS = "usuarios/";
     private final static String PATH_TAREAS = "tareas/";
     ArrayAdapter<String> adapter;
     String idBeneficiario;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +59,32 @@ public class HomeAppActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         btnPerfiles = findViewById(R.id.btnPerfiles);
-        agregarActividad = (ImageButton)findViewById(R.id.agregarActividad);
-        agregarTarea = findViewById(R.id.agregarTarea);
-        mostrarActividades = findViewById(R.id.mostrarActividades);
-        mostrarTareas = findViewById(R.id.mostrarTareas);
+        btnActividades = findViewById(R.id.btnActividades);
         spnPerfiles = findViewById(R.id.spnPerfiles);
+        btnTareas = findViewById(R.id.btnTareas);
         beneficiarios = new ArrayList<>();
         nombresBeneficiarios = new ArrayList<>();
         user = mAuth.getCurrentUser();
 
+        btnPerfiles.setEnabled(false);
+        btnActividades.setEnabled(false);
+        btnTareas.setEnabled(false);
+
         setUpView();
-        setUpViewPageAdapter();
+        setUpViewPageAdapter("");
         cargarPerfilesB();
+
+        spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnPerfiles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,75 +96,40 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
 
-        agregarActividad.setOnClickListener(new View.OnClickListener() {
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
-                intent.putExtra("beneficiarios", (Serializable) beneficiarios);
-                intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
-                startActivity(intent);
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),TareasActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
             }
         });
 
-        agregarTarea.setOnClickListener(new View.OnClickListener() {
+
+        btnTareas.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
-                intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
-                intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
-                startActivity(intentAgrTarea);
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),TareasActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
             }
         });
 
-        mostrarActividades.setOnClickListener(new View.OnClickListener() {
+        btnActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = dataBase.getReference();
-
-                myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        List<Tarea> tareas = new ArrayList<Tarea>();
-                        ArrayList<Horario> horarios = new ArrayList<Horario>();
-                        idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                        for (DataSnapshot ds: dataSnapshot.getChildren()){
-                            Tarea tarea = ds.getValue(Tarea.class);
-                            if(tarea.getIdBeneficiario().equals(idBeneficiario)){
-                                horarios.addAll(tarea.getHorarios());
-                            }
-
-                        }
-                        Intent intent= new Intent(getBaseContext(),PlaneacionActivity.class);
-                        intent.putExtra("eventos", horarios);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
-                Intent intent = new Intent(getBaseContext(),ActividadesActivity.class);
-                idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                //Usuario beneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition());
-                intent.putExtra("idBeneficiario",idBeneficiario);
-               // intent.putExtra("Beneficiario",beneficiario);
-                startActivity(intent);
-            }
-        });
-
-        mostrarTareas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),TareasActivity.class);
-                idBeneficiario = beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario();
-                intent.putExtra("idBeneficiario",idBeneficiario);
-                startActivity(intent);
+                Intent i = new Intent(getBaseContext(),ActividadesActivity.class);
+                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                startActivity(i);
             }
         });
 
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,6 +145,18 @@ public class HomeAppActivity extends AppCompatActivity {
             Intent i = new Intent(getBaseContext(),InicioActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        }
+        if(itemClicked == R.id.mnuAregarActividad){
+            Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
+            intent.putExtra("beneficiarios", (Serializable) beneficiarios);
+            intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            startActivity(intent);
+        }
+        if(itemClicked == R.id.mnuAregarTarea){
+            Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
+            intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
+            intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            startActivity(intentAgrTarea);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -196,6 +177,9 @@ public class HomeAppActivity extends AppCompatActivity {
                 }
                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
                 spnPerfiles.setAdapter(adapter);
+                btnPerfiles.setEnabled(true);
+                btnActividades.setEnabled(true);
+                btnTareas.setEnabled(true);
             }
 
             @Override
@@ -212,11 +196,31 @@ public class HomeAppActivity extends AppCompatActivity {
 
     }
 
-    private void setUpViewPageAdapter(){
-        viewPageAdapter.addFragment(new MesFragment(),"Mes");
-        viewPageAdapter.addFragment(new SemanaFragment(),"Semana");
-        viewPageAdapter.addFragment(new DiaFragment(),"Dia");
+    private void setUpViewPageAdapter(String idBeneficiario){
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        Fragment mes = new MesFragment();
+        Fragment detalle = new SemanaFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("idBeneficiario",idBeneficiario);
+        detalle.setArguments(bundle);
+        mes.setArguments(bundle);
+
+        fragments.add(mes);
+        fragments.add(detalle);
+        names.add("Mes");
+        names.add("Detalle");
+
+        viewPageAdapter.setFragmentList(fragments);
+        viewPageAdapter.setFragmentTitles(names);
+
+        //viewPageAdapter.addFragment( mes,"Mes");
+        //viewPageAdapter.addFragment( detalle,"Detallada");
+
         viewPager.setAdapter(viewPageAdapter);
+        viewPager.setPagingEnabled(false);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -235,4 +239,5 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
     }
+
 }

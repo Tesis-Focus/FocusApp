@@ -13,7 +13,6 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     private String descripcion;
     private String tema;
     private String complejidad;
-    private String area;
     private String clasificacion;
     private Date fechaAsignacion;
     private Date fechaEntrega;
@@ -23,6 +22,7 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     private boolean estaMotivado;
     private int prioridad;
     private List<Horario> horarios = new ArrayList<Horario>();
+    private List<String> areas = new ArrayList<String>();
 
     public Tarea(){
 
@@ -84,14 +84,6 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
         this.complejidad = complejidad;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
     public String getClasificacion() {
         return clasificacion;
     }
@@ -146,6 +138,14 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public List<String> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<String> areas) {
+        this.areas = areas;
     }
 
     @Override
