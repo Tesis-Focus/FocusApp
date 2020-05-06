@@ -23,5 +23,21 @@
         app:textSize="12sp"
         app:todayBackgroundColor="#1848adff" />
 
+    <ImageButton
+        android:id="@+id/imgBtnZoom"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|end"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/btn_plus" />
+
+    <ImageButton
+        android:id="@+id/imgBtnnoZoom"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|start"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/btn_minus" />
+
 
 </FrameLayout>

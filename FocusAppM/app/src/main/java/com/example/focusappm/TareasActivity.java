@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class TareasActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     String idBeneficiario;
+    Button btnNuevaTarea;
 
 
     public static final String PATH_TAREAS = "tareas/";
@@ -46,7 +48,7 @@ public class TareasActivity extends AppCompatActivity {
       /*  mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();*/
 
-
+        btnNuevaTarea = findViewById(R.id.btnAgregarTarea);
         tareas = findViewById(R.id.tareas);
         nombresTareas = new ArrayList<>();
         misTareas = new ArrayList<>();
@@ -64,6 +66,18 @@ public class TareasActivity extends AppCompatActivity {
             }
         });
 
+        btnNuevaTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),AgregarTareaActivity.class);
+                List<String> nombreBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
+                List<Usuario> beneficiarios = (List<Usuario>) getIntent().getSerializableExtra("beneficiarios");
+                i.putExtra("nombreBeneficiarios", (Serializable) nombreBeneficiarios);
+                i.putExtra("beneficiarios", (Serializable) beneficiarios);
+                i.putExtra("codigo",0);
+                startActivity(i);
+            }
+        });
 
     }
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.alamkanak.weekview.MonthLoader;
@@ -36,11 +37,13 @@ public class SemanaFragment extends Fragment {
 
     public final static String PATH_TAREAS = "tareas/";
     public final static String PATH_ACTIVIDADES = "actividades/";
+    public static int DIASVISIBLES = 4;
     public SemanaFragment() {
         // Required empty public constructor
     }
 
     WeekView mWeekView;
+    ImageButton imgbtnZoom,imgbtnNoZoom;
     ArrayList<WeekViewEvent> eventos;
 
     @Override
@@ -48,10 +51,27 @@ public class SemanaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_semana,container,false);
         mWeekView = (WeekView)rootView.findViewById(R.id.calendarHome);
+        imgbtnNoZoom = rootView.findViewById(R.id.imgBtnnoZoom);
+        imgbtnZoom = rootView.findViewById(R.id.imgBtnZoom);
 
         eventos = new ArrayList<WeekViewEvent>();
         obtenerHorarios();
 
+        imgbtnZoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DIASVISIBLES = (DIASVISIBLES == 1 ? 1:DIASVISIBLES-1);
+                mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
+            }
+        });
+
+        imgbtnNoZoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DIASVISIBLES = (DIASVISIBLES==7 ? 7 : DIASVISIBLES+1);
+                mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
+            }
+        });
 
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override

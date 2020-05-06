@@ -25,20 +25,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="421dp">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerId"
                 android:layout_width="match_parent"
-                android:layout_height="565dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="102dp"
-                android:layout_marginEnd="0dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="16dp"
-                android:padding="5dp" >
+                android:layout_marginEnd="0dp"
+                android:padding="5dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -47,7 +44,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="113dp">
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/terminar"
@@ -63,240 +60,208 @@
                 android:id="@+id/siguienteUno"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="16dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasDos"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteDos"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasTres"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteTres"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasCuatro"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteCuatro"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasCinco"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteCinco"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasSeis"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteSeis"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasSiete"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteSiete"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasOcho"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
             <ImageButton
                 android:id="@+id/siguienteOcho"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginEnd="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
 
             <ImageButton
                 android:id="@+id/atrasNueve"
                 android:layout_width="67dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="17dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="17dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/prev" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
