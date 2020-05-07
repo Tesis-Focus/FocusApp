@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import java.util.List;
      FirebaseDatabase database;
      DatabaseReference myRef;
      String idBeneficiario;
+     Button btnAgregarActividad;
      Usuario beneficiario;
 
      public static final String PATH_ACTIVIDADES = "actividades/";
@@ -44,6 +46,7 @@ import java.util.List;
         myRef = database.getReference();
 
         actividades = findViewById(R.id.actividades);
+        btnAgregarActividad = findViewById(R.id.btnAgregaractividad);
         nombresActividades = new ArrayList<>();
         misActividades = new ArrayList<>();
 
@@ -61,6 +64,19 @@ import java.util.List;
                 intent.putExtra("Actividad", misActividades.get(position));
                 intent.putExtra("idBeneficiario",idBeneficiario);
                 startActivity(intent);
+            }
+        });
+
+        btnAgregarActividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(),AgregarActividadActivity.class);
+                List<String> nombreBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
+                List<Usuario> beneficiarios = (List<Usuario>) getIntent().getSerializableExtra("beneficiarios");
+                i.putExtra("nombreBeneficiarios", (Serializable) nombreBeneficiarios);
+                i.putExtra("beneficiarios", (Serializable) beneficiarios);
+                i.putExtra("codigo",0);
+                startActivity(i);
             }
         });
 

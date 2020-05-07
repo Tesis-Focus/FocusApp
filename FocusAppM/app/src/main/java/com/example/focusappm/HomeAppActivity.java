@@ -112,6 +112,8 @@ public class HomeAppActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),TareasActivity.class);
                 i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                i.putExtra("beneficiarios", (Serializable) beneficiarios);
+                i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 startActivity(i);
             }
         });
@@ -121,6 +123,8 @@ public class HomeAppActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(),ActividadesActivity.class);
                 i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                i.putExtra("beneficiarios", (Serializable) beneficiarios);
+                i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 startActivity(i);
             }
         });
