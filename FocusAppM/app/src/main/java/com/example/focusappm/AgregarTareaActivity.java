@@ -286,7 +286,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
                         tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
                         tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear() + 1900);
-                        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth() + 1);
+                        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -386,7 +386,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         miTarea.getFechaEntrega().setMonth(miTarea.getFechaEntrega().getMonth());
-        miTarea.getFechaEntrega().setYear(miTarea.getFechaEntrega().getYear()-1900);
+        miTarea.getFechaEntrega().setYear(miTarea.getFechaEntrega().getYear());
         String fechEntrega = df.format(miTarea.getFechaEntrega());
         txtFechaEntrega.setText(fechEntrega);
 
