@@ -11,11 +11,12 @@ public class Actividad implements Serializable {
     private String descripcion;
     private String tipo;
     private String desempeño;
+    private String asignatura;
     private Date fechaInicio;
     private Date fechaFinal;
-    private Boolean horarioFijo;
     private String idUsaurio;
     private int color;
+    private List<String> areas = new ArrayList<String>();
     ArrayList<Horario> horarios;
 
     public ArrayList<Horario> getHorarios() {
@@ -96,14 +97,6 @@ public class Actividad implements Serializable {
         this.fechaFinal = fechaFinal;
     }
 
-    public Boolean getHorarioFijo() {
-        return horarioFijo;
-    }
-
-    public void setHorarioFijo(Boolean horarioFijo) {
-        this.horarioFijo = horarioFijo;
-    }
-
     public String getIdUsaurio() {
         return idUsaurio;
     }
@@ -118,5 +111,21 @@ public class Actividad implements Serializable {
 
     public void setIdTareas(List<String> idTareas) {
         this.idTareas = idTareas;
+    }
+
+    public List<String> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<String> areas) {
+        this.areas = areas;
+    }
+
+    public String getAsignatura() {
+        return asignatura;
+    }
+
+    public void setAsignatura(String asignatura) {
+        this.asignatura = asignatura;
     }
 }

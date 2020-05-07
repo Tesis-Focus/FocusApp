@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -85,14 +86,27 @@
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Tipo" />
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Tipo" />
 
             <Spinner
                 android:id="@+id/spnTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewAsig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Asignaturas" />
+
+            <Spinner
+                android:id="@+id/spnAsignaturas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp" />
@@ -107,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingTop="10dp">
+                android:paddingTop="5dp">
 
                 <Button
                     android:id="@+id/btnAgregarHorarioActividad"
@@ -132,14 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:paddingBottom="15dp"
-                android:visibility="visible" />
-
-            <CheckBox
-                android:id="@+id/chbxHorarioFijo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Horario Fijo"
                 android:visibility="visible" />
 
             <Button
