@@ -55,7 +55,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
     Spinner spnTipo;
     Spinner spnDesempenio, spnBeneficiariosAgrAc;
     Integer codigo;
-    CheckBox horarioFijo;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapter;
@@ -95,7 +94,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         spnTipo = findViewById(R.id.spnTipo);
         spnDesempenio = findViewById(R.id.spnDesempeno);
         spnBeneficiariosAgrAc = findViewById(R.id.spnBeneficiariosAgrAc);
-        horarioFijo = findViewById(R.id.chbxHorarioFijo);
         nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
         beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
         codigo =(Integer) getIntent().getSerializableExtra("codigo");
@@ -180,11 +178,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setHorarios(horarioActividad);
                     actividad.setFechaInicio(fechaini);
                     actividad.setFechaFinal(fechafin);
-                    Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
 
                    // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
                     // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
-                    actividad.setHorarioFijo(horarioFijo.isChecked());
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
 
@@ -236,9 +232,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
         String fechFin = df.format(miActividad.getFechaFinal());
 
-        if(miActividad.getHorarioFijo()){
-            horarioFijo.setChecked(true);
-        }
 
 
     }
