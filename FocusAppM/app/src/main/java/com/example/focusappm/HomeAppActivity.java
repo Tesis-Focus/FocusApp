@@ -218,8 +218,8 @@ public class HomeAppActivity extends AppCompatActivity {
         viewPageAdapter.setFragmentList(fragments);
         viewPageAdapter.setFragmentTitles(names);
 
-        //viewPageAdapter.addFragment( mes,"Mes");
-        //viewPageAdapter.addFragment( detalle,"Detallada");
+        viewPageAdapter.addFragment( mes,"Mes");
+        viewPageAdapter.addFragment( detalle,"Detallada");
 
         viewPager.setAdapter(viewPageAdapter);
         viewPager.setPagingEnabled(false);

@@ -72,6 +72,7 @@ public class PerfilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),AgregarPerfilActivity.class);
+                i.putExtra("codigo",0);
                 startActivity(i);
             }
         });

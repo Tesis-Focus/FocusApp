@@ -315,6 +315,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                         actividad.setIdActividad(myRef.getKey());
                         myRef.setValue(actividad);
                     }
+
                     if(codigo==1){
                         myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
                         actividad.setIdActividad(miActividad.getIdActividad());
@@ -355,10 +356,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth());
         miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
         String fechFin = df.format(miActividad.getFechaFinal());
-
-
-
     }
+
     public static int obtenerPosicionItem(Spinner spinner, String nombre) {
         int posicion = 0;
         for (int i = 0; i < spinner.getCount(); i++) {
