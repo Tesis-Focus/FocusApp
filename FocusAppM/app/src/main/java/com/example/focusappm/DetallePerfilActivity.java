@@ -53,6 +53,8 @@ public class DetallePerfilActivity extends AppCompatActivity {
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
         beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
+        Log.i("DETALLE PERFIL", beneficiario.getNombres());
+        Log.i("DETALLE PERFIL", beneficiario.getApellidos());
         edtxNombreDetallePB.setText(beneficiario.getNombres());
         edtxApellidosDetallePB.setText(beneficiario.getApellidos());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
