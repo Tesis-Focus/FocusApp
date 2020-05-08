@@ -255,6 +255,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
 
                     List<String> areas = new ArrayList<>();
+                    /*
                     if(checkLectura.isChecked()){
                         areas.add("Lectura");
                     }
@@ -270,7 +271,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     if(checkCompentencias.isChecked()){
                         areas.add("Competencias");
                     }
-
                      */
 
                   //  tarea.setAreas(areas);

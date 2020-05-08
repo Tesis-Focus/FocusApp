@@ -39,7 +39,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     DatabaseReference myRef;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     Usuario miUsuario;
-    int codigo;
+    Integer codigo;
 
     public final Calendar c = Calendar.getInstance();
     private final int mes = c.get(Calendar.MONTH);
@@ -59,7 +59,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         spnCursoPB = findViewById(R.id.spnCursoPB);
         btnListoPB = findViewById(R.id.btnListoPB);
         btnFechaNacPB = findViewById(R.id.btnFechaNacPB);
-        codigo = (int) getIntent().getSerializableExtra("codigo");
+        codigo = (Integer) getIntent().getSerializableExtra("codigo");
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
@@ -95,6 +95,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
                 if(validarCampos()){
                     registroBeneficiario();
 
+                    /*
                     if(codigo == 1){
                         miUsuario = (Usuario) getIntent().getSerializableExtra("usuario");
                         llenarDatosUsuario();
@@ -103,6 +104,8 @@ public class AgregarPerfilActivity extends AppCompatActivity {
                         //actividad.setIdActividad(miActividad.getIdActividad());
                         //myRef.setValue(actividad);
                     }
+
+                     */
 
                     Intent i = new Intent(getBaseContext(),PerfilesActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

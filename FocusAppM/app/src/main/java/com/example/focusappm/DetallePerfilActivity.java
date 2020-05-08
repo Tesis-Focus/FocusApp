@@ -94,7 +94,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                myRef = database.getReference(PATH_USUARIOS);
+                myRef = database.getReference(PATH_USUARIOS + beneficiario.getIdUsuario());
                 myRef.removeValue();
 
                 Toast.makeText(getApplicationContext(), "Usuario eliminado", Toast.LENGTH_LONG).show();
