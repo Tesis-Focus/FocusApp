@@ -515,6 +515,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
+                intent.putExtra("beneficiario", beneficiario);
                 startActivity(intent);
 
 
