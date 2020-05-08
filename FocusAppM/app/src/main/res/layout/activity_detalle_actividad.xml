@@ -71,6 +71,22 @@
                 android:inputType="textPersonName" />
 
             <TextView
+                android:id="@+id/textAsignatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asignatura" />
+
+            <EditText
+                android:id="@+id/edtxAsignatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName" />
+
+            <TextView
             android:id="@+id/textView33"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,21 +134,6 @@
                 android:focusableInTouchMode="false"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Horario Fijo" />
-
-            <EditText
-                android:id="@+id/edttxtHorarioFijo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="textPersonName" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

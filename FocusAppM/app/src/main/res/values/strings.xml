@@ -75,4 +75,18 @@
         <item>Domingo</item>
     </string-array>
 
+    <string-array name="Asignaturas">
+        <item>Seleccione la asignatura</item>
+        <item>Ciencias naturales</item>
+        <item>Ciencias sociales</item>
+        <item>Educación artistica</item>
+        <item>Ética y valores</item>
+        <item>Educación física</item>
+        <item>Religión</item>
+        <item>Humanidades, español e idiomas</item>
+        <item>Matemáticas</item>
+        <item>Tecnología e informática</item>
+    </string-array>
+
+
 </resources>

@@ -126,7 +126,7 @@ public class DetalleTareaActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Tarea eliminada", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getBaseContext(), TareasActivity.class);
+                Intent intent = new Intent(getBaseContext(), HomeAppActivity.class);
                 intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
                 startActivity(intent);
             }

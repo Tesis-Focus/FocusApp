@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,12 +32,13 @@ public class DetalleActividadActivity extends AppCompatActivity {
     EditText nombre;
     EditText descripcion;
     EditText tipo;
+    EditText edtxAsignatura;
     EditText fechaInicio;
     EditText fechaFin;
     EditText desempeño;
-    EditText horarioFijo;
     Button btneEliminar;
     Button btnEditarActividad;
+    TextView textAsignatura;
 
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
@@ -65,10 +67,11 @@ public class DetalleActividadActivity extends AppCompatActivity {
         nombre = findViewById(R.id.edtxNombreActividad);
         descripcion = findViewById(R.id.edtxtDescripcion);
         tipo = findViewById(R.id.edtxTipo);
+        edtxAsignatura = findViewById(R.id.edtxAsignatura);
+        textAsignatura = findViewById(R.id.textAsignatura);
         fechaInicio = findViewById(R.id.edtxFechaInicio);
         fechaFin = findViewById(R.id.edttxtFechaFin);
         desempeño = findViewById(R.id.edttxtDesempeño);
-        horarioFijo = findViewById(R.id.edttxtHorarioFijo);
         btneEliminar = findViewById(R.id.btnEliminarActividad);
         btnEditarActividad = findViewById(R.id.btnEditarActividad);
 
@@ -87,11 +90,15 @@ public class DetalleActividadActivity extends AppCompatActivity {
         String fechFinal = df.format(actividad.getFechaFinal());
         fechaFin.setText(fechFinal);
 
-         desempeño.setText(actividad.getDesempeño());
-        if(actividad.getHorarioFijo()){
-            horarioFijo.setText("Si");
-        }else{
-            horarioFijo.setText("No");
+        desempeño.setText(actividad.getDesempeño());
+
+        textAsignatura.setVisibility(View.GONE);
+        edtxAsignatura.setVisibility(View.GONE);
+
+        if(actividad.getTipo().equals("académica")){
+            textAsignatura.setVisibility(View.VISIBLE);
+            edtxAsignatura.setVisibility(View.VISIBLE);
+            edtxAsignatura.setText(actividad.getAsignatura());
         }
 
         myRef.child(PATH_USUARIOS).addListenerForSingleValueEvent(new ValueEventListener() {

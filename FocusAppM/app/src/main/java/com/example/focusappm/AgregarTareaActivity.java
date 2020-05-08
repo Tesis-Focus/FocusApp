@@ -68,6 +68,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     ArrayList<Actividad> actividades;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
+
     Integer codigo;
     ArrayAdapter<String> adapterBenef;
     RadioGroup radioGroup;
@@ -92,8 +93,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
     FirebaseUser user;
     public static final String PATH_TAREAS = "tareas/";
     public static final String PATH_ACTIVIDADES = "actividades/";
+    public static final String PATH_ESTILOS = "estilosAprendizaje/";
+
 
     String idBeneficiario;
+    String estiloDominante;
+    String estiloSecundario;
     Tarea miTarea;
 
 
@@ -153,6 +158,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 Log.i("TAG", "idBeneficiario: " + idBeneficiario);
 
                 spinnerActiv(idBeneficiario);
+                estilosAprendizaje(idBeneficiario);
             }
 
             @Override
@@ -160,7 +166,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
             }
         });
-
 
         if(codigo==1){
             miTarea =(Tarea) getIntent().getSerializableExtra("tarea");
@@ -239,16 +244,17 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         tarea.getFechaEntrega().setHours(Integer.parseInt(mHora));
                         tarea.getFechaEntrega().setMinutes(Integer.parseInt(mMinuto));
                         tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear() + 1900);
-                        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth() + 1);
+                        tarea.getFechaEntrega().setMonth(tarea.getFechaEntrega().getMonth());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-                    //List<String> areas = new ArrayList<>();
+                    List<String> areasActividad = new ArrayList<String>();
+                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
 
-                    /*
+                    List<String> areas = new ArrayList<>();
                     if(checkLectura.isChecked()){
                         areas.add("Lectura");
                     }
@@ -274,8 +280,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
-                    //tarea = reglas.asignarTiempos(tarea, desempenoActividad);
-                    //tarea = reglas.asignarPrioridad(tarea, desempenoActividad);
+                    tarea = reglas.asignarTiempos(tarea, desempenoActividad, areasActividad, estiloDominante, estiloSecundario);
+                    tarea = reglas.asignarPrioridad(tarea, desempenoActividad, areasActividad);
                     Log.i("TAG", "onClick: " + tarea.getPrioridad());
 
                     Log.i("TAG", "onClick: agregar tarea a actividad " + id_Actividad + " " + nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
@@ -311,6 +317,28 @@ public class AgregarTareaActivity extends AppCompatActivity {
         });
     }
 
+    private void estilosAprendizaje(String idBeneficiario) {
+        myRef.child(PATH_ESTILOS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    EstiloAprendizaje estilo = ds.getValue(EstiloAprendizaje.class);
+
+                    if(idBeneficiario.equalsIgnoreCase(estilo.getIdBeneficiario())) {
+                        estiloDominante = estilo.getDominate();
+                        estiloSecundario = estilo.getSecundario();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void llenarDatos() {
         //Tarea tarea =(Tarea) getIntent().getSerializableExtra("tarea");
         txtNombTarea.setText(miTarea.getNombre());
@@ -318,7 +346,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         miTarea.getFechaEntrega().setMonth(miTarea.getFechaEntrega().getMonth());
-        miTarea.getFechaEntrega().setYear(miTarea.getFechaEntrega().getYear()-1900);
+        miTarea.getFechaEntrega().setYear(miTarea.getFechaEntrega().getYear());
         String fechEntrega = df.format(miTarea.getFechaEntrega());
         txtFechaEntrega.setText(fechEntrega);
 
@@ -393,7 +421,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
             txtMotivacion.setError("Requerido");
 
         }
-
+        if(sprActividad.getSelectedItem().equals("")){
+            esValido = false;
+            TextView errorText = (TextView)sprActividad.getSelectedView();
+            errorText.setError("");
+        }
         if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
             esValido = false;
             TextView errorText = (TextView)sprComplejidad.getSelectedView();
@@ -449,7 +481,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         //Log.i("TAG", "Actividad: " + nombre);
                     }
                 }
-
+                if(nombre_Actividades.isEmpty()){
+                    nombre_Actividades.add("");
+                }
                 ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
                 sprActividad.setAdapter(adapterAct);
                 sprActividad.setSelection(posicion);
