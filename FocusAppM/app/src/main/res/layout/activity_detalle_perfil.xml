@@ -9,8 +9,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,16 +95,46 @@
             <Button
                 android:id="@+id/btnAgregarHorDis"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="58dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="20dp"
                 android:text="Agregar horario disponible"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnAgregaEstiloApren"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingEnd="15dp"
                 android:text="Realizar test estilo de aprendizaje"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <Button
+                    android:id="@+id/btnEditarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:paddingEnd="10dp"
+                    android:text="Editar perfil"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btnEliminarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ELIMINAR PERFIL"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

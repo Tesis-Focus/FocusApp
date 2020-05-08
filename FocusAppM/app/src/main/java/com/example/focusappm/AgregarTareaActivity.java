@@ -107,7 +107,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        txtAreas = findViewById(R.id.txtAreas);
         txtClasificacion = findViewById(R.id.textClasificacion);
         txtMotivacion = findViewById(R.id.txtMotivacion);
         spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
@@ -135,11 +134,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         radioSi = findViewById(R.id.radioSi);
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
-        checkLectura = findViewById(R.id.checkLectura);
-        checkEscritura = findViewById(R.id.checkEscritura);
-        checkRazonamiento = findViewById(R.id.checkRazonamiento);
-        checkCompentencias = findViewById(R.id.checkCompetencias);
-        checkIngles = findViewById(R.id.checkIngles);
 
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
@@ -223,47 +217,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
-        checkLectura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkEscritura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkRazonamiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkIngles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkCompentencias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-
-
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validarDatos()) {
+
+                //if(validarDatos()) {
                     ReglasDecision reglas = new ReglasDecision();
                     Tarea tarea = new Tarea();
                     Tarea nueva = new Tarea();
@@ -288,8 +246,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-                    List<String> areas = new ArrayList<>();
+                    //List<String> areas = new ArrayList<>();
 
+                    /*
                     if(checkLectura.isChecked()){
                         areas.add("Lectura");
                     }
@@ -306,15 +265,17 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         areas.add("Competencias");
                     }
 
+                     */
+
                   //  tarea.setAreas(areas);
-                    tarea.getAreas().addAll(areas);
+                 //tarea.getAreas().addAll(areas);
                     Log.i("testAreas", tarea.getAreas().toString());
 
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
-                    tarea = reglas.asignarTiempos(tarea, desempenoActividad);
-                    tarea = reglas.asignarPrioridad(tarea, desempenoActividad);
+                    //tarea = reglas.asignarTiempos(tarea, desempenoActividad);
+                    //tarea = reglas.asignarPrioridad(tarea, desempenoActividad);
                     Log.i("TAG", "onClick: " + tarea.getPrioridad());
 
                     Log.i("TAG", "onClick: agregar tarea a actividad " + id_Actividad + " " + nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
@@ -345,7 +306,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-                }
+                //}
             }
         });
     }
@@ -411,6 +372,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         return posicion;
     }
 
+    /*
     private boolean validarDatos() {
         boolean esValido = true;
         if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
@@ -452,7 +414,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         return esValido;
     }
-
+*/
 
     public void spinnerActiv(String idBeneficiario){
 

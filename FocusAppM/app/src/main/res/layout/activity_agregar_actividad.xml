@@ -139,7 +139,6 @@
                 android:id="@+id/spnDesempeno"
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
-                android:paddingEnd="15dp"
                 android:paddingBottom="15dp"
                 android:visibility="visible" />
 

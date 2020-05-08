@@ -38,6 +38,8 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    Usuario miUsuario;
+    int codigo;
 
     public final Calendar c = Calendar.getInstance();
     private final int mes = c.get(Calendar.MONTH);
@@ -57,10 +59,10 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         spnCursoPB = findViewById(R.id.spnCursoPB);
         btnListoPB = findViewById(R.id.btnListoPB);
         btnFechaNacPB = findViewById(R.id.btnFechaNacPB);
+        codigo = (int) getIntent().getSerializableExtra("codigo");
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-
 
         btnFechaNacPB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +91,19 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         btnListoPB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(validarCampos()){
                     registroBeneficiario();
+
+                    if(codigo == 1){
+                        miUsuario = (Usuario) getIntent().getSerializableExtra("usuario");
+                        llenarDatosUsuario();
+
+                        //myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
+                        //actividad.setIdActividad(miActividad.getIdActividad());
+                        //myRef.setValue(actividad);
+                    }
+
                     Intent i = new Intent(getBaseContext(),PerfilesActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
@@ -167,4 +180,13 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         return valido;
 
     }
+
+    private void llenarDatosUsuario() {
+
+        edtxNombresPB.setText("Lina");
+        //edtxApellidosPB.setText(miUsuario.getApellidos());
+        //edtxFechaNacPB.setText((CharSequence) miUsuario.getFechaNacimiento());
+    }
+
+
 }
