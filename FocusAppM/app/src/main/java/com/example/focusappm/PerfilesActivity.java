@@ -52,9 +52,10 @@ public class PerfilesActivity extends AppCompatActivity {
         btnAgregarPerfil = findViewById(R.id.btnAgregarPerfil);
         nombres = new ArrayList<>();
         usuariosBeneficiarios = new ArrayList<>();
-        cargarPerfilesB();
+
 
         idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");
+        cargarPerfilesB();
 
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override

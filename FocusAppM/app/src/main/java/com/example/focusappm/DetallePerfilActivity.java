@@ -37,7 +37,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
     DatabaseReference myRef;
     Usuario beneficiario;
     public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
-    public static final String PATH_USUARIOS = "/usuarios";
+    public static final String PATH_USUARIOS = "usuarios/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,9 @@ public class DetallePerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                myRef = database.getReference(PATH_USUARIOS + beneficiario.getIdUsuario());
+                myRef = database.getReference(PATH_USUARIOS+beneficiario.getIdBeneficiario());
+                Log.i("BORRAR", beneficiario.getIdUsuario());
+
                 myRef.removeValue();
 
                 Toast.makeText(getApplicationContext(), "Usuario eliminado", Toast.LENGTH_LONG).show();
