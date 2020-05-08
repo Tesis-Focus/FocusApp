@@ -64,6 +64,12 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
 
+        if(codigo == 1){
+
+            miUsuario = (Usuario) getIntent().getSerializableExtra("usuario");
+            llenarDatosUsuario();
+        }
+
         btnFechaNacPB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,19 +99,8 @@ public class AgregarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(validarCampos()){
+
                     registroBeneficiario();
-
-                    /*
-                    if(codigo == 1){
-                        miUsuario = (Usuario) getIntent().getSerializableExtra("usuario");
-                        llenarDatosUsuario();
-
-                        //myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
-                        //actividad.setIdActividad(miActividad.getIdActividad());
-                        //myRef.setValue(actividad);
-                    }
-
-                     */
 
                     Intent i = new Intent(getBaseContext(),PerfilesActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -139,6 +134,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     }
 
     private void registroBeneficiario(){
+
         Usuario nuevoBene = new Usuario();
         nuevoBene.setCurso(spnCursoPB.getSelectedItem().toString());
         nuevoBene.setNombres(edtxNombresPB.getText().toString());
@@ -152,8 +148,19 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         nuevoBene.setIdBeneficiario(key);
         nuevoBene.setIdUsuario(user.getUid());
-        myRef = database.getReference(PATH_USUARIOS+key);
-        myRef.setValue(nuevoBene);
+
+        /*
+        if(codigo==1){
+            myRef = database.getReference(PATH_USUARIOS+miUsuario.getIdBeneficiario());
+            nuevoBene.setIdBeneficiario(miUsuario.getIdBeneficiario());
+            myRef.setValue(nuevoBene);
+        }else{
+
+         */
+            myRef = database.getReference(PATH_USUARIOS+key);
+            myRef.setValue(nuevoBene);
+        //}
+
         Toast.makeText(getApplicationContext(),"perfil agregado correctamente",Toast.LENGTH_LONG).show();
     }
 
@@ -186,10 +193,28 @@ public class AgregarPerfilActivity extends AppCompatActivity {
 
     private void llenarDatosUsuario() {
 
-        edtxNombresPB.setText("Lina");
-        //edtxApellidosPB.setText(miUsuario.getApellidos());
-        //edtxFechaNacPB.setText((CharSequence) miUsuario.getFechaNacimiento());
+        String dia, mes, anio, fecha;
+
+        dia = String.valueOf(miUsuario.getFechaNacimiento().getDate());
+        mes = String.valueOf(miUsuario.getFechaNacimiento().getMonth());
+        anio = String.valueOf(miUsuario.getFechaNacimiento().getYear());
+
+        fecha = dia + "/" + mes + "/"+ anio;
+
+        edtxNombresPB.setText(miUsuario.getNombres());
+        edtxApellidosPB.setText(miUsuario.getApellidos());
+        edtxFechaNacPB.setText(fecha);
+        spnCursoPB.setSelection(obtenerPosicionItem(spnCursoPB,miUsuario.getCurso()));
+
     }
 
-
+    public static int obtenerPosicionItem(Spinner spinner, String nombre) {
+        int posicion = 0;
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(nombre)) {
+                posicion = i;
+            }
+        }
+        return posicion;
+    }
 }

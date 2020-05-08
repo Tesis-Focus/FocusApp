@@ -84,7 +84,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getBaseContext(), AgregarPerfilActivity.class);
-                intent.putExtra("Usuario", beneficiario);
+                intent.putExtra("usuario", beneficiario);
                 intent.putExtra("codigo", 1);
                 startActivity(intent);
             }
@@ -96,10 +96,9 @@ public class DetallePerfilActivity extends AppCompatActivity {
 
                 myRef = database.getReference(PATH_USUARIOS+beneficiario.getIdBeneficiario());
                 Log.i("BORRAR", beneficiario.getIdUsuario());
-
                 myRef.removeValue();
 
-                Toast.makeText(getApplicationContext(), "Usuario eliminado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Usuario eliminado exisitosamente ", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getBaseContext(), PerfilesActivity.class);
                 intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
