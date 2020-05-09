@@ -218,8 +218,8 @@ public class HomeAppActivity extends AppCompatActivity {
         viewPageAdapter.setFragmentList(fragments);
         viewPageAdapter.setFragmentTitles(names);
 
-        viewPageAdapter.addFragment( mes,"Mes");
-        viewPageAdapter.addFragment( detalle,"Detallada");
+        //viewPageAdapter.addFragment( mes,"Mes");
+        //viewPageAdapter.addFragment( detalle,"Detallada");
 
         viewPager.setAdapter(viewPageAdapter);
         viewPager.setPagingEnabled(false);
@@ -228,7 +228,7 @@ public class HomeAppActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                
+
             }
 
             @Override
@@ -244,3 +244,4 @@ public class HomeAppActivity extends AppCompatActivity {
 
 
 }
+
