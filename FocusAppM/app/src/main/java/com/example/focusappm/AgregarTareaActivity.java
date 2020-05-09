@@ -196,19 +196,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         String AM_PM ;
                         String minutoFormateado = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
 
-                        if(hourOfDay < 12) {
-                            AM_PM = "AM";
-                            AM_PM_Fin = 0;
-                            isPmEnd = false;
-                        } else {
-                            hourOfDay= hourOfDay-12;
-                            AM_PM = "PM";
-                            AM_PM_Fin = 1;
-                            isPmEnd =true;
-                        }
-
-
-                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado + " " + AM_PM);
+                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado);
                         txtHoraEntrega.setError(null);
                     }
                 }, hora, minutos,false);
@@ -266,10 +254,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-
-
-                    Log.i("testAreas", tarea.getAreas().toString());
-
+                    List<String> areasActividad = new ArrayList<String>();
+                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
@@ -307,33 +293,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     startActivity(i);
 
                 }
-
-                    /*
-                    List<String> areasActividad = new ArrayList<String>();
-                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
-
-                    List<String> areas = new ArrayList<>();
-
-                    if(checkLectura.isChecked()){
-                        areas.add("Lectura");
-                    }
-                    if(checkEscritura.isChecked()){
-                        areas.add("Escritura");
-                    }
-                    if(checkRazonamiento.isChecked()){
-                        areas.add("Razonamiento");
-                    }
-                    if(checkIngles.isChecked()){
-                        areas.add("Ingles");
-                    }
-                    if(checkCompentencias.isChecked()){
-                        areas.add("Competencias");
-                    }
-                     */
-
-                  //  tarea.setAreas(areas);
-                 //tarea.getAreas().addAll(areas);
-                //}
             }
         });
     }
@@ -425,6 +384,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     public void spinnerActiv(String idBeneficiario){
 
         //Log.i("TAG", "Beneficiario funcion" + idBeneficiario);
+
 
         myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -543,5 +503,4 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         return esValido;
     }
-
 }

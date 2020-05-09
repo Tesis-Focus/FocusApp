@@ -804,8 +804,6 @@ public class ReglasDecision {
         }
         Log.i("test", "asignarPrioridadArea: 5-" + tarea.getPrioridad());
 
-
-        //Reglas estilo de aprendizaje
         return tarea;
     }
 
