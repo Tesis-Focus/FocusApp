@@ -95,7 +95,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
     public static final String PATH_ACTIVIDADES = "actividades/";
     public static final String PATH_ESTILOS = "estilosAprendizaje/";
 
-
+    int AM_PM_Fin;
+    boolean isPmEnd;
     String idBeneficiario;
     String estiloDominante;
     String estiloSecundario;
@@ -192,9 +193,22 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                        String AM_PM ;
                         String minutoFormateado = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
 
-                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado);
+                        if(hourOfDay < 12) {
+                            AM_PM = "AM";
+                            AM_PM_Fin = 0;
+                            isPmEnd = false;
+                        } else {
+                            hourOfDay= hourOfDay-12;
+                            AM_PM = "PM";
+                            AM_PM_Fin = 1;
+                            isPmEnd =true;
+                        }
+
+
+                        txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado + " " + AM_PM);
                         txtHoraEntrega.setError(null);
                     }
                 }, hora, minutos,false);
