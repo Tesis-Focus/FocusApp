@@ -37,8 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Responsable"
+                android:text="  Responsable"
                 android:textAlignment="viewStart"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
             <Spinner
@@ -51,8 +52,9 @@
                 android:id="@+id/textView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textSize="18sp" />
+                android:text="  Nombre de la actividad"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +64,7 @@
                 <EditText
                     android:id="@+id/edttxtNomActividad"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName" />
@@ -70,7 +72,7 @@
                 <Button
                     android:id="@+id/btnColor"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.4"
                     android:text="color " />
             </LinearLayout>
@@ -80,8 +82,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Descripción"
-                android:textSize="18sp" />
+                android:text="  Descripción"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edttxtDescripcion"
@@ -91,16 +94,18 @@
                 android:inputType="textPersonName" />
 
             <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Tipo" />
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="  Tipo"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/spnTipo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="387dp"
+                android:layout_height="34dp"
                 android:paddingBottom="5dp" />
 
             <TextView
@@ -108,7 +113,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Asignaturas" />
+                android:text="  Asignaturas"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/spnAsignaturas"
@@ -121,8 +128,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Horario de la actividad"
-                android:textSize="18sp" />
+                android:text="  Horario de la actividad"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,8 +153,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Desempeño"
-                android:textSize="18sp"
+                android:text="  Desempeño"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 android:visibility="visible" />
 
             <Spinner
@@ -158,7 +167,7 @@
 
             <Button
                 android:id="@+id/btnAceptarAgregarAct"
-                android:layout_width="385dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"

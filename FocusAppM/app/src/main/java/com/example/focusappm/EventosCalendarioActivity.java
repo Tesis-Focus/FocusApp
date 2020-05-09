@@ -392,6 +392,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         }
 
         recogerFecha.show();
-
     }
+
 }

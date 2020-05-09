@@ -240,7 +240,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //if(validarDatos()) {
+                if(validarCampos()){
+
                     ReglasDecision reglas = new ReglasDecision();
                     Tarea tarea = new Tarea();
                     Tarea nueva = new Tarea();
@@ -265,30 +266,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-                    List<String> areasActividad = new ArrayList<String>();
-                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
 
-                    List<String> areas = new ArrayList<>();
-                    /*
-                    if(checkLectura.isChecked()){
-                        areas.add("Lectura");
-                    }
-                    if(checkEscritura.isChecked()){
-                        areas.add("Escritura");
-                    }
-                    if(checkRazonamiento.isChecked()){
-                        areas.add("Razonamiento");
-                    }
-                    if(checkIngles.isChecked()){
-                        areas.add("Ingles");
-                    }
-                    if(checkCompentencias.isChecked()){
-                        areas.add("Competencias");
-                    }
-                     */
 
-                  //  tarea.setAreas(areas);
-                 //tarea.getAreas().addAll(areas);
                     Log.i("testAreas", tarea.getAreas().toString());
 
                     Log.i("test", desempenoActividad);
@@ -326,6 +305,34 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
+
+                }
+
+                    /*
+                    List<String> areasActividad = new ArrayList<String>();
+                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
+
+                    List<String> areas = new ArrayList<>();
+
+                    if(checkLectura.isChecked()){
+                        areas.add("Lectura");
+                    }
+                    if(checkEscritura.isChecked()){
+                        areas.add("Escritura");
+                    }
+                    if(checkRazonamiento.isChecked()){
+                        areas.add("Razonamiento");
+                    }
+                    if(checkIngles.isChecked()){
+                        areas.add("Ingles");
+                    }
+                    if(checkCompentencias.isChecked()){
+                        areas.add("Competencias");
+                    }
+                     */
+
+                  //  tarea.setAreas(areas);
+                 //tarea.getAreas().addAll(areas);
                 //}
             }
         });
@@ -414,53 +421,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         return posicion;
     }
 
-    /*
-    private boolean validarDatos() {
-        boolean esValido = true;
-        if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
-            esValido = false;
-            txtNombTarea.setError("Requerido");
-        }
-        if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
-            esValido = false;
-            txtFechaEntrega.setError("Requerido");
-        }
-        if(TextUtils.isEmpty(txtHoraEntrega.getText().toString())){
-            esValido = false;
-            txtHoraEntrega.setError("Requerido");
-        }
-        if(!radioSi.isChecked() && !radioNo.isChecked()){
-            Log.i("ESTADO", "-------");
-            esValido = false;
-            txtMotivacion.setError("Requerido");
-
-        }
-        if(sprActividad.getSelectedItem().equals("")){
-            esValido = false;
-            TextView errorText = (TextView)sprActividad.getSelectedView();
-            errorText.setError("");
-        }
-        if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
-            esValido = false;
-            TextView errorText = (TextView)sprComplejidad.getSelectedView();
-            errorText.setError("");
-        }
-        if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
-            esValido = false;
-            TextView errorText = (TextView)sprClasificacion.getSelectedView();
-            errorText.setError("");
-        }
-
-        if(!checkLectura.isChecked() && !checkEscritura.isChecked() && !checkRazonamiento.isChecked() && !checkIngles.isChecked() && !checkCompentencias.isChecked()){
-            Log.i("ESTADO", "-------");
-            esValido = false;
-            txtAreas.setError("Requerido");
-
-        }
-
-        return esValido;
-    }
-*/
 
     public void spinnerActiv(String idBeneficiario){
 
@@ -535,7 +495,53 @@ public class AgregarTareaActivity extends AppCompatActivity {
         recogerFecha.show();
     }
 
+    private boolean validarCampos(){
 
+        boolean esValido = true;
+        if(sprActividad.getSelectedItem().equals(" ")){
+            esValido = false;
+            TextView errorText = (TextView) sprActividad.getSelectedView();
+            errorText.setError("Requerido");
+        }
 
+        if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
+            esValido = false;
+            txtNombTarea.setError("Requerido");
+        }
+
+        if(TextUtils.isEmpty(txtDescripTarea.getText().toString())){
+            esValido = false;
+            txtDescripTarea.setError("");
+        }
+
+        if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
+            esValido = false;
+            txtFechaEntrega.setError("");
+        }
+
+        if(TextUtils.isEmpty(txtHoraEntrega.getText().toString())){
+            esValido = false;
+            txtHoraEntrega.setError("");
+        }
+
+        if(!radioSi.isChecked() && !radioNo.isChecked()){
+            esValido = false;
+            txtMotivacion.setError("");
+        }
+
+        if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
+            esValido = false;
+            TextView errorText = (TextView) sprComplejidad.getSelectedView();
+            errorText.setError("");
+        }
+
+        if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
+            esValido = false;
+            TextView errorText = (TextView) sprClasificacion.getSelectedView();
+            errorText.setError("");
+        }
+
+        return esValido;
+    }
 
 }
