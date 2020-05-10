@@ -84,8 +84,10 @@ public class UtilsFocus {
                     Horario horario = ds.getValue(Horario.class);
                     if(horario.getmId().equals(idBeneficiario)){
                         horariosDisponiblesBenefi.add(horario);
+                        Log.i("Planeacion", "idHorarioPrimer" +horario.getIdHorario());
                     }
                 }
+                Log.i("Planeacion", "tamañoDisponible" +horariosDisponiblesBenefi.size());
             }
 
             @Override
@@ -193,6 +195,7 @@ public class UtilsFocus {
 
                 for (Horario horario: horariosDisponiblesBenefi){
                     encontro = false;
+                    Log.i("Planeacion", "asignar" +horario.getIdHorario());
                     if(validarFecha(horario, fechaEntrega, fechaActual)){
 
                         for(ArrayList<Horario> horarioArrayList : horarioxTarea){
@@ -211,8 +214,9 @@ public class UtilsFocus {
                 }
                 Log.i("Planeacion", "Lista de horarios disponibles" + horarioxTarea.size());
 
-                for(ArrayList<Horario> horarioArrayList : horarioxTarea)
+                for(ArrayList<Horario> horarioArrayList : horarioxTarea){
                     Collections.sort(horarioArrayList);
+                }
 
                 Date hoy = new Date();
                 float finalDiasParaEntrega = Math.abs(tarea.getFechaEntrega().getTime()-hoy.getTime());
@@ -226,6 +230,8 @@ public class UtilsFocus {
                 if(diasxAsignar <= finalDiasParaEntrega){
 
                     for(int i=0; i<horarioxTarea.size() && diasxAsignar>0; i++){
+                        Log.i("Planeacion", "antesDeTiempos" + horarioxTarea.get(i).get(0).getIdHorario());
+
                         if (tarea.getTiempoPromedio() > 60 ) {
 
                             asignarTiempos(horarioxTarea.get(i).get(0),tarea,60);
@@ -250,8 +256,8 @@ public class UtilsFocus {
 
                     for(int i=0; i<horarioDispoCambio.size(); i++){
                         Horario horarioDispo= horarioDispoCambio.get(i);
-                        for(int j=0; j<horariosDisponiblesBenefi.size(); i++){
-                            Horario horarioGeneral = horariosDisponiblesBenefi.get(i);
+                        for(int j=0; j<horariosDisponiblesBenefi.size(); j++){
+                            Horario horarioGeneral = horariosDisponiblesBenefi.get(j);
 
                             if(horarioGeneral.getIdHorario().equals(horarioDispo.getIdHorario())){
                                 horariosDisponiblesBenefi.set(j,horarioDispo);
@@ -268,6 +274,9 @@ public class UtilsFocus {
 
 
     private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
+
+        Log.i("Planeacion", "asignarTiempo" +horarioDispo.getIdHorario());
+
         Horario horarioTarea = null;
 
         try {
@@ -276,8 +285,11 @@ public class UtilsFocus {
             e.printStackTrace();
         }
 
+        Log.i("Planeacion", "asignarTiempoDesp" +horarioTarea.getIdHorario());
+
         tarea.setTiempoPromedio((int)tarea.getTiempoPromedio() - tiempoEnMin); // quitarle tiempo por realizar a la tarea
         Log.i("Planeacion", "horarioEndAntes " + horarioTarea.getmEndTime());
+        Log.i("Planeacion", "idHorario " + horarioTarea.getIdHorario());
         horarioTarea.setmEndTime(horarioDispo.getmStartTime());
 
         Calendar cal = Calendar.getInstance();
@@ -286,6 +298,7 @@ public class UtilsFocus {
         horarioTarea.setmEndTime(cal.getTime());
         horarioTarea.setmName("Desarrollo: "+tarea.getNombre());
         horarioTarea.setmColor(tarea.getColor());
+        horarioTarea.setIdHorario(horarioDispo.getIdHorario());
 
         Log.i("Planeacion", "tiempo " + tiempoEnMin);
         Log.i("Planeacion", "horarioStart " + horarioTarea.getmStartTime());

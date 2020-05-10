@@ -282,6 +282,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         myRef.setValue(tarea);
                     }
                     if(codigo==1) {
+                        myRef = FirebaseDatabase.getInstance().getReference().child("");
                         myRef = database.getReference(PATH_TAREAS+miTarea.getIdTarea());
                         tarea.setIdTarea(miTarea.getIdTarea());
                         myRef.setValue(tarea);
