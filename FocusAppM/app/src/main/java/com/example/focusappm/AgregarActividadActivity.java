@@ -136,23 +136,19 @@ public class AgregarActividadActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView adapter, View v, int i, long lng) {
                 //Spinner spnAsignaturas = new Spinner(getApplicationContext());
-                if(spnTipo.getSelectedItem().equals("académica")){
+                if(spnTipo.getSelectedItem().equals("Académica")){
                     textViewAsig.setVisibility(View.VISIBLE);
                     spnAsignatura.setVisibility(View.VISIBLE);
                 }
-                if(spnTipo.getSelectedItem().equals("acedémica")){
+                if(spnTipo.getSelectedItem().equals("Extracurricular")){
                     textViewAsig.setVisibility(View.GONE);
                     spnAsignatura.setVisibility(View.GONE);
                 }
-                if(spnTipo.getSelectedItem().equals("extracurricular")){
+                if(spnTipo.getSelectedItem().equals("Médica")){
                     textViewAsig.setVisibility(View.GONE);
                     spnAsignatura.setVisibility(View.GONE);
                 }
-                if(spnTipo.getSelectedItem().equals("médica")){
-                    textViewAsig.setVisibility(View.GONE);
-                    spnAsignatura.setVisibility(View.GONE);
-                }
-                if(spnTipo.getSelectedItem().equals("familiar")){
+                if(spnTipo.getSelectedItem().equals("Familiar")){
                     textViewAsig.setVisibility(View.GONE);
                     spnAsignatura.setVisibility(View.GONE);
                 }
@@ -250,7 +246,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
 
 
-                    if(actividad.getTipo().equals("académica")) {
+                    if(actividad.getTipo().equals("Académica")) {
                         Log.i("Asignatura", "entra en agregar");
 
                         actividad.setAsignatura(spnAsignatura.getSelectedItem().toString());
@@ -343,7 +339,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         edttxtDescripcion.setText(miActividad.getDescripcion());
         spnTipo.setSelection(obtenerPosicionItem(spnTipo,miActividad.getTipo()));
         spnDesempenio.setSelection(obtenerPosicionItem(spnDesempenio,miActividad.getDesempeño()));
-        if(spnTipo.getSelectedItem().equals("académica")) {
+        if(spnTipo.getSelectedItem().equals("Académica")) {
             spnAsignatura.setSelection(obtenerPosicionItem(spnAsignatura, miActividad.getAsignatura()));
         }
 
@@ -384,7 +380,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
             TextView errorText = (TextView)spnTipo.getSelectedView();
             errorText.setError("");
         }
-        if(spnTipo.getSelectedItem().equals("académica") ) {
+        if(spnTipo.getSelectedItem().equals("Académica") ) {
             if (spnAsignatura.getSelectedItem().equals("Seleccione la asignatura")) {
                 esValido = false;
                 TextView errorText = (TextView) spnAsignatura.getSelectedView();

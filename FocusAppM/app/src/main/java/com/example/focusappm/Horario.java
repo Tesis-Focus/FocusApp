@@ -18,6 +18,7 @@ public class Horario implements Serializable,Comparable,Cloneable {
     private String mName;
     private String mLocation;
     private int mColor;
+    private boolean actualizado;
 
     public String getIdHorario() {
         return idHorario;
@@ -73,6 +74,14 @@ public class Horario implements Serializable,Comparable,Cloneable {
 
     public void setmColor(int mColor) {
         this.mColor = mColor;
+    }
+
+    public boolean isActualizado() {
+        return actualizado;
+    }
+
+    public void setActualizado(boolean actualizado) {
+        this.actualizado = actualizado;
     }
 
     @Override

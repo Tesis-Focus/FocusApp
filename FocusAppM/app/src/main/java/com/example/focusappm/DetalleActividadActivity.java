@@ -95,7 +95,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
         textAsignatura.setVisibility(View.GONE);
         edtxAsignatura.setVisibility(View.GONE);
 
-        if(actividad.getTipo().equals("académica")){
+        if(actividad.getTipo().equals("Académica")){
             textAsignatura.setVisibility(View.VISIBLE);
             edtxAsignatura.setVisibility(View.VISIBLE);
             edtxAsignatura.setText(actividad.getAsignatura());

@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -199,7 +201,8 @@ public class HomeAppActivity extends AppCompatActivity {
     }
 
     private void setUpViewPageAdapter(String idBeneficiario){
-
+        actualizarTiempoTareas(idBeneficiario);
+        Log.i("Tiempo","salioooooooooo");
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
         Fragment mes = new MesFragment();
@@ -241,6 +244,61 @@ public class HomeAppActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void actualizarTiempoTareas(String idBeneficiario) {
+        //cuando ya paso el total del tiempo de la tarea
+        //cuando esta en la mitad del tiemp
+        //horario debe tener estado
+        Log.i("Tiempo", "entrooooo" );
+        List<Tarea> tareas = new ArrayList<Tarea>();
+        Date fechaHoy = new Date();
+        if(idBeneficiario != "") {
+            myRef = database.getReference(PATH_TAREAS);
+
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Tarea tarea = ds.getValue(Tarea.class);
+
+                        List<Horario> horariosTarea = new ArrayList<Horario>();
+                        if (idBeneficiario.equalsIgnoreCase(idBeneficiario)) {
+                            tareas.add(tarea);
+                            horariosTarea.addAll(tarea.getHorarios());
+                            for (int i = 0; i < horariosTarea.size(); i++) {
+                                float diferencia;
+                                myRef = database.getReference(PATH_TAREAS + tarea.getIdTarea());
+                                Horario horario = horariosTarea.get(i);
+                                if (horario.getmStartTime().before(fechaHoy) && horario.getmEndTime().after(fechaHoy) && !horario.isActualizado()) {
+                                    diferencia = ((fechaHoy.getTime() - horario.getmStartTime().getTime()) / 1000);
+                                    tarea.setTiempoPromedio(tarea.getTiempoPromedio() - diferencia);
+                                    Log.i("Tiempo", "tiempo medio" + diferencia);
+                                    tarea.getHorarios().get(i).setActualizado(true);
+
+                                } else if (horario.getmStartTime().before(fechaHoy) && horario.getmEndTime().before(fechaHoy) && !horario.isActualizado()) {
+                                    diferencia = (horario.getmEndTime().getTime() - horario.getmStartTime().getTime()) / 1000;
+                                    tarea.setTiempoPromedio(tarea.getTiempoPromedio() - diferencia);
+                                    Log.i("Tiempo", "tiempo despues" + diferencia);
+                                    horario.setActualizado(true);
+                                    tarea.getHorarios().get(i).setActualizado(true);
+                                }
+
+                            }
+                            myRef.setValue(tarea);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+
 
 
 }

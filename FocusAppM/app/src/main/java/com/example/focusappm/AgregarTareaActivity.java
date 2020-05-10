@@ -282,6 +282,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         myRef.setValue(tarea);
                     }
                     if(codigo==1) {
+                        myRef = FirebaseDatabase.getInstance().getReference().child("");
                         myRef = database.getReference(PATH_TAREAS+miTarea.getIdTarea());
                         tarea.setIdTarea(miTarea.getIdTarea());
                         myRef.setValue(tarea);
@@ -449,11 +450,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
             esValido = false;
             txtNombTarea.setError("Requerido");
-        }
-
-        if(TextUtils.isEmpty(txtDescripTarea.getText().toString())){
-            esValido = false;
-            txtDescripTarea.setError("");
         }
 
         if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
