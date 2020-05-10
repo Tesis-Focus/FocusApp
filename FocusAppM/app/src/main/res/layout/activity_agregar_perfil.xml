@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Agregar perfil"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,10 @@
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre" />
+                android:paddingTop="10dp"
+                android:text="  Nombre"
+                android:textColorHint="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxNombrePB"
@@ -65,7 +68,8 @@
                 android:id="@+id/textView25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Apellidos" />
+                android:paddingTop="10dp"
+                android:text="  Apellidos" />
 
             <EditText
                 android:id="@+id/edtxApellidosPB"
@@ -78,7 +82,8 @@
                 android:id="@+id/textView24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha nacimiento"
+                android:paddingTop="10dp"
+                android:text="  Fecha nacimiento"
                 tools:text="Fecha nacimiento" />
 
             <LinearLayout
@@ -108,12 +113,13 @@
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Curso" />
+                android:paddingTop="10dp"
+                android:text="  Curso" />
 
             <Spinner
                 android:id="@+id/spnCursoPB"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:entries="@array/cursos" />
 
         </LinearLayout>

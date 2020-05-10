@@ -228,7 +228,7 @@ public class HomeAppActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                
+
             }
 
             @Override
@@ -244,3 +244,4 @@ public class HomeAppActivity extends AppCompatActivity {
 
 
 }
+

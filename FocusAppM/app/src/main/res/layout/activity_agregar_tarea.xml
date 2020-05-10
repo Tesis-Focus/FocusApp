@@ -42,7 +42,7 @@
                     android:paddingTop="10dp"
                     android:text="  Seleccione el beneficiario"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/spnBeneficiariosAgrTar"
@@ -56,7 +56,7 @@
                     android:paddingTop="10dp"
                     android:text="  Seleccione la actividad"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/sprActividad"
@@ -68,9 +68,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
-                    android:text="  Nombre:"
+                    android:text="  Nombre de la tarea"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/txtNombTarea"
@@ -95,8 +95,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:paddingTop="5dp"
-                android:text="  Descripción:"
-                android:textColor="#000000" />
+                android:text="  Descripción"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txtDescripTarea"
@@ -110,10 +111,11 @@
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="30dp"
                 android:paddingTop="5dp"
                 android:text="  Fecha de entrega"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,8 +130,8 @@
 
                     <EditText
                         android:id="@+id/txtFechaEntrega"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="86dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.8"
                         android:ems="10"
                         android:focusable="false"
@@ -137,7 +139,7 @@
 
                     <ImageButton
                         android:id="@+id/btnFechaEntrega"
-                        android:layout_width="0dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         app:srcCompat="@android:drawable/ic_menu_today" />
@@ -153,10 +155,11 @@
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:paddingTop="5dp"
                     android:text="  Hora de entrega"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -174,7 +177,7 @@
 
                     <ImageButton
                         android:id="@+id/btnHoraEntrega"
-                        android:layout_width="0dp"
+                        android:layout_width="58dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
@@ -190,13 +193,13 @@
                 <TextView
                     android:id="@+id/txtMotivacion"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:text="   ¿Te motiva esta tarea?"
                     android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:focusable="true"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"/>
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -244,8 +247,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
-                    android:text="  Complejidad:"
-                    android:textColor="#000000" />
+                    android:text="  Complejidad"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
 
                 <Spinner
@@ -259,8 +263,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
-                    android:text="  Clasificación:"
-                    android:textColor="#000000" />
+                    android:text="  Clasificación"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/sprClasificacion"
@@ -271,95 +276,12 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:id="@+id/txtAreas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:text="   Elige las areas que tengan relacion"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <CheckBox
-                            android:id="@+id/checkLectura"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lectura"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                        <CheckBox
-                            android:id="@+id/checkEscritura"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Escritura"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                        <CheckBox
-                            android:id="@+id/checkRazonamiento"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Razonamiento"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <CheckBox
-                            android:id="@+id/checkIngles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ingles"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                        <CheckBox
-                            android:id="@+id/checkCompetencias"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Competencias Ciudadanas"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
             <Button
                 android:id="@+id/btnGuardarTarea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guardar Tarea" />
+                android:text="Guardar Tarea"
+                android:textSize="15sp" />
 
         </LinearLayout>
     </ScrollView>

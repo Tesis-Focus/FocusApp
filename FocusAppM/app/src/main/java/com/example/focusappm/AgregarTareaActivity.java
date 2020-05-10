@@ -68,6 +68,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
     ArrayList<Actividad> actividades;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
+
     Integer codigo;
     ArrayAdapter<String> adapterBenef;
     RadioGroup radioGroup;
@@ -92,8 +93,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
     FirebaseUser user;
     public static final String PATH_TAREAS = "tareas/";
     public static final String PATH_ACTIVIDADES = "actividades/";
+    public static final String PATH_ESTILOS = "estilosAprendizaje/";
 
+    int AM_PM_Fin;
+    boolean isPmEnd;
     String idBeneficiario;
+    String estiloDominante;
+    String estiloSecundario;
     Tarea miTarea;
 
 
@@ -107,7 +113,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        txtAreas = findViewById(R.id.txtAreas);
         txtClasificacion = findViewById(R.id.textClasificacion);
         txtMotivacion = findViewById(R.id.txtMotivacion);
         spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
@@ -135,11 +140,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         radioSi = findViewById(R.id.radioSi);
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
-        checkLectura = findViewById(R.id.checkLectura);
-        checkEscritura = findViewById(R.id.checkEscritura);
-        checkRazonamiento = findViewById(R.id.checkRazonamiento);
-        checkCompentencias = findViewById(R.id.checkCompetencias);
-        checkIngles = findViewById(R.id.checkIngles);
 
         ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
         sprComplejidad.setAdapter(adapterComplej);
@@ -159,6 +159,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 Log.i("TAG", "idBeneficiario: " + idBeneficiario);
 
                 spinnerActiv(idBeneficiario);
+                estilosAprendizaje(idBeneficiario);
             }
 
             @Override
@@ -166,7 +167,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
             }
         });
-
 
         if(codigo==1){
             miTarea =(Tarea) getIntent().getSerializableExtra("tarea");
@@ -193,6 +193,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                        String AM_PM ;
                         String minutoFormateado = (minute < 10)? String.valueOf("0" + minute):String.valueOf(minute);
 
                         txtHoraEntrega.setText(hourOfDay +":"+ minutoFormateado);
@@ -223,47 +224,12 @@ public class AgregarTareaActivity extends AppCompatActivity {
             }
         });
 
-        checkLectura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkEscritura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkRazonamiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkIngles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-        checkCompentencias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtAreas.setError(null);
-            }
-        });
-
-
-
         btnGuardarTarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validarDatos()) {
+
+                if(validarCampos()){
+
                     ReglasDecision reglas = new ReglasDecision();
                     Tarea tarea = new Tarea();
                     Tarea nueva = new Tarea();
@@ -288,33 +254,13 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea.setEstaMotivado(motivacion);
                     String id_Actividad = id_Actividades.get(sprActividad.getSelectedItemPosition());
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
-                    List<String> areas = new ArrayList<>();
-
-                    if(checkLectura.isChecked()){
-                        areas.add("Lectura");
-                    }
-                    if(checkEscritura.isChecked()){
-                        areas.add("Escritura");
-                    }
-                    if(checkRazonamiento.isChecked()){
-                        areas.add("Razonamiento");
-                    }
-                    if(checkIngles.isChecked()){
-                        areas.add("Ingles");
-                    }
-                    if(checkCompentencias.isChecked()){
-                        areas.add("Competencias");
-                    }
-
-                  //  tarea.setAreas(areas);
-                    tarea.getAreas().addAll(areas);
-                    Log.i("testAreas", tarea.getAreas().toString());
-
+                    List<String> areasActividad = new ArrayList<String>();
+                    areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
-                    tarea = reglas.asignarTiempos(tarea, desempenoActividad);
-                    tarea = reglas.asignarPrioridad(tarea, desempenoActividad);
+                    tarea = reglas.asignarTiempos(tarea, desempenoActividad, areasActividad, estiloDominante, estiloSecundario);
+                    tarea = reglas.asignarPrioridad(tarea, desempenoActividad, areasActividad);
                     Log.i("TAG", "onClick: " + tarea.getPrioridad());
 
                     Log.i("TAG", "onClick: agregar tarea a actividad " + id_Actividad + " " + nombre_Actividades.get(sprActividad.getSelectedItemPosition()));
@@ -345,7 +291,30 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
+
                 }
+            }
+        });
+    }
+
+    private void estilosAprendizaje(String idBeneficiario) {
+        myRef.child(PATH_ESTILOS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    EstiloAprendizaje estilo = ds.getValue(EstiloAprendizaje.class);
+
+                    if(idBeneficiario.equalsIgnoreCase(estilo.getIdBeneficiario())) {
+                        estiloDominante = estilo.getDominate();
+                        estiloSecundario = estilo.getSecundario();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -374,24 +343,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         sprComplejidad.setSelection(obtenerPosicionItem(sprComplejidad,miTarea.getComplejidad()));
         sprClasificacion.setSelection(obtenerPosicionItem(sprClasificacion,miTarea.getClasificacion()));
 
-        for (int i=0; i<miTarea.getAreas().size(); i++){
-            if(miTarea.getAreas().get(i).equals("Lectura")){
-                checkLectura.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Escritura")){
-                checkEscritura.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Razonamiento")){
-                checkRazonamiento.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Ingles")){
-                checkIngles.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Competencias")){
-                checkCompentencias.setChecked(true);
-            }
-        }
-
         for (int i=0; i<beneficiarios.size(); i++){
             if(miTarea.getIdBeneficiario().equals(beneficiarios.get(i).getIdBeneficiario())){
                 spnBeneficiariosAgrTar.setSelection(i);
@@ -411,52 +362,11 @@ public class AgregarTareaActivity extends AppCompatActivity {
         return posicion;
     }
 
-    private boolean validarDatos() {
-        boolean esValido = true;
-        if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
-            esValido = false;
-            txtNombTarea.setError("Requerido");
-        }
-        if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
-            esValido = false;
-            txtFechaEntrega.setError("Requerido");
-        }
-        if(TextUtils.isEmpty(txtHoraEntrega.getText().toString())){
-            esValido = false;
-            txtHoraEntrega.setError("Requerido");
-        }
-        if(!radioSi.isChecked() && !radioNo.isChecked()){
-            Log.i("ESTADO", "-------");
-            esValido = false;
-            txtMotivacion.setError("Requerido");
-
-        }
-
-        if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
-            esValido = false;
-            TextView errorText = (TextView)sprComplejidad.getSelectedView();
-            errorText.setError("");
-        }
-        if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
-            esValido = false;
-            TextView errorText = (TextView)sprClasificacion.getSelectedView();
-            errorText.setError("");
-        }
-
-        if(!checkLectura.isChecked() && !checkEscritura.isChecked() && !checkRazonamiento.isChecked() && !checkIngles.isChecked() && !checkCompentencias.isChecked()){
-            Log.i("ESTADO", "-------");
-            esValido = false;
-            txtAreas.setError("Requerido");
-
-        }
-
-        return esValido;
-    }
-
 
     public void spinnerActiv(String idBeneficiario){
 
         //Log.i("TAG", "Beneficiario funcion" + idBeneficiario);
+
 
         myRef.child(PATH_ACTIVIDADES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -487,7 +397,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         //Log.i("TAG", "Actividad: " + nombre);
                     }
                 }
-
+                if(nombre_Actividades.isEmpty()){
+                    nombre_Actividades.add("");
+                }
                 ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
                 sprActividad.setAdapter(adapterAct);
                 sprActividad.setSelection(posicion);
@@ -525,7 +437,52 @@ public class AgregarTareaActivity extends AppCompatActivity {
         recogerFecha.show();
     }
 
+    private boolean validarCampos(){
 
+        boolean esValido = true;
+        if(sprActividad.getSelectedItem().equals(" ")){
+            esValido = false;
+            TextView errorText = (TextView) sprActividad.getSelectedView();
+            errorText.setError("Requerido");
+        }
 
+        if(TextUtils.isEmpty(txtNombTarea.getText().toString())){
+            esValido = false;
+            txtNombTarea.setError("Requerido");
+        }
 
+        if(TextUtils.isEmpty(txtDescripTarea.getText().toString())){
+            esValido = false;
+            txtDescripTarea.setError("");
+        }
+
+        if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
+            esValido = false;
+            txtFechaEntrega.setError("");
+        }
+
+        if(TextUtils.isEmpty(txtHoraEntrega.getText().toString())){
+            esValido = false;
+            txtHoraEntrega.setError("");
+        }
+
+        if(!radioSi.isChecked() && !radioNo.isChecked()){
+            esValido = false;
+            txtMotivacion.setError("");
+        }
+
+        if(sprComplejidad.getSelectedItem().equals("Seleccione la complejidad")){
+            esValido = false;
+            TextView errorText = (TextView) sprComplejidad.getSelectedView();
+            errorText.setError("");
+        }
+
+        if(sprClasificacion.getSelectedItem().equals("Seleccione la clasificación")){
+            esValido = false;
+            TextView errorText = (TextView) sprClasificacion.getSelectedView();
+            errorText.setError("");
+        }
+
+        return esValido;
+    }
 }

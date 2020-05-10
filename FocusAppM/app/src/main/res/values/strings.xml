@@ -31,10 +31,10 @@
 
     <string-array name="TipoActividad">
         <item>Seleccione el tipo</item>
-        <item>académica</item>
-        <item>extracurricular</item>
-        <item>médica</item>
-        <item>familiar</item>
+        <item>Académica</item>
+        <item>Extracurricular</item>
+        <item>Médica</item>
+        <item>Familiar</item>
     </string-array>
 
     <string-array name="Complejidad">
@@ -74,5 +74,19 @@
         <item>Sabado</item>
         <item>Domingo</item>
     </string-array>
+
+    <string-array name="Asignaturas">
+        <item>Seleccione la asignatura</item>
+        <item>Ciencias naturales</item>
+        <item>Ciencias sociales</item>
+        <item>Educación artistica</item>
+        <item>Ética y valores</item>
+        <item>Educación física</item>
+        <item>Religión</item>
+        <item>Humanidades, español e idiomas</item>
+        <item>Matemáticas</item>
+        <item>Tecnología e informática</item>
+    </string-array>
+
 
 </resources>

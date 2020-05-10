@@ -436,6 +436,9 @@ public class TestAprendizajeActivity extends AppCompatActivity {
         terminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.i("DETALLE", "ENTRA AQUI 1");
+
                 valoresNueve = new ArrayList<>();
 
                 for (String elemento:listDatos) {
@@ -481,6 +484,8 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                     cont++;
                 }
 
+                Log.i("DETALLE", "ENTRA AQUI 2");
+
                 if(mayorm.equals("EC") && mayor.equals("OR") || mayorm.equals("OR") && mayor.equals("EC")){
                     estilo.setDominate("Divergente");
                 }
@@ -515,6 +520,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
+                intent.putExtra("beneficiario", beneficiario);
                 startActivity(intent);
 
 

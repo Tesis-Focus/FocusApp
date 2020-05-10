@@ -115,7 +115,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             isPmStart = true;
                         }
 
-                        etHoraInicio.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        etHoraInicio.setText(hourOfDay +":"+ minutoForInicio + " " + AM_PM);
                         minutoInicio = minute;
 
                     }
@@ -150,9 +150,8 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             AM_PM_Fin = 1;
                             isPmEnd =true;
                         }
-                        etHoraFin.setText(hourOfDay +":"+ minute + " " + AM_PM);
+                        etHoraFin.setText(hourOfDay +":"+ minutoForFin + " " + AM_PM);
                         minutoFin = minute;
-
                     }
                 }, horaFin, minutoFin,false);
                 timePickerDialog.show();
@@ -393,6 +392,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         }
 
         recogerFecha.show();
-
     }
+
 }

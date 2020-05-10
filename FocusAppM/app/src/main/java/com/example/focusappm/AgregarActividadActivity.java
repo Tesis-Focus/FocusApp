@@ -8,12 +8,14 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -52,10 +54,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
     EditText edttxtNomActividad;
     EditText edttxtDescripcion;
     Button btnAgregar,btnColor,btnAgregarHorarioActividad;
-    Spinner spnTipo;
+    Spinner spnTipo, spnAsignatura;
     Spinner spnDesempenio, spnBeneficiariosAgrAc;
     Integer codigo;
-    CheckBox horarioFijo;
     List<String> nombresBeneficiarios;
     List<Usuario> beneficiarios;
     ArrayAdapter<String> adapter;
@@ -63,7 +64,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioSi;
     RadioButton radioNo;
+    LinearLayout linear;
     Date fechaini,fechafin;
+    TextView textViewAsig;
     int colorActivity;
 
     FirebaseDatabase database;
@@ -95,7 +98,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         spnTipo = findViewById(R.id.spnTipo);
         spnDesempenio = findViewById(R.id.spnDesempeno);
         spnBeneficiariosAgrAc = findViewById(R.id.spnBeneficiariosAgrAc);
-        horarioFijo = findViewById(R.id.chbxHorarioFijo);
+        spnAsignatura = findViewById(R.id.spnAsignaturas);
         nombresBeneficiarios = (List<String>) getIntent().getSerializableExtra("nombreBeneficiarios");
         beneficiarios = (List<Usuario>)getIntent().getSerializableExtra("beneficiarios");
         codigo =(Integer) getIntent().getSerializableExtra("codigo");
@@ -105,6 +108,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         radioSi = findViewById(R.id.radioSi);
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
+        linear = findViewById(R.id.linear);
+        textViewAsig = findViewById(R.id.textViewAsig);
         horarioActividad = new ArrayList<>();
         fechaini =null;
         fechafin =null;
@@ -115,11 +120,64 @@ public class AgregarActividadActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapterTipo = ArrayAdapter.createFromResource(this, R.array.TipoActividad, android.R.layout.simple_spinner_item);
         spnTipo.setAdapter(adapterTipo);
 
+        ArrayAdapter<CharSequence> adapterAsigna = ArrayAdapter.createFromResource(this, R.array.Asignaturas, android.R.layout.simple_spinner_item);
+        spnAsignatura.setAdapter(adapterAsigna);
+
+        spnAsignatura.setVisibility(View.GONE);
+        textViewAsig.setVisibility(View.GONE);
+
         if(codigo==1){
             miActividad =(Actividad) getIntent().getSerializableExtra("actividad");
             llenarDatos();
         }
 
+        spnTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView adapter, View v, int i, long lng) {
+                //Spinner spnAsignaturas = new Spinner(getApplicationContext());
+                if(spnTipo.getSelectedItem().equals("académica")){
+                    textViewAsig.setVisibility(View.VISIBLE);
+                    spnAsignatura.setVisibility(View.VISIBLE);
+                }
+                if(spnTipo.getSelectedItem().equals("acedémica")){
+                    textViewAsig.setVisibility(View.GONE);
+                    spnAsignatura.setVisibility(View.GONE);
+                }
+                if(spnTipo.getSelectedItem().equals("extracurricular")){
+                    textViewAsig.setVisibility(View.GONE);
+                    spnAsignatura.setVisibility(View.GONE);
+                }
+                if(spnTipo.getSelectedItem().equals("médica")){
+                    textViewAsig.setVisibility(View.GONE);
+                    spnAsignatura.setVisibility(View.GONE);
+                }
+                if(spnTipo.getSelectedItem().equals("familiar")){
+                    textViewAsig.setVisibility(View.GONE);
+                    spnAsignatura.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView arg0) {
+               // Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+       /* spnTipo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spnTipo.getSelectedItem().equals("académica")){*/
+                   /* Spinner spnAsignaturas = new Spinner(getBaseContext());
+                    ArrayAdapter<CharSequence> adapterAsig = ArrayAdapter.createFromResource(getBaseContext(), R.array.Asignaturas, android.R.layout.simple_spinner_item);
+                    spnAsignaturas.setAdapter(adapterAsig);*/
+            /*    }
+            }
+        }); */
         /*btnFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +214,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
         });
 
+
+
         btnAgregarHorarioActividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,16 +240,72 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setHorarios(horarioActividad);
                     actividad.setFechaInicio(fechaini);
                     actividad.setFechaFinal(fechafin);
-                    Log.i("MyAPP", String.valueOf(horarioFijo.isChecked()));
 
                    // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
                     // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
-                    actividad.setHorarioFijo(horarioFijo.isChecked());
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
 
                     actividad.setIdUsaurio(idBeneficiario);
                     Toast.makeText(getApplicationContext(), edttxtNomActividad.getText().toString(), Toast.LENGTH_LONG).show();
+
+
+                    if(actividad.getTipo().equals("académica")) {
+                        Log.i("Asignatura", "entra en agregar");
+
+                        actividad.setAsignatura(spnAsignatura.getSelectedItem().toString());
+                       Log.i("Asignatura", "asig " + actividad.getAsignatura());
+
+
+                        List<String> areas = new ArrayList<>();
+                        if (actividad.getAsignatura().equals("Ciencias naturales")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Competencias");
+                        }
+                        if (actividad.getAsignatura().equals("Ciencias sociales")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Competencias");
+
+                        }
+                        if (actividad.getAsignatura().equals("Educación artistica")) {
+                            areas.add("Escritura");
+                            areas.add("Competencias");
+
+                        }
+                        if (actividad.getAsignatura().equals("Ética y valores")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Competencias");
+                        }
+                        if (actividad.getAsignatura().equals("Educación física")) {
+                            areas.add("Razonamiento");
+                            areas.add("Competencias");
+                        }
+                        if (actividad.getAsignatura().equals("Religión")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Competencias");
+                        }
+                        if (actividad.getAsignatura().equals("Humanidades, español e idiomas")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Ingles");
+                        }
+                        if (actividad.getAsignatura().equals("Matemáticas")) {
+                            areas.add("Lectura");
+                            areas.add("Escritura");
+                            areas.add("Razonamiento");
+                        }
+                        if (actividad.getAsignatura().equals("Tecnología e informática")) {
+                            areas.add("Razonamiento");
+                            areas.add("Ingles");
+                            areas.add("Competencias");
+                        }
+
+                        actividad.getAreas().addAll(areas);
+                    }
 
                     if(codigo==0) {
                         myRef = FirebaseDatabase.getInstance().getReference().child("");
@@ -199,11 +315,13 @@ public class AgregarActividadActivity extends AppCompatActivity {
                         actividad.setIdActividad(myRef.getKey());
                         myRef.setValue(actividad);
                     }
+
                     if(codigo==1){
                         myRef = database.getReference(PATH_ACTIVIDADES+miActividad.getIdActividad());
                         actividad.setIdActividad(miActividad.getIdActividad());
                         myRef.setValue(actividad);
                     }
+
 
                     Toast.makeText(getApplicationContext(), "Persistencia hecha", Toast.LENGTH_LONG).show();
 
@@ -225,6 +343,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
         edttxtDescripcion.setText(miActividad.getDescripcion());
         spnTipo.setSelection(obtenerPosicionItem(spnTipo,miActividad.getTipo()));
         spnDesempenio.setSelection(obtenerPosicionItem(spnDesempenio,miActividad.getDesempeño()));
+        if(spnTipo.getSelectedItem().equals("académica")) {
+            spnAsignatura.setSelection(obtenerPosicionItem(spnAsignatura, miActividad.getAsignatura()));
+        }
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth());
@@ -235,13 +356,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
         miActividad.getFechaFinal().setMonth(miActividad.getFechaFinal().getMonth());
         miActividad.getFechaFinal().setYear(miActividad.getFechaFinal().getYear()-1900);
         String fechFin = df.format(miActividad.getFechaFinal());
-
-        if(miActividad.getHorarioFijo()){
-            horarioFijo.setChecked(true);
-        }
-
-
     }
+
     public static int obtenerPosicionItem(Spinner spinner, String nombre) {
         int posicion = 0;
         for (int i = 0; i < spinner.getCount(); i++) {
@@ -258,10 +374,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             edttxtNomActividad.setError("Requerido");
         }
-        /*if(TextUtils.isEmpty(edttxtDescripcion.getText().toString())){
-            esValido = false;
-            edttxtDescripcion.setError("Requerido");
-        }*/
         if(fechaini==null || fechafin == null){
             esValido = false;
             Toast.makeText(getApplicationContext(),"agrege un horario",Toast.LENGTH_LONG);
@@ -271,6 +383,13 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             TextView errorText = (TextView)spnTipo.getSelectedView();
             errorText.setError("");
+        }
+        if(spnTipo.getSelectedItem().equals("académica") ) {
+            if (spnAsignatura.getSelectedItem().equals("Seleccione la asignatura")) {
+                esValido = false;
+                TextView errorText = (TextView) spnAsignatura.getSelectedView();
+                errorText.setError("");
+            }
         }
         if(spnDesempenio.getSelectedItem().equals("Seleccione el desempeño")){
             esValido = false;

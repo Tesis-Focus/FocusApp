@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +31,13 @@ public class DetallePerfilActivity extends AppCompatActivity {
     EditText edtxNombreDetallePB,edtxApellidosDetallePB,edtxGradoDetallePB,edtxFechaNacDetallePB;
     Button btnAgregarHorDis;
     Button btnAgregarEstilo;
+    Button btnEditarPerfil;
+    Button btnEliminarPerfil;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuario beneficiario;
     public static final String PATH_HORARIO_DISPONIBLE = "horarioDisponible/";
+    public static final String PATH_USUARIOS = "usuarios/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +52,23 @@ public class DetallePerfilActivity extends AppCompatActivity {
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
+        btnEditarPerfil = findViewById(R.id.btnEditarPerfil);
+        btnEliminarPerfil = findViewById(R.id.btnEliminarPerfil);
         beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
+        Log.i("DETALLE PERFIL", beneficiario.getNombres());
+        Log.i("DETALLE PERFIL", beneficiario.getApellidos());
         edtxNombreDetallePB.setText(beneficiario.getNombres());
         edtxApellidosDetallePB.setText(beneficiario.getApellidos());
+
+
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        beneficiario.getFechaNacimiento().setMonth(beneficiario.getFechaNacimiento().getMonth());
+        beneficiario.getFechaNacimiento().setYear(beneficiario.getFechaNacimiento().getYear()-1900);
         String fechaNac = df.format(beneficiario.getFechaNacimiento());
         edtxFechaNacDetallePB.setText(fechaNac);
+
         edtxGradoDetallePB.setText(beneficiario.getCurso());
+
 
         btnAgregarHorDis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +85,34 @@ public class DetallePerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getBaseContext(), AgregarPerfilActivity.class);
+                intent.putExtra("usuario", beneficiario);
+                intent.putExtra("codigo", 1);
+                startActivity(intent);
+            }
+        });
+
+        btnEliminarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                myRef = database.getReference(PATH_USUARIOS+beneficiario.getIdBeneficiario());
+                Log.i("BORRAR", beneficiario.getIdUsuario());
+                myRef.removeValue();
+
+                Toast.makeText(getApplicationContext(), "Usuario eliminado exisitosamente ", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getBaseContext(), PerfilesActivity.class);
+                intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void passEvents() {

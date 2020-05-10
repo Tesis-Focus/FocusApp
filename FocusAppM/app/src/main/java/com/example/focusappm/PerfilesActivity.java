@@ -28,6 +28,7 @@ public class PerfilesActivity extends AppCompatActivity {
 
     ListView perfiles = null;
     Button btnAgregarPerfil;
+    String idBeneficiario;
     FirebaseDatabase database;
     DatabaseReference myRef;
     FirebaseUser user;
@@ -51,6 +52,9 @@ public class PerfilesActivity extends AppCompatActivity {
         btnAgregarPerfil = findViewById(R.id.btnAgregarPerfil);
         nombres = new ArrayList<>();
         usuariosBeneficiarios = new ArrayList<>();
+
+
+        idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");
         cargarPerfilesB();
 
         perfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,6 +72,7 @@ public class PerfilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),AgregarPerfilActivity.class);
+                i.putExtra("codigo",0);
                 startActivity(i);
             }
         });

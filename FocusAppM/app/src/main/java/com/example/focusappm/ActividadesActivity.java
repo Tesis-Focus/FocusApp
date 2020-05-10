@@ -51,7 +51,7 @@ import java.util.List;
         misActividades = new ArrayList<>();
 
        // beneficiario = (Usuario) getIntent().getSerializableExtra("idBeneficiario");
-        idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");;
+        idBeneficiario = (String) getIntent().getSerializableExtra("idBeneficiario");
         cargarActividades();
 
         actividades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
