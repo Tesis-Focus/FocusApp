@@ -33,7 +33,10 @@
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre" />
+                android:paddingTop="10dp"
+                android:text="  Nombre"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxNombreDetallePB"
@@ -49,7 +52,10 @@
                 android:id="@+id/textView31"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Apellidos" />
+                android:paddingTop="10dp"
+                android:text="  Apellidos"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxApellidosDetallePB"
@@ -64,7 +70,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Grado" />
+                android:paddingTop="10dp"
+                android:text="  Grado"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxGradoDetallePB"
@@ -80,7 +89,11 @@
                 android:id="@+id/textView33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha de nacimiento" />
+                android:paddingTop="10dp"
+                android:text="  Fecha de nacimiento"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxFechaNacDetallePB"
@@ -95,22 +108,23 @@
             <Button
                 android:id="@+id/btnAgregarHorDis"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="50dp"
                 android:paddingTop="15dp"
                 android:paddingEnd="20dp"
                 android:text="Agregar horario disponible"
+                android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnAgregaEstiloApren"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:paddingTop="20dp"
                 android:paddingEnd="15dp"
                 android:text="Realizar test estilo de aprendizaje"
                 android:textAllCaps="false"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,7 +139,7 @@
                     android:layout_weight="1"
                     android:paddingEnd="10dp"
                     android:text="Editar perfil"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/btnEliminarPerfil"
@@ -133,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="ELIMINAR PERFIL"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>

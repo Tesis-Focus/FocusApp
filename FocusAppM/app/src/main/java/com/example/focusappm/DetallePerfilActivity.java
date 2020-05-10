@@ -52,18 +52,23 @@ public class DetallePerfilActivity extends AppCompatActivity {
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
+        btnEditarPerfil = findViewById(R.id.btnEditarPerfil);
+        btnEliminarPerfil = findViewById(R.id.btnEliminarPerfil);
         beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
         Log.i("DETALLE PERFIL", beneficiario.getNombres());
         Log.i("DETALLE PERFIL", beneficiario.getApellidos());
         edtxNombreDetallePB.setText(beneficiario.getNombres());
         edtxApellidosDetallePB.setText(beneficiario.getApellidos());
+
+
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        beneficiario.getFechaNacimiento().setMonth(beneficiario.getFechaNacimiento().getMonth());
+        beneficiario.getFechaNacimiento().setYear(beneficiario.getFechaNacimiento().getYear()-1900);
         String fechaNac = df.format(beneficiario.getFechaNacimiento());
         edtxFechaNacDetallePB.setText(fechaNac);
+
         edtxGradoDetallePB.setText(beneficiario.getCurso());
 
-        btnEditarPerfil = findViewById(R.id.btnEditarPerfil);
-        btnEliminarPerfil = findViewById(R.id.btnEliminarPerfil);
 
         btnAgregarHorDis.setOnClickListener(new View.OnClickListener() {
             @Override

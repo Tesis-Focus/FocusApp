@@ -89,12 +89,15 @@ public class DetalleTareaActivity extends AppCompatActivity {
         complejidad.setText(tarea.getComplejidad());
         clasificacion.setText(tarea.getClasificacion());
 
+        /*
         String todasAreas="";
         for (int i=0; i<tarea.getAreas().size(); i++){
            todasAreas= todasAreas+tarea.getAreas().get(i)+",";
         }
         todasAreas.subSequence(0,todasAreas.length()-1);
         area.setText(todasAreas.subSequence(0,todasAreas.length()-1));
+
+         */
 
         myRef.child(PATH_USUARIOS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

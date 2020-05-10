@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -70,14 +72,6 @@ public class AgregarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 obtenerFecha();
-               /* Calendar calendario = Calendar.getInstance();
-                int dia = calendario.get(Calendar.DAY_OF_MONTH);
-                int mes = calendario.get(Calendar.MONTH);
-                int anio = calendario.get(Calendar.YEAR);
-
-                DatePickerDialog dialog = new DatePickerDialog(AgregarPerfilActivity.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,anio,mes,dia);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();*/
             }
         });
 
@@ -137,6 +131,8 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         nuevoBene.setApellidos(edtxApellidosPB.getText().toString());
         try {
             nuevoBene.setFechaNacimiento(new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaNacPB.getText().toString()));
+            nuevoBene.getFechaNacimiento().setYear(nuevoBene.getFechaNacimiento().getYear()+1900);
+            nuevoBene.getFechaNacimiento().setMonth(nuevoBene.getFechaNacimiento().getMonth());
         } catch (Exception e) {
         }
         nuevoBene.setRol("Beneficiario");
@@ -186,23 +182,27 @@ public class AgregarPerfilActivity extends AppCompatActivity {
                 valido = false;
                 edtxFechaNacPB.setError("Requerido");
             }
-            return valido;
 
+            if(spnCursoPB.getSelectedItem().equals("Seleccione el curso")){
+                valido = false;
+                TextView errorText = (TextView) spnCursoPB.getSelectedView();
+                errorText.setError("");
+            }
+
+            return valido;
         }
 
         private void llenarDatosUsuario () {
 
-            String dia, mes, anio, fecha;
-
-            dia = String.valueOf(miUsuario.getFechaNacimiento().getDate());
-            mes = String.valueOf(miUsuario.getFechaNacimiento().getMonth());
-            anio = String.valueOf(miUsuario.getFechaNacimiento().getYear()-1900);
-
-            fecha = dia + "/" + mes + "/" + anio;
-
             edtxNombresPB.setText(miUsuario.getNombres());
             edtxApellidosPB.setText(miUsuario.getApellidos());
-            edtxFechaNacPB.setText(fecha);
+
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            miUsuario.getFechaNacimiento().setMonth(miUsuario.getFechaNacimiento().getMonth());
+            miUsuario.getFechaNacimiento().setYear(miUsuario.getFechaNacimiento().getYear());
+            String fechaNacimiento = df.format(miUsuario.getFechaNacimiento());
+            edtxFechaNacPB.setText(fechaNacimiento);
+
             spnCursoPB.setSelection(obtenerPosicionItem(spnCursoPB, miUsuario.getCurso()));
         }
 
