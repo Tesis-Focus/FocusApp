@@ -31,14 +31,18 @@ public class UtilsFocus {
     private final static String PATH_TAREAS = "tareas/";
     private final static ArrayList<ArrayList<Horario>> horarioxTarea = new ArrayList<>();
     private final static ArrayList<Horario> horarioDispoCambio = new ArrayList<>();
+    private final static ArrayList<Horario> horariosDisponiblesBenefi = new ArrayList<>();
+    private static float tiempoPromedio = -1;
 
 
     public static void planeacion(String idBeneficiario){
 
+        getHorarios(idBeneficiario);
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
 
-        myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef = dataBase.getReference(PATH_TAREAS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Tarea> tareas = new ArrayList<Tarea>();
@@ -54,7 +58,8 @@ public class UtilsFocus {
 
                 for(Tarea tarea: tareas){
                     horarioxTarea.clear();
-                    getHorariosDisponibles( tarea, idBeneficiario);//BIEN
+                    tiempoPromedio = tarea.getTiempoPromedio();
+                    asignarHorariosTarea( tarea, idBeneficiario);//BIEN
 
                 }
             }
@@ -67,17 +72,40 @@ public class UtilsFocus {
 
     }
 
+    private static void getHorarios(String idBeneficiario) {
+        FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = dataBase.getReference();
+        myRef = dataBase.getReference(PATH_HORARIO_DISPONIBLE);
 
-    private static void getHorariosDisponibles(Tarea tarea, String idBeneficiario){
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Horario horario = ds.getValue(Horario.class);
+                    if(horario.getmId().equals(idBeneficiario)){
+                        horariosDisponiblesBenefi.add(horario);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private static void asignarHorariosTarea(Tarea tarea, String idBeneficiario){
         FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = dataBase.getReference();
         ArrayList<Horario> horarios = new ArrayList<>();
         Date fechaEntrega,fechaActual;
         fechaEntrega = tarea.getFechaEntrega();
         fechaActual = new Date();
+        tarea.getHorarios().clear();
 
-
-        myRef.child(PATH_HORARIO_DISPONIBLE).addListenerForSingleValueEvent(new ValueEventListener() {
+       /* myRef.child(PATH_HORARIO_DISPONIBLE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -154,15 +182,90 @@ public class UtilsFocus {
                 }
                 Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
 
-            }
+           }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
+        boolean encontro = false;
+
+                for (Horario horario: horariosDisponiblesBenefi){
+                    encontro = false;
+                    if(validarFecha(horario, fechaEntrega, fechaActual)){
+
+                        for(ArrayList<Horario> horarioArrayList : horarioxTarea){
+                            if(horarioArrayList.get(0).getmStartTime().getDate() == horario.getmStartTime().getDate()){
+                                horarioArrayList.add(horario);
+                                encontro = true;
+                                break;
+                            }
+                        }
+                        if(!encontro){
+                            ArrayList<Horario> listaNueva = new ArrayList<>();
+                            listaNueva.add(horario);
+                            horarioxTarea.add(listaNueva);
+                        }
+                    }
+                }
+                Log.i("Planeacion", "Lista de horarios disponibles" + horarioxTarea.size());
+
+                for(ArrayList<Horario> horarioArrayList : horarioxTarea)
+                    Collections.sort(horarioArrayList);
+
+                Date hoy = new Date();
+                float finalDiasParaEntrega = Math.abs(tarea.getFechaEntrega().getTime()-hoy.getTime());
+                finalDiasParaEntrega = TimeUnit.DAYS.convert((long) finalDiasParaEntrega,TimeUnit.MILLISECONDS);
+
+                Log.i("Planeacion", "tarea prioridad " + tarea.getPrioridad());
+
+                int diasxAsignar = (int)Math.ceil(tarea.getTiempoPromedio() / 60);
+                horarioDispoCambio.clear();
+
+                if(diasxAsignar <= finalDiasParaEntrega){
+
+                    for(int i=0; i<horarioxTarea.size() && diasxAsignar>0; i++){
+                        if (tarea.getTiempoPromedio() > 60 ) {
+
+                            asignarTiempos(horarioxTarea.get(i).get(0),tarea,60);
+                            diasxAsignar -= 1;
+                            //asignar franja de 60 m
+                            //reducir horario disponible
+                            //persistir
+
+
+                        }else if(tarea.getTiempoPromedio() > 0){
+
+                            asignarTiempos(horarioxTarea.get(i).get(0),tarea, (int) tarea.getTiempoPromedio());
+                            diasxAsignar -=1 ;
+                            //asignar tiempo total
+                            //reducir horario disponible
+
+                        }
+                    }
+                    tarea.setTiempoPromedio(tiempoPromedio);
+                    myRef = dataBase.getReference(PATH_TAREAS+tarea.getIdTarea());
+                    myRef.setValue(tarea);
+
+                    for(int i=0; i<horarioDispoCambio.size(); i++){
+                        Horario horarioDispo= horarioDispoCambio.get(i);
+                        for(int j=0; j<horariosDisponiblesBenefi.size(); i++){
+                            Horario horarioGeneral = horariosDisponiblesBenefi.get(i);
+
+                            if(horarioGeneral.getIdHorario().equals(horarioDispo.getIdHorario())){
+                                horariosDisponiblesBenefi.set(j,horarioDispo);
+                            }
+                        }
+                    }
+
+                }else{
+                    Log.i("Planeacion", "La tarea "+ tarea.getNombre()+" no se puede realizar la planeacion, faltan dias D:.");
+                }
+                Log.i("Planeacion", "listaHorario " + tarea.getHorarios().size());
 
     }
+
 
     private static void asignarTiempos(Horario horarioDispo, Tarea tarea, int tiempoEnMin)  {
         Horario horarioTarea = null;
@@ -189,6 +292,7 @@ public class UtilsFocus {
         Log.i("Planeacion", "horarioEnd " + horarioTarea.getmEndTime());
         Log.i("Planeacion", "horarioTarea " + tarea.getHorarios().size());
         tarea.getHorarios().add(horarioTarea);
+
 
         horarioDispo.setmStartTime(horarioTarea.getmEndTime());
 

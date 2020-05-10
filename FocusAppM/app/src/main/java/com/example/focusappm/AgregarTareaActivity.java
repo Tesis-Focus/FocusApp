@@ -451,11 +451,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
             txtNombTarea.setError("Requerido");
         }
 
-        if(TextUtils.isEmpty(txtDescripTarea.getText().toString())){
-            esValido = false;
-            txtDescripTarea.setError("");
-        }
-
         if(TextUtils.isEmpty(txtFechaEntrega.getText().toString())){
             esValido = false;
             txtFechaEntrega.setError("");
