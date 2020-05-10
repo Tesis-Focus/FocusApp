@@ -9,8 +9,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +34,10 @@
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre" />
+                android:paddingTop="10dp"
+                android:text=" Nombre"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxNombreActividad"
@@ -46,7 +51,10 @@
                 android:id="@+id/textView31"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descripción" />
+                android:paddingTop="10dp"
+                android:text=" Descripción"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxtDescripcion"
@@ -58,7 +66,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo" />
+                android:paddingTop="10dp"
+                android:text=" Tipo"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxTipo"
@@ -74,7 +85,10 @@
                 android:id="@+id/textAsignatura"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Asignatura" />
+                android:paddingTop="10dp"
+                android:text=" Asignatura"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxAsignatura"
@@ -87,10 +101,13 @@
                 android:inputType="textPersonName" />
 
             <TextView
-            android:id="@+id/textView33"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha de inicio" />
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text=" Fecha de inicio"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edtxFechaInicio"
@@ -106,7 +123,10 @@
                 android:id="@+id/textView34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha de finalización" />
+                android:paddingTop="10dp"
+                android:text=" Fecha de finalización"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edttxtFechaFin"
@@ -122,7 +142,10 @@
                 android:id="@+id/textView36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Desempeño" />
+                android:paddingTop="10dp"
+                android:text=" Desempeño"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edttxtDesempeño"
@@ -134,28 +157,31 @@
                 android:focusableInTouchMode="false"
                 android:inputType="textPersonName" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            android:paddingBottom="8dp">
-
-            <Button
-                android:id="@+id/btnEditarActividad"
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Editar Actividad" />
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="8dp">
 
-            <Button
-                android:id="@+id/btnEliminarActividad"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Eliminar actividad" />
+                <Button
+                    android:id="@+id/btnEditarActividad"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Editar Actividad"
+                    android:textSize="14sp" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btnEliminarActividad"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Eliminar actividad"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
