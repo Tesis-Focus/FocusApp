@@ -343,24 +343,6 @@ public class AgregarTareaActivity extends AppCompatActivity {
         sprComplejidad.setSelection(obtenerPosicionItem(sprComplejidad,miTarea.getComplejidad()));
         sprClasificacion.setSelection(obtenerPosicionItem(sprClasificacion,miTarea.getClasificacion()));
 
-        for (int i=0; i<miTarea.getAreas().size(); i++){
-            if(miTarea.getAreas().get(i).equals("Lectura")){
-                checkLectura.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Escritura")){
-                checkEscritura.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Razonamiento")){
-                checkRazonamiento.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Ingles")){
-                checkIngles.setChecked(true);
-            }
-            if(miTarea.getAreas().get(i).equals("Competencias")){
-                checkCompentencias.setChecked(true);
-            }
-        }
-
         for (int i=0; i<beneficiarios.size(); i++){
             if(miTarea.getIdBeneficiario().equals(beneficiarios.get(i).getIdBeneficiario())){
                 spnBeneficiariosAgrTar.setSelection(i);

@@ -35,7 +35,6 @@ public class DetalleTareaActivity extends AppCompatActivity {
     EditText motivacion;
     EditText complejidad;
     EditText clasificacion;
-    EditText area;
     Button btnEliminarTarea;
     Button btnEditarTarea;
 
@@ -69,7 +68,6 @@ public class DetalleTareaActivity extends AppCompatActivity {
         motivacion = findViewById(R.id.edttxtMotivacion);
         complejidad = findViewById(R.id.edttxtComplejidad);
         clasificacion = findViewById(R.id.edttxtClasificacion);
-        area = findViewById(R.id.edttxtArea);
         btnEliminarTarea = findViewById(R.id.btnEliminarTarea);
         btnEditarTarea = findViewById(R.id.btnEditarTarea);
 
@@ -89,12 +87,6 @@ public class DetalleTareaActivity extends AppCompatActivity {
         complejidad.setText(tarea.getComplejidad());
         clasificacion.setText(tarea.getClasificacion());
 
-        String todasAreas="";
-        for (int i=0; i<tarea.getAreas().size(); i++){
-           todasAreas= todasAreas+tarea.getAreas().get(i)+",";
-        }
-        todasAreas.subSequence(0,todasAreas.length()-1);
-        area.setText(todasAreas.subSequence(0,todasAreas.length()-1));
 
         
         myRef.child(PATH_USUARIOS).addListenerForSingleValueEvent(new ValueEventListener() {
