@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.alamkanak.weekview.WeekViewEvent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 
 public class DetallePerfilActivity extends AppCompatActivity {
@@ -124,7 +120,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for ( DataSnapshot sd : dataSnapshot.getChildren()){
                     Horario horario = sd.getValue(Horario.class);
-                    if( beneficiario.getIdBeneficiario().equals(horario.getmId())){
+                    if( beneficiario.getIdBeneficiario().equals(horario.getIdBeneficiario())){
                         eventsHorario.add(horario);
                     }
                 }

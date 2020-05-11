@@ -201,7 +201,7 @@ public class HomeAppActivity extends AppCompatActivity {
     }
 
     private void setUpViewPageAdapter(String idBeneficiario){
-        actualizarTiempoTareas(idBeneficiario);
+        //actualizarTiempoTareas(idBeneficiario);
         Log.i("Tiempo","salioooooooooo");
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
@@ -274,6 +274,7 @@ public class HomeAppActivity extends AppCompatActivity {
                                     tarea.setTiempoPromedio(tarea.getTiempoPromedio() - diferencia);
                                     Log.i("Tiempo", "tiempo medio" + diferencia);
                                     tarea.getHorarios().get(i).setActualizado(true);
+                                    myRef.setValue(tarea);
 
                                 } else if (horario.getmStartTime().before(fechaHoy) && horario.getmEndTime().before(fechaHoy) && !horario.isActualizado()) {
                                     diferencia = (horario.getmEndTime().getTime() - horario.getmStartTime().getTime()) / 1000;
@@ -281,10 +282,11 @@ public class HomeAppActivity extends AppCompatActivity {
                                     Log.i("Tiempo", "tiempo despues" + diferencia);
                                     horario.setActualizado(true);
                                     tarea.getHorarios().get(i).setActualizado(true);
+                                    myRef.setValue(tarea);
                                 }
 
                             }
-                            myRef.setValue(tarea);
+
                         }
                     }
                 }

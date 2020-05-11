@@ -1,7 +1,6 @@
 package com.example.focusappm;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
 
@@ -11,14 +10,27 @@ import java.util.Date;
 
 public class Horario implements Serializable,Comparable,Cloneable {
 
-    private String mId;
+    private String idBeneficiario;
     private String idHorario;
     private Date mStartTime;
     private Date mEndTime;
     private String mName;
-    private String mLocation;
     private int mColor;
     private boolean actualizado;
+
+
+    public Horario(String idBeneficiario, String idHorario, Date mStartTime, Date mEndTime, String mName, int mColor, boolean actualizado) {
+        this.idBeneficiario = idBeneficiario;
+        this.idHorario = idHorario;
+        this.mStartTime = mStartTime;
+        this.mEndTime = mEndTime;
+        this.mName = mName;
+        this.mColor = mColor;
+        this.actualizado = actualizado;
+    }
+
+    public Horario() {
+    }
 
     public String getIdHorario() {
         return idHorario;
@@ -28,12 +40,12 @@ public class Horario implements Serializable,Comparable,Cloneable {
         this.idHorario = idHorario;
     }
 
-    public String getmId() {
-        return mId;
+    public String getIdBeneficiario() {
+        return idBeneficiario;
     }
 
-    public void setmId(String mId) {
-        this.mId = mId;
+    public void setIdBeneficiario(String idBeneficiario) {
+        this.idBeneficiario = idBeneficiario;
     }
 
     public Date getmStartTime() {
@@ -60,14 +72,6 @@ public class Horario implements Serializable,Comparable,Cloneable {
         this.mName = mName;
     }
 
-    public String getmLocation() {
-        return mLocation;
-    }
-
-    public void setmLocation(String mLocation) {
-        this.mLocation = mLocation;
-    }
-
     public int getmColor() {
         return mColor;
     }
@@ -87,7 +91,7 @@ public class Horario implements Serializable,Comparable,Cloneable {
     @Override
     public String toString() {
         return "Horario{" +
-                "mId='" + mId + '\'' +
+                "mId='" + getIdBeneficiario() + '\'' +
                 ", mStartTime=" + mStartTime.toString() +
                 ", mEndTime=" + mEndTime.toString() +
                 ", mName='" + mName + '\'' +
@@ -138,7 +142,7 @@ public class Horario implements Serializable,Comparable,Cloneable {
         Horario nuevo = new Horario();
         nuevo.setIdHorario("");
         nuevo.setmEndTime((Date) this.mEndTime.clone());
-        nuevo.setmId(this.mId);
+        nuevo.setIdBeneficiario(this.getIdBeneficiario());
         nuevo.setmStartTime((Date) this.mStartTime.clone());
         nuevo.setmName("");
         return nuevo;

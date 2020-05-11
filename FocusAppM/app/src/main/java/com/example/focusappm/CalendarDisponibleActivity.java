@@ -1,11 +1,9 @@
 package com.example.focusappm;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,14 +13,9 @@ import android.widget.ImageButton;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
-import com.alamkanak.weekview.WeekViewLoader;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -114,7 +107,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 ArrayList<Horario> horarios = (ArrayList<Horario>) data.getSerializableExtra("horarios");
                 for(Horario horario : horarios){
-                    horario.setmId(beneficiario.getIdBeneficiario());
+                    horario.setIdBeneficiario(beneficiario.getIdBeneficiario());
                     String idHorario = myRef.push().getKey();
                     horario.setIdHorario(idHorario);
                     myRef = database.getReference(PATH_HORARIO_DISPONIBLE+idHorario);

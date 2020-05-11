@@ -60,6 +60,7 @@ public class SemanaFragment extends Fragment {
         imgbtnZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //DIASVISIBLES = mWeekView.getNumberOfVisibleDays();
                 DIASVISIBLES = (DIASVISIBLES == 1 ? 1:DIASVISIBLES-1);
                 mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
             }
@@ -68,6 +69,7 @@ public class SemanaFragment extends Fragment {
         imgbtnNoZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //DIASVISIBLES = mWeekView.getNumberOfVisibleDays();
                 DIASVISIBLES = (DIASVISIBLES==7 ? 7 : DIASVISIBLES+1);
                 mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
             }
