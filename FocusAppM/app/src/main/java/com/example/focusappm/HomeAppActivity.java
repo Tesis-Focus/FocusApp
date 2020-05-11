@@ -80,6 +80,7 @@ public class HomeAppActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                UtilsFocus.planeacion(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
             }
 
             @Override

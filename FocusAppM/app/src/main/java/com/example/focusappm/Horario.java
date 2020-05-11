@@ -130,10 +130,10 @@ public class Horario implements Serializable,Comparable,Cloneable {
         thisStart = this.getmStartTime();
         comparatedStart = horarioCompare.getmStartTime();
 
-        if(thisStart.before(comparatedStart))
-            return 1;
-        else
+        if(thisStart.before(comparatedStart)) //BIEN ASI
             return -1;
+        else
+            return 1;
 
     }
 

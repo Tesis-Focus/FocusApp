@@ -142,7 +142,7 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     @Override
     public int compareTo(Object tarea) {
         int prioridadTarea = ((Tarea)tarea).getPrioridad();
-        return this.prioridad - prioridadTarea;
+        return prioridadTarea - this.prioridad;
     }
 }
 
