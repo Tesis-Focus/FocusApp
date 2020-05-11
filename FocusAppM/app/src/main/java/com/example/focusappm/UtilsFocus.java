@@ -91,7 +91,6 @@ public class UtilsFocus {
 
     private static void planearTareas(List<Tarea> tareas,String idBeneficiario){
         for(Tarea t : tareas){
-
             horarioxTarea.clear();
             Date tareaEmpieza,tareaTermina;
             tareaEmpieza = t.getFechaAsignacion();
@@ -103,6 +102,7 @@ public class UtilsFocus {
             for(Horario h : horariosDisponiblesBenefi){
                 encontro = false;
                 if( h.getmEndTime().before(tareaTermina) && h.getmStartTime().after(tareaEmpieza)){
+                    Log.i("JUANP", "planearTareas: start "+h.getmStartTime()+" end "+h.getmEndTime());
                     for(ArrayList<Horario> horarioArray : horarioxTarea){
                         if(horarioArray.get(0).getmStartTime().getDate() == h.getmStartTime().getDate() && horarioArray.get(0).getmStartTime().getMonth() == h.getmStartTime().getMonth()){
                             horarioArray.add(h);
@@ -112,7 +112,6 @@ public class UtilsFocus {
                     }
                     if(!encontro){
                         ArrayList<Horario> nuevaList = new ArrayList<>();
-                        Log.i("JUANP", "planearTareas: start "+h.getmStartTime()+" end "+h.getmEndTime());
                         nuevaList.add(h);
                         horarioxTarea.add(nuevaList);
                     }
@@ -128,7 +127,7 @@ public class UtilsFocus {
                     Log.i("JUANP", "planearTareas: "+tiempoDisponible);
                 }
             }
-            Log.i("OTRA", "planearTareas: tiempomindisponible "+tiempoDisponible);
+            Log.i("JUANP", "planearTareas: tiempomindisponible "+tiempoDisponible);
             if(tiempoDisponible>tiempoRealizacion){
 
                 planeacionDeTarea(t, tiempoRealizacion,idBeneficiario,false);
@@ -149,19 +148,23 @@ public class UtilsFocus {
             tiempoTarea = asignarHorarios(tarea,tiempoTarea,idBeneficiario,horariosTarea,sinTiempo);
         }
 
+        ArrayList<Horario> horariosEliminados = new ArrayList<>();
        for(Horario horarioDisponible : horariosDisponiblesBenefi){
            for(Horario horarioTarea : horariosTarea){
                if( horarioDisponible.getIdHorario().equals(horarioTarea.getIdHorario())){
                    Date endTime = (Date) horarioTarea.getmEndTime().clone();
                    endTime.setYear(endTime.getYear()-1900);
                    if(endTime.getTime()==horarioDisponible.getmEndTime().getTime()){
-                       horariosDisponiblesBenefi.remove(horarioTarea);
+                       horariosEliminados.add(horarioDisponible);
+                       Log.i("JUANP", "planearTareas: tiempomindisponible entra");
                    }else{
                        horarioDisponible.setmStartTime(endTime);
                    }
                }
            }
        }
+       for(Horario h : horariosEliminados)
+           horariosDisponiblesBenefi.remove(h);
 
        tarea.setHorarios(horariosTarea);
        tarea.getFechaEntrega().setYear(tarea.getFechaEntrega().getYear()+1900);
@@ -173,76 +176,76 @@ public class UtilsFocus {
    }
 
    public static  int  asignarHorarios(Tarea tarea, int tiempoTarea, String idBeneficiario, List<Horario> horariosTarea, boolean sinTiempo){
-       Log.i("JUANP", "planearTareas: TAREAAAAAAAAA"+tarea.getNombre());
         if(sinTiempo){
             Collections.reverse(horarioxTarea);
         }
 
        for(ArrayList<Horario> horariosDia: horarioxTarea){
            if(tiempoTarea <= 0){break;}
-           Horario franjaHorario = horariosDia.get(0);
+          // Log.i("JUANP", "horario por asignar Start: "+ horariosDia.get(0).getmStartTime() +" end "+horariosDia.get(0).getmEndTime());
+           //Horario franjaHorario = horariosDia.get(0);
+            for(Horario franjaHorario : horariosDia){
+                int tiempoMinutosFranja = (int) ((franjaHorario.getmEndTime().getTime() - franjaHorario.getmStartTime().getTime()) /(60 * 1000));
+                if(tiempoMinutosFranja==0){continue;}
+                Log.i("OTRA", "asignarHorarios: minFranja "+tiempoMinutosFranja+" mintiempoTarea "+tiempoTarea);
+                Date startTime = null,endTime = null;
+                if(tiempoTarea >= 75 && tiempoMinutosFranja >= 75){
 
-           int tiempoMinutosFranja = (int) ((franjaHorario.getmEndTime().getTime() - franjaHorario.getmStartTime().getTime()) /(60 * 1000));
-           if(tiempoMinutosFranja==0){continue;}
-           Log.i("OTRA", "asignarHorarios: minFranja "+tiempoMinutosFranja+" mintiempoTarea "+tiempoTarea);
-           Date startTime = null,endTime = null;
-           if(tiempoTarea >= 75 && tiempoMinutosFranja >= 75){
+                    tiempoTarea-= 75;
+                    startTime = (Date) franjaHorario.getmStartTime().clone();
+                    franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(75));
+                    endTime = (Date) franjaHorario.getmStartTime().clone();
 
-               tiempoTarea-= 75;
-               startTime = (Date) franjaHorario.getmStartTime().clone();
-               franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(75));
-               endTime = (Date) franjaHorario.getmStartTime().clone();
+                }else if( tiempoTarea >= 75 && tiempoMinutosFranja <= 75){
 
-           }else if( tiempoTarea >= 75 && tiempoMinutosFranja <= 75){
-
-               tiempoTarea-= tiempoMinutosFranja;
-               startTime = (Date) franjaHorario.getmStartTime().clone();
-               endTime = (Date) franjaHorario.getmEndTime().clone();
-               horariosDia.remove(franjaHorario);
-
-
-           }else if(tiempoTarea <= 75 && tiempoMinutosFranja >= 75){
-
-               int tiempoTarea2 = tiempoTarea;
-               tiempoTarea -= tiempoTarea;
-               startTime = (Date) franjaHorario.getmStartTime().clone();
-               franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoTarea2));
-               endTime = (Date) franjaHorario.getmStartTime().clone();
+                    tiempoTarea-= tiempoMinutosFranja;
+                    startTime = (Date) franjaHorario.getmStartTime().clone();
+                    endTime = (Date) franjaHorario.getmEndTime().clone();
+                    horariosDia.remove(franjaHorario);
 
 
-           }else if(tiempoTarea <= 75 && tiempoMinutosFranja <= 75){
+                }else if(tiempoTarea <= 75 && tiempoMinutosFranja >= 75){
+
+                    int tiempoTarea2 = tiempoTarea;
+                    tiempoTarea -= tiempoTarea;
+                    startTime = (Date) franjaHorario.getmStartTime().clone();
+                    franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoTarea2));
+                    endTime = (Date) franjaHorario.getmStartTime().clone();
 
 
-               if( tiempoTarea < tiempoMinutosFranja ){
+                }else if(tiempoTarea <= 75 && tiempoMinutosFranja <= 75){
 
-                   int tiempoTarea2 = tiempoTarea;
-                   tiempoTarea -= tiempoTarea;
-                   startTime = (Date) franjaHorario.getmStartTime().clone();
-                   franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoTarea2));
-                   endTime = (Date) franjaHorario.getmStartTime().clone();
 
-               }else {
+                    if( tiempoTarea < tiempoMinutosFranja ){
 
-                   tiempoTarea -= tiempoMinutosFranja;
-                   startTime = (Date) franjaHorario.getmStartTime().clone();
-                   franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoMinutosFranja));
-                   endTime = (Date) franjaHorario.getmStartTime().clone();
-                   horariosDia.remove(franjaHorario);
+                        int tiempoTarea2 = tiempoTarea;
+                        tiempoTarea -= tiempoTarea;
+                        startTime = (Date) franjaHorario.getmStartTime().clone();
+                        franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoTarea2));
+                        endTime = (Date) franjaHorario.getmStartTime().clone();
 
-               }
+                    }else {
 
-           }
+                        tiempoTarea -= tiempoMinutosFranja;
+                        startTime = (Date) franjaHorario.getmStartTime().clone();
+                        franjaHorario.getmStartTime().setTime(franjaHorario.getmStartTime().getTime() + TimeUnit.MINUTES.toMillis(tiempoMinutosFranja));
+                        endTime = (Date) franjaHorario.getmStartTime().clone();
+                        horariosDia.remove(franjaHorario);
 
-           startTime.setYear(startTime.getYear()+1900);
-           endTime.setYear(endTime.getYear()+1900);
-           Horario horarioAsignar =  new Horario(idBeneficiario,franjaHorario.getIdHorario(),startTime
-                   ,endTime,"Desarrollo "+tarea.getNombre(),tarea.getColor(),false);
-           horariosTarea.add(horarioAsignar);
-           //}
-       }
-       if(sinTiempo){
-           Collections.reverse(horarioxTarea);
-       }
+                    }
+
+                }
+
+                startTime.setYear(startTime.getYear()+1900);
+                endTime.setYear(endTime.getYear()+1900);
+                Horario horarioAsignar =  new Horario(idBeneficiario,franjaHorario.getIdHorario(),startTime
+                        ,endTime,"Desarrollo "+tarea.getNombre(),tarea.getColor(),false);
+                horariosTarea.add(horarioAsignar);
+
+            }
+            }
+
+
        return tiempoTarea;
    }
 
