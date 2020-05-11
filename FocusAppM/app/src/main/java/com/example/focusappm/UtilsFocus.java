@@ -147,6 +147,9 @@ public class UtilsFocus {
         if (tiempoTarea > 0 && horariosTarea.size() > 0){
             tiempoTarea = asignarHorarios(tarea,tiempoTarea,idBeneficiario,horariosTarea,sinTiempo);
         }
+        if(tiempoTarea > 0){
+            Log.i("JUANP", "Falto "+tiempoTarea+" minutos por asignar, pero se asigno el disponible existente");
+        }
 
         ArrayList<Horario> horariosEliminados = new ArrayList<>();
        for(Horario horarioDisponible : horariosDisponiblesBenefi){
