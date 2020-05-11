@@ -243,8 +243,7 @@ public class UtilsFocus {
                 horariosTarea.add(horarioAsignar);
 
             }
-            }
-
+       }
 
        return tiempoTarea;
    }
