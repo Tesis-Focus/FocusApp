@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,8 +30,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
     EditText edtxNombreDetallePB,edtxApellidosDetallePB,edtxGradoDetallePB,edtxFechaNacDetallePB;
     Button btnAgregarHorDis;
     Button btnAgregarEstilo;
-    Button btnEditarPerfil;
-    Button btnEliminarPerfil;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuario beneficiario;
@@ -48,8 +49,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
         edtxFechaNacDetallePB = findViewById(R.id.edtxFechaNacDetallePB);
-        btnEditarPerfil = findViewById(R.id.btnEditarPerfil);
-        btnEliminarPerfil = findViewById(R.id.btnEliminarPerfil);
         beneficiario = (Usuario) getIntent().getSerializableExtra("Beneficiario");
         Log.i("DETALLE PERFIL", beneficiario.getNombres());
         Log.i("DETALLE PERFIL", beneficiario.getApellidos());
@@ -81,34 +80,37 @@ public class DetallePerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        btnEditarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalle_perfil, menu);
+        return true;
+    }
 
-                Intent intent = new Intent(getBaseContext(), AgregarPerfilActivity.class);
-                intent.putExtra("usuario", beneficiario);
-                intent.putExtra("codigo", 1);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemClicked = item.getItemId();
+        if(itemClicked==R.id.mnuEditarPerfil){
+            Intent intent = new Intent(getBaseContext(), AgregarPerfilActivity.class);
+            intent.putExtra("usuario", beneficiario);
+            intent.putExtra("codigo", 1);
+            startActivity(intent);
+        }
+        if(itemClicked == R.id.mnuEliminarPerfil){
 
-        btnEliminarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            myRef = database.getReference(PATH_USUARIOS+beneficiario.getIdBeneficiario());
+            Log.i("BORRAR", beneficiario.getIdUsuario());
+            myRef.removeValue();
 
-                myRef = database.getReference(PATH_USUARIOS+beneficiario.getIdBeneficiario());
-                Log.i("BORRAR", beneficiario.getIdUsuario());
-                myRef.removeValue();
+            Toast.makeText(getApplicationContext(), "Usuario eliminado exisitosamente ", Toast.LENGTH_LONG).show();
 
-                Toast.makeText(getApplicationContext(), "Usuario eliminado exisitosamente ", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getBaseContext(), PerfilesActivity.class);
+            intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
+            startActivity(intent);
+        }
 
-                Intent intent = new Intent(getBaseContext(), PerfilesActivity.class);
-                intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
-                startActivity(intent);
-            }
-        });
-
+        return super.onOptionsItemSelected(item);
     }
 
     private void passEvents() {

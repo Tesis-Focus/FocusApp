@@ -119,36 +119,13 @@
             <Button
                 android:id="@+id/btnAgregaEstiloApren"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:paddingEnd="15dp"
                 android:text="Realizar test estilo de aprendizaje"
+                android:textAlignment="gravity"
                 android:textAllCaps="false"
                 android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="20dp">
-
-                <Button
-                    android:id="@+id/btnEditarPerfil"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:paddingEnd="10dp"
-                    android:text="Editar perfil"
-                    android:textSize="16sp" />
-
-                <Button
-                    android:id="@+id/btnEliminarPerfil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ELIMINAR PERFIL"
-                    android:textSize="16sp" />
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
