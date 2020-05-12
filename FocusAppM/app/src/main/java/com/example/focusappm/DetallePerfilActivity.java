@@ -70,7 +70,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
