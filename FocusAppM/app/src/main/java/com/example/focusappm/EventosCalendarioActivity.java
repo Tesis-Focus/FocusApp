@@ -247,6 +247,13 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 }
                 ArrayList<Horario> horarios;
                 horarios = obtenerHorarios();
+
+                fechaini.setHours(horaInicio);
+                fechaini.setMinutes(minutoInicio);
+
+                fechafin.setHours(horaFin);
+                fechafin.setMinutes(minutoFin);
+
                 Intent i = new Intent();
                 i.putExtra("horarios",horarios);
                 i.putExtra("fechaini", fechaini);

@@ -134,10 +134,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
             hayHorarios=true;
             horarioActividad = miActividad.getHorarios();
 
-            fechaini = miActividad.getFechaInicio();
-            fechafin = miActividad.getFechaFinal();
-            fechaini.setYear(fechaini.getYear()+1900);
-            fechafin.setYear(fechafin.getYear()+1900);
+            fechaini = (Date) miActividad.getFechaInicio().clone();
+            fechafin = (Date) miActividad.getFechaFinal().clone();
+            fechaini.setYear(fechaini.getYear()+3800);
+            fechafin.setYear(fechafin.getYear()+3800);
             Log.i("FechasAgregar" , "INI Suma " + fechaini.getYear() );
             Log.i("FechasAgregar" , "FIN Suma " + fechafin.getYear() );
             Log.i("FechasAgregar" , "INI " + miActividad.getFechaInicio().getYear());
@@ -171,35 +171,9 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView arg0) {
-               // Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
-
-       /* spnTipo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(spnTipo.getSelectedItem().equals("académica")){*/
-                   /* Spinner spnAsignaturas = new Spinner(getBaseContext());
-                    ArrayAdapter<CharSequence> adapterAsig = ArrayAdapter.createFromResource(getBaseContext(), R.array.Asignaturas, android.R.layout.simple_spinner_item);
-                    spnAsignaturas.setAdapter(adapterAsig);*/
-            /*    }
-            }
-        }); */
-        /*btnFechaIni.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                obtenerFecha(1);
-            }
-        });
-        btnFechaFin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                obtenerFecha(2);
-            }
-        });*/
 
         btnColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,11 +230,14 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     actividad.setDesempeño(spnDesempenio.getSelectedItem().toString());
                     actividad.setColor(colorActivity);
                     actividad.setHorarios(horarioActividad);
+                    fechaini.setHours(horarioActividad.get(0).getmStartTime().getHours());
+                    fechaini.setMinutes(horarioActividad.get(0).getmStartTime().getMinutes());
+                    fechafin.setHours(horarioActividad.get(0).getmEndTime().getHours());
+                    fechafin.setMinutes(horarioActividad.get(0).getmEndTime().getMinutes());
                     actividad.setFechaInicio(fechaini);
                     actividad.setFechaFinal(fechafin);
 
-                   // actividad.setFechaInicio(edttxtFechaIni.getText().toString());
-                    // actividad.setFechaFinal(edttxtFechaFin.getText().toString());
+
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();
 
@@ -417,38 +394,6 @@ public class AgregarActividadActivity extends AppCompatActivity {
         return esValido;
     }
 
-    /*public void obtenerFecha(final int codigo) {
-        DatePickerDialog.OnDateSetListener dateList = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                final int mesActual = month + 1;
-                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
-                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
-                if (codigo == 1){
-                    edttxtFechaIni.setText(diaFormateado + "/" + mesFormateado + "/" + year);
-                    edttxtFechaIni.setError(null);
-                    System.out.println("edit1");
-                }
-                else{
-                    edttxtFechaFin.setText(diaFormateado + "/" + mesFormateado + "/" + year);
-                    edttxtFechaFin.setError(null);
-                    System.out.println("edit2");
-                }
-
-            }
-
-        };
-
-        DatePickerDialog recogerFecha = new DatePickerDialog(this, dateList, anio, mes, dia);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            recogerFecha.setOnDateSetListener(dateList);
-        }
-
-        recogerFecha.show();
-    }*/
 
     private void cargarPerfilesB(){
 
@@ -483,6 +428,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 horarioActividad = (ArrayList<Horario>) data.getSerializableExtra("horarios");
                 fechaini = (Date) data.getSerializableExtra("fechaini");
                 fechafin = (Date) data.getSerializableExtra("fechafin");
+                Log.i("fechas Agregar", "onActivityResult: StartTime "+fechaini+" endtime "+fechafin);
                 hayHorarios= true;
             }
         }
