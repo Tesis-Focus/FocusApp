@@ -203,7 +203,6 @@ public class HomeAppActivity extends AppCompatActivity {
 
     private void setUpViewPageAdapter(String idBeneficiario){
         //actualizarTiempoTareas(idBeneficiario);
-        Log.i("Tiempo","salioooooooooo");
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
         Fragment mes = new MesFragment();
@@ -250,8 +249,6 @@ public class HomeAppActivity extends AppCompatActivity {
         //cuando ya paso el total del tiempo de la tarea
         //cuando esta en la mitad del tiemp
         //horario debe tener estado
-        Log.i("Tiempo", "entrooooo" );
-        List<Tarea> tareas = new ArrayList<Tarea>();
         Date fechaHoy = new Date();
         if(idBeneficiario != "") {
             myRef = database.getReference(PATH_TAREAS);
@@ -261,29 +258,35 @@ public class HomeAppActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Tarea tarea = ds.getValue(Tarea.class);
-
                         List<Horario> horariosTarea = new ArrayList<Horario>();
-                        if (idBeneficiario.equalsIgnoreCase(idBeneficiario)) {
-                            tareas.add(tarea);
+                        if (idBeneficiario.equals(tarea.getIdBeneficiario())) {
+
                             horariosTarea.addAll(tarea.getHorarios());
                             for (int i = 0; i < horariosTarea.size(); i++) {
                                 float diferencia;
                                 myRef = database.getReference(PATH_TAREAS + tarea.getIdTarea());
                                 Horario horario = horariosTarea.get(i);
+
+                                horario.getmStartTime().setYear(horario.getmStartTime().getYear()-1900);
+                                horario.getmEndTime().setYear(horario.getmEndTime().getYear()-1900);
+                                Log.i("Tiempo", "horario tarea start "+horario.getmStartTime()+" end "+horario.getmEndTime()+" / fechahoy "+fechaHoy);
+
                                 if (horario.getmStartTime().before(fechaHoy) && horario.getmEndTime().after(fechaHoy) && !horario.isActualizado()) {
-                                    diferencia = ((fechaHoy.getTime() - horario.getmStartTime().getTime()) / 1000);
+                                    diferencia = ((fechaHoy.getTime() - horario.getmStartTime().getTime()) / (60*1000));
                                     tarea.setTiempoPromedio(tarea.getTiempoPromedio() - diferencia);
                                     Log.i("Tiempo", "tiempo medio" + diferencia);
-                                    tarea.getHorarios().get(i).setActualizado(true);
+                                    tarea.getHorarios().get(i).setActualizado(false);
                                     myRef.setValue(tarea);
 
                                 } else if (horario.getmStartTime().before(fechaHoy) && horario.getmEndTime().before(fechaHoy) && !horario.isActualizado()) {
-                                    diferencia = (horario.getmEndTime().getTime() - horario.getmStartTime().getTime()) / 1000;
+                                    diferencia = (horario.getmEndTime().getTime() - horario.getmStartTime().getTime()) / (60*1000);
                                     tarea.setTiempoPromedio(tarea.getTiempoPromedio() - diferencia);
                                     Log.i("Tiempo", "tiempo despues" + diferencia);
                                     horario.setActualizado(true);
                                     tarea.getHorarios().get(i).setActualizado(true);
                                     myRef.setValue(tarea);
+                                }else{
+                                    Log.i("Tiempo", "onDataChange: noentra a ninguno");
                                 }
 
                             }
