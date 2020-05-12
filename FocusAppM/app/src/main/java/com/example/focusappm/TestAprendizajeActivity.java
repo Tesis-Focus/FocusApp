@@ -56,6 +56,8 @@ public class TestAprendizajeActivity extends AppCompatActivity {
     ImageButton atrasNueve;
     Button terminar;
 
+    Integer codigo;
+
 
 
     @Override
@@ -87,7 +89,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
         atrasOcho =findViewById(R.id.atrasOcho);
         atrasNueve =findViewById(R.id.atrasNueve);
         terminar = findViewById(R.id.terminar);
-
+        codigo =(Integer) getIntent().getSerializableExtra("codigo");
 
         recycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false ));
         SpacingItemDecorator itemDecorator = new SpacingItemDecorator(10);
@@ -513,15 +515,33 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 }
 
 
-                myRef = FirebaseDatabase.getInstance().getReference().child("");
-                String key = myRef.push().getKey();
-                myRef = database.getReference(PATH_ESTILOS+key);
-                myRef.setValue(estilo);
-                Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
-                intent.putExtra("beneficiario", beneficiario);
-                startActivity(intent);
+                if(codigo==0) {
+                    myRef = FirebaseDatabase.getInstance().getReference().child("");
+                    String key = myRef.push().getKey();
+                    myRef = database.getReference(PATH_ESTILOS + key);
+                    estilo.setIdEstilo(myRef.getKey());
+                    myRef.setValue(estilo);
+                    Toast.makeText(getApplicationContext(), "Persistencia hecha", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getBaseContext(),AgregarDatosPerfilActivity.class);
+                    intent.putExtra("Beneficiario", beneficiario);
+                    startActivity(intent);
+                }
+                if(codigo==1){
+                    myRef = FirebaseDatabase.getInstance().getReference().child("");
+                    EstiloAprendizaje estiloBenefi =(EstiloAprendizaje) getIntent().getSerializableExtra("estilo");
+                    myRef = database.getReference(PATH_ESTILOS+estiloBenefi.getIdEstilo());
+                    estilo.setIdEstilo(estiloBenefi.getIdEstilo());
+                    myRef.setValue(estilo);
+
+                    Toast.makeText(getApplicationContext(), "Estilo actualizado", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
+                    intent.putExtra("Beneficiario", beneficiario);
+                    startActivity(intent);
+                }
+
 
 
 

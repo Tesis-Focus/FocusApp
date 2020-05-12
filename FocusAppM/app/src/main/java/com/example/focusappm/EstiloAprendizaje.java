@@ -1,11 +1,14 @@
 package com.example.focusappm;
 
-public class EstiloAprendizaje {
+import java.io.Serializable;
+
+public class EstiloAprendizaje implements Serializable {
     private Integer ec;
     private Integer or;
     private Integer ca;
     private Integer ea;
     private String idBeneficiario;
+    private String idEstilo;
     private String dominate;
     private String secundario;
 
@@ -67,5 +70,13 @@ public class EstiloAprendizaje {
 
     public void setSecundario(String secundario) {
         this.secundario = secundario;
+    }
+
+    public String getIdEstilo() {
+        return idEstilo;
+    }
+
+    public void setIdEstilo(String idEstilo) {
+        this.idEstilo = idEstilo;
     }
 }

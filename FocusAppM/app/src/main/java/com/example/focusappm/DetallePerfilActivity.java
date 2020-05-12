@@ -29,7 +29,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
 
     EditText edtxNombreDetallePB,edtxApellidosDetallePB,edtxGradoDetallePB,edtxFechaNacDetallePB;
     Button btnAgregarHorDis;
-    Button btnAgregarEstilo;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuario beneficiario;
@@ -44,7 +43,6 @@ public class DetallePerfilActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         btnAgregarHorDis = findViewById(R.id.btnAgregarHorDis);
-        btnAgregarEstilo = findViewById(R.id.btnAgregaEstiloApren);
         edtxNombreDetallePB = findViewById(R.id.edtxNombreDetallePB);
         edtxApellidosDetallePB = findViewById(R.id.edtxApellidosDetallePB);
         edtxGradoDetallePB = findViewById(R.id.edtxGradoDetallePB);
@@ -72,14 +70,7 @@ public class DetallePerfilActivity extends AppCompatActivity {
             }
         });
 
-        btnAgregarEstilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(getBaseContext(),TestAprendizajeActivity.class);
-                intent.putExtra("beneficiario", beneficiario);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override

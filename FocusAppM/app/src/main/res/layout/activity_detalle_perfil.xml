@@ -116,16 +116,6 @@
                 android:textAllCaps="false"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/btnAgregaEstiloApren"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingEnd="15dp"
-                android:text="Realizar test estilo de aprendizaje"
-                android:textAlignment="gravity"
-                android:textAllCaps="false"
-                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>

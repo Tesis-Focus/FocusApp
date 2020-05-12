@@ -1,5 +1,6 @@
 package com.example.focusappm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -19,9 +20,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,6 +36,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     EditText edtxNombresPB, edtxApellidosPB, edtxFechaNacPB;
     Spinner spnCursoPB;
     Button btnListoPB;
+    Button btnEditarEstilo;
     ImageButton btnFechaNacPB;
     FirebaseUser user;
     FirebaseAuth mAuth;
@@ -39,6 +45,8 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener mDateSetListener;
     Usuario miUsuario;
     Integer codigo;
+    Usuario nuevoBene;
+    EstiloAprendizaje estiloUsuario;
 
     public final Calendar c = Calendar.getInstance();
     private final int mes = c.get(Calendar.MONTH);
@@ -46,6 +54,7 @@ public class AgregarPerfilActivity extends AppCompatActivity {
     private final int anio = c.get(Calendar.YEAR);
 
     private final static String PATH_USUARIOS = "usuarios/";
+    public static final String PATH_ESTILOS = "estilosAprendizaje/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +67,37 @@ public class AgregarPerfilActivity extends AppCompatActivity {
         spnCursoPB = findViewById(R.id.spnCursoPB);
         btnListoPB = findViewById(R.id.btnListoPB);
         btnFechaNacPB = findViewById(R.id.btnFechaNacPB);
+        btnEditarEstilo = findViewById(R.id.btnEditarEstilo);
         codigo = (Integer) getIntent().getSerializableExtra("codigo");
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
+        nuevoBene = new Usuario();
+
+        btnEditarEstilo.setVisibility(View.GONE);
 
         if (codigo == 1) {
             miUsuario = (Usuario) getIntent().getSerializableExtra("usuario");
+            bucarEstilo();
             llenarDatosUsuario();
+            btnEditarEstilo.setVisibility(View.VISIBLE);
         }
 
         btnFechaNacPB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 obtenerFecha();
+            }
+        });
+
+        btnEditarEstilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), TestAprendizajeActivity.class);
+                i.putExtra("beneficiario", miUsuario);
+                i.putExtra("codigo",1);
+                i.putExtra("estilo", estiloUsuario);
+                startActivity(i);
             }
         });
 
@@ -89,14 +115,42 @@ public class AgregarPerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (validarCampos()) {
-
+                    /*registroBeneficiario();
+                    Intent i = new Intent(getBaseContext(), AgregarDatosPerfilActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);*/
                     registroBeneficiario();
-                    Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
+                    Intent i = new Intent(getBaseContext(), AgregarDatosPerfilActivity.class);
+                    i.putExtra("Beneficiario", nuevoBene);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
             }
         });
+    }
+
+    private void bucarEstilo() {
+        FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = dataBase.getReference();
+        myRef = dataBase.getReference(PATH_ESTILOS);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    EstiloAprendizaje estilo = ds.getValue(EstiloAprendizaje.class);
+                    if(estilo.getIdBeneficiario().equals(miUsuario.getIdBeneficiario())){
+                        estiloUsuario = estilo;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
@@ -125,7 +179,6 @@ public class AgregarPerfilActivity extends AppCompatActivity {
 
     private void registroBeneficiario() {
 
-        Usuario nuevoBene = new Usuario();
         nuevoBene.setCurso(spnCursoPB.getSelectedItem().toString());
         nuevoBene.setNombres(edtxNombresPB.getText().toString());
         nuevoBene.setApellidos(edtxApellidosPB.getText().toString());

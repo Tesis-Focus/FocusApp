@@ -122,6 +122,12 @@
                 android:layout_height="36dp"
                 android:entries="@array/cursos" />
 
+            <Button
+                android:id="@+id/btnEditarEstilo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Repetir test de estilo de aprendizaje" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
