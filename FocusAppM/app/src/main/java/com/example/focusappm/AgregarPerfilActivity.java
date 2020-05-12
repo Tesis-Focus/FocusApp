@@ -216,4 +216,3 @@ public class AgregarPerfilActivity extends AppCompatActivity {
             return posicion;
         }
 }
-
