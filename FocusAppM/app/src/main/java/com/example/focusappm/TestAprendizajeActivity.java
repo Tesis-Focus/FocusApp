@@ -579,7 +579,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
 
     private void mostrarPreguntaCinco() {
         listDatos= new ArrayList<String>();
-        preguntaUno.setText("5. Cuando aprendes");
+        preguntaUno.setText("5. Cuando aprendes:");
         listDatos.add("Le preguntas a los que saben más" );
         listDatos.add("Te gusta ver resultados" );
         listDatos.add("Intentas descubrir como funciona" );
@@ -594,7 +594,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
         listDatos.add("Observas y examinas los detalles" );
         listDatos.add("Te dedicas a realizar lo que toca hacer" );
         listDatos.add("Eres activo y te gusta manipular cosas" );
-        listDatos.add("Eres una persona lógica, separas lo esencial de las cualidades de forma abstracta");
+        listDatos.add("Eres una persona lógica, separas lo esencial de las cualidades");
 
         adapter = new AdapterDatos(listResultadosSeis);
     }
