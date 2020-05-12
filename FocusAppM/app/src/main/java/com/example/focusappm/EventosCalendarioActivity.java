@@ -43,6 +43,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     int AM_PM_Inicio;
     int AM_PM_Fin;
     int diaDeMes;
+    Integer codigo;
 
     boolean isPmStart;
     boolean isPmEnd;
@@ -57,6 +58,9 @@ public class EventosCalendarioActivity extends AppCompatActivity {
     EditText etFechaInicio,edtxFechaFin;
     Button guardar;
     CheckBox chbxLun,chbxMar,chbxMie,chbxJue,chbxVie,chbxSab,chbxDom;
+
+    ArrayList<Horario> horarioActividad;
+    Date fechaini,fechafin;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
     public final Calendar c = Calendar.getInstance();
@@ -86,7 +90,20 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         edtxFechaFin = findViewById(R.id.edtxFechaFin);
         guardar = findViewById(R.id.guardarEvento);
         Calendar cal = Calendar.getInstance();
+        codigo =(Integer) getIntent().getSerializableExtra("codigo");
 
+        horarioActividad = new ArrayList<>();
+        fechaini =null;
+        fechafin =null;
+
+
+
+        if(codigo==1){
+            horarioActividad = (ArrayList<Horario>) getIntent().getSerializableExtra("horarios");
+            fechaini = (Date) getIntent().getSerializableExtra("fechaini");
+            fechafin = (Date) getIntent().getSerializableExtra("fechafin");
+            llenarDatos();
+        }
         btnHoraInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -239,6 +256,51 @@ public class EventosCalendarioActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void llenarDatos() {
+
+        fechaini.setYear(fechaini.getYear()-1900);
+        fechafin.setYear(fechafin.getYear()-1900);
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String fechInicio = df.format(fechaini);
+        String fechaFin = df.format(fechafin);
+        etFechaInicio.setText(fechInicio);
+        edtxFechaFin.setText(fechaFin);
+
+        DateFormat dfHora = new SimpleDateFormat("hh:mm");
+        String horaInicio = dfHora.format(fechaini);
+        String horarioFin = dfHora.format(fechafin);
+        etHoraInicio.setText(horaInicio);
+        etHoraFin.setText(horarioFin);
+
+        for(Horario horario: horarioActividad){
+            if(horario.getmStartTime().getDay()==2){
+                chbxLun.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==3){
+                chbxMar.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==4){
+                chbxMie.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==5){
+                chbxJue.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==6){
+                chbxVie.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==7){
+                chbxSab.setChecked(true);
+            }
+            if(horario.getmStartTime().getDay()==8){
+                chbxDom.setChecked(true);
+            }
+        }
+
+
+
     }
 
     private ArrayList<Horario> obtenerHorarios(){

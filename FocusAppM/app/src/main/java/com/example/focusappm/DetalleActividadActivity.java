@@ -36,6 +36,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
     EditText fechaInicio;
     EditText fechaFin;
     EditText desempeño;
+    EditText diasRepite;
     Button btneEliminar;
     Button btnEditarActividad;
     TextView textAsignatura;
@@ -72,6 +73,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
         fechaInicio = findViewById(R.id.edtxFechaInicio);
         fechaFin = findViewById(R.id.edttxtFechaFin);
         desempeño = findViewById(R.id.edttxtDesempeño);
+        diasRepite = findViewById(R.id.edttxtDias);
         btneEliminar = findViewById(R.id.btnEliminarActividad);
         btnEditarActividad = findViewById(R.id.btnEditarActividad);
 
@@ -90,6 +92,9 @@ public class DetalleActividadActivity extends AppCompatActivity {
         String fechFinal = df.format(actividad.getFechaFinal());
         fechaFin.setText(fechFinal);
 
+        Log.i("FechasAgregar" , "INI-Cambio" + actividad.getFechaInicio().getYear());
+        Log.i("FechasAgregar" , "FIN-Cambio" + actividad.getFechaFinal().getYear());
+
         desempeño.setText(actividad.getDesempeño());
 
         textAsignatura.setVisibility(View.GONE);
@@ -99,6 +104,37 @@ public class DetalleActividadActivity extends AppCompatActivity {
             textAsignatura.setVisibility(View.VISIBLE);
             edtxAsignatura.setVisibility(View.VISIBLE);
             edtxAsignatura.setText(actividad.getAsignatura());
+        }
+        Boolean lunes=false,martes= false,miercoles= false,jueves= false,vierenes= false,sabado= false,domingo= false;
+        for(Horario horario: actividad.getHorarios()){
+            if(horario.getmStartTime().getDay()==2 && !lunes){
+                diasRepite.setText(diasRepite.getText() + " Lunes");
+                lunes = true;
+            }
+            if(horario.getmStartTime().getDay()==3 && !martes){
+                diasRepite.setText(diasRepite.getText() + " Martes");
+                martes = true;
+            }
+            if(horario.getmStartTime().getDay()==4 && !miercoles){
+                diasRepite.setText(diasRepite.getText() + " Miercoles");
+                miercoles = true;
+            }
+            if(horario.getmStartTime().getDay()==5 && !jueves){
+                diasRepite.setText(diasRepite.getText() + " Jueves");
+                jueves = true;
+            }
+            if(horario.getmStartTime().getDay()==6 && !vierenes){
+                diasRepite.setText(diasRepite.getText() + " Viernes");
+                vierenes = true;
+            }
+            if(horario.getmStartTime().getDay()==7 && !sabado){
+                diasRepite.setText(diasRepite.getText() + " Sabado");
+                sabado = true;
+            }
+            if(horario.getmStartTime().getDay()==8 && !domingo){
+                diasRepite.setText(diasRepite.getText() + " Domingo");
+                domingo = true;
+            }
         }
 
         myRef.child(PATH_USUARIOS).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -144,6 +180,8 @@ public class DetalleActividadActivity extends AppCompatActivity {
                 intent.putExtra("beneficiarios", (Serializable) beneficiarios);
                 intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
                 intent.putExtra("actividad",actividad);
+                Log.i("FechasAgregar" , "INI-" + actividad.getFechaInicio().getYear());
+                Log.i("FechasAgregar" , "FIN-" + actividad.getFechaFinal().getYear());
                 intent.putExtra("codigo",1);
                 startActivity(intent);
             }
