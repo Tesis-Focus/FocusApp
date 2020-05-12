@@ -80,6 +80,8 @@ public class AgregarActividadActivity extends AppCompatActivity {
 
     Actividad miActividad;
 
+    Boolean hayHorarios=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,18 @@ public class AgregarActividadActivity extends AppCompatActivity {
         if(codigo==1){
             miActividad =(Actividad) getIntent().getSerializableExtra("actividad");
             llenarDatos();
+            hayHorarios=true;
+            horarioActividad = miActividad.getHorarios();
+
+            fechaini = miActividad.getFechaInicio();
+            fechafin = miActividad.getFechaFinal();
+            fechaini.setYear(fechaini.getYear()+1900);
+            fechafin.setYear(fechafin.getYear()+1900);
+            Log.i("FechasAgregar" , "INI Suma " + fechaini.getYear() );
+            Log.i("FechasAgregar" , "FIN Suma " + fechafin.getYear() );
+            Log.i("FechasAgregar" , "INI " + miActividad.getFechaInicio().getYear());
+            Log.i("FechasAgregar" , "FIN " + miActividad.getFechaFinal().getYear());
+
         }
 
         spnTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -216,6 +230,14 @@ public class AgregarActividadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),EventosCalendarioActivity.class);
+                i.putExtra("codigo", 0);
+                if(hayHorarios) {
+                    i.putExtra("horarios", horarioActividad);
+                    i.putExtra("fechaini", fechaini);
+                    i.putExtra("fechafin", fechafin);
+                    i.putExtra("codigo", 1);
+
+                }
                 startActivityForResult(i,REQUEST_CODE_ACTIVIDAD);
             }
         });
@@ -461,6 +483,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                 horarioActividad = (ArrayList<Horario>) data.getSerializableExtra("horarios");
                 fechaini = (Date) data.getSerializableExtra("fechaini");
                 fechafin = (Date) data.getSerializableExtra("fechafin");
+                hayHorarios= true;
             }
         }
     }
