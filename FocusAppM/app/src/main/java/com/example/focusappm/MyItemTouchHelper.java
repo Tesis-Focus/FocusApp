@@ -26,6 +26,11 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback {
     }
 
     @Override
+    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+    }
+
+    @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView,viewHolder);
         viewHolder.itemView.setBackgroundColor(
@@ -45,7 +50,8 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-        final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+        //final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+        final int swipeFlags = 0;
         return makeMovementFlags(dragFlags,swipeFlags);
     }
 
@@ -55,8 +61,4 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback {
         return true;
     }
 
-    @Override
-    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        mAdapter.onItemSwiped(viewHolder.getAdapterPosition());
-    }
 }
