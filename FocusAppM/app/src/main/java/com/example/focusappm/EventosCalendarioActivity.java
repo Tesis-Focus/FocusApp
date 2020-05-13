@@ -236,33 +236,62 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date fechaini = new Date(),fechafin = new Date();
-                try {
-                    fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
-                    fechaini.setYear(fechaini.getYear()+1900);
-                    fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
-                    fechafin.setYear(fechafin.getYear()+1900);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if(validarDatos()){
+                    Date fechaini = new Date(),fechafin = new Date();
+                    try {
+                        fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+                        fechaini.setYear(fechaini.getYear()+1900);
+                        fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
+                        fechafin.setYear(fechafin.getYear()+1900);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    ArrayList<Horario> horarios;
+                    horarios = obtenerHorarios();
+
+                    fechaini.setHours(horaInicio);
+                    fechaini.setMinutes(minutoInicio);
+
+                    fechafin.setHours(horaFin);
+                    fechafin.setMinutes(minutoFin);
+
+                    Intent i = new Intent();
+                    i.putExtra("horarios",horarios);
+                    i.putExtra("fechaini", fechaini);
+                    i.putExtra("fechafin",fechafin);
+                    setResult(RESULT_OK, i);
+                    finish();
                 }
-                ArrayList<Horario> horarios;
-                horarios = obtenerHorarios();
-
-                fechaini.setHours(horaInicio);
-                fechaini.setMinutes(minutoInicio);
-
-                fechafin.setHours(horaFin);
-                fechafin.setMinutes(minutoFin);
-
-                Intent i = new Intent();
-                i.putExtra("horarios",horarios);
-                i.putExtra("fechaini", fechaini);
-                i.putExtra("fechafin",fechafin);
-                setResult(RESULT_OK, i);
-                finish();
-
             }
         });
+    }
+    private boolean validarDatos(){
+        boolean valido = true;
+        Date fechaini = new Date(),fechafin = new Date();
+        if(etFechaInicio.getText().toString().isEmpty() || edtxFechaFin.getText().toString().isEmpty()){
+            valido = false;
+            etFechaInicio.setError("requerido");
+            edtxFechaFin.setError("requerido");
+        }
+        if( etHoraInicio.getText().toString().isEmpty() || etHoraFin.getText().toString().isEmpty()){
+            valido = false;
+            etHoraInicio.setError("requerido");
+            etHoraFin.setError("requerido");
+        }
+
+        try {
+            fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+            fechaini.setYear(fechaini.getYear()+1900);
+            fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
+            fechafin.setYear(fechafin.getYear()+1900);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(fechafin.before(fechaini)){
+            valido = false;
+            etFechaInicio.setError("la fecha de inicio debe ser antes de la de fin");
+        }
+        return valido;
     }
 
     private void llenarDatos() {

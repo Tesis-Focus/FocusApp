@@ -520,7 +520,8 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Persistencia hecha", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getBaseContext(),DetallePerfilActivity.class);
-                intent.putExtra("beneficiario", beneficiario);
+                intent.putExtra("Beneficiario", beneficiario);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
 

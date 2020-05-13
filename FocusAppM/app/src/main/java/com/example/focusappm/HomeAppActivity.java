@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,13 +76,12 @@ public class HomeAppActivity extends AppCompatActivity {
 
         setUpView();
         setUpViewPageAdapter("");
-        cargarPerfilesB();
 
         spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
-                //UtilsFocus.planeacion(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
+                //UtilsFocus.planeacion(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario(),HomeAppActivity.this);
             }
 
             @Override
@@ -221,8 +222,6 @@ public class HomeAppActivity extends AppCompatActivity {
         viewPageAdapter.setFragmentList(fragments);
         viewPageAdapter.setFragmentTitles(names);
 
-        //viewPageAdapter.addFragment( mes,"Mes");
-        //viewPageAdapter.addFragment( detalle,"Detallada");
 
         viewPager.setAdapter(viewPageAdapter);
         viewPager.setPagingEnabled(false);
@@ -304,7 +303,23 @@ public class HomeAppActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpViewPageAdapter("");
+        beneficiarios.clear();
+        nombresBeneficiarios.clear();
+        cargarPerfilesB();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setUpViewPageAdapter("");
+        beneficiarios.clear();
+        nombresBeneficiarios.clear();
+        cargarPerfilesB();
+    }
 
 
 }

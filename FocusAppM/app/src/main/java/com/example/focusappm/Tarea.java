@@ -21,10 +21,19 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     private float tiempoPromedio;
     private boolean estaMotivado;
     private int prioridad;
+    private int tiempoFaltante;
     private List<Horario> horarios = new ArrayList<Horario>();
 
     public Tarea(){
 
+    }
+
+    public int getTiempoFaltante() {
+        return tiempoFaltante;
+    }
+
+    public void setTiempoFaltante(int tiempoFaltante) {
+        this.tiempoFaltante = tiempoFaltante;
     }
 
     public boolean isEstaMotivado() {

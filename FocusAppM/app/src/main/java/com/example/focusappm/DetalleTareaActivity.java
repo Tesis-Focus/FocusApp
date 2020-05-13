@@ -121,6 +121,8 @@ public class DetalleTareaActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), HomeAppActivity.class);
                 intent.putExtra("idBeneficiario",(String)getIntent().getSerializableExtra("idBeneficiario"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                UtilsFocus.planeacion(tarea.getIdBeneficiario(),getApplication());
                 startActivity(intent);
             }
         });
