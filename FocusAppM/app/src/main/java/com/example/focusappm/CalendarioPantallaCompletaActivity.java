@@ -86,7 +86,7 @@ public class CalendarioPantallaCompletaActivity extends AppCompatActivity {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(CalendarioPantallaCompletaActivity.this);
                 builder.setTitle(event.getName());
                 builder.setMessage("Fecha: "+event.getStartTime().get(Calendar.DATE)+"/"+event.getStartTime().get(Calendar.MONTH)+"/"+event.getStartTime().get(Calendar.YEAR)
                         +"\nHora inicio \t"+event.getStartTime().get(Calendar.HOUR_OF_DAY)+":"+event.getStartTime().get(Calendar.MINUTE)
