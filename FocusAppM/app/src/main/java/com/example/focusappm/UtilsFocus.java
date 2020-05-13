@@ -76,7 +76,6 @@ public class UtilsFocus {
                 }
                 Collections.sort(tareas);
                 Log.i("Planeacion", "Tamano tareas "+tareas.size());//BIEN
-                
                 planearTareas(tareas,idBeneficiario);
 
             }
@@ -119,6 +118,7 @@ public class UtilsFocus {
             }
 
             int tiempoRealizacion = (int) ( t.getTiempoPromedio() + (t.getTiempoPromedio()%20) *5);
+            tiempoRealizacion += (t.getTiempoPromedio()+(t.getTiempoPromedio()*t.getMultiplicador()));
             int tiempoDisponible = 0 ;
             for(ArrayList<Horario> hList : horarioxTarea){
                 for( Horario h: hList){

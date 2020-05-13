@@ -19,6 +19,7 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
     private String idActividad;
     private String idBeneficiario;
     private float tiempoPromedio;
+    private double multiplicador;
     private boolean estaMotivado;
     private int prioridad;
     private List<Horario> horarios = new ArrayList<Horario>();
@@ -137,6 +138,14 @@ public class Tarea extends WeekViewEvent implements Comparable, Serializable {
 
     public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public double getMultiplicador() {
+        return multiplicador;
+    }
+
+    public void setMultiplicador(double multiplicador) {
+        this.multiplicador = multiplicador;
     }
 
     @Override

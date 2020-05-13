@@ -254,7 +254,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
                     List<String> areasActividad = new ArrayList<String>();
                     areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
-                    double multiplicador = actividades.get(sprActividad.getSelectedItemPosition()).getMultiplicador();
+                   
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
@@ -262,7 +262,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     tarea = reglas.asignarPrioridad(tarea, desempenoActividad, areasActividad);
 
                     Log.i("tiemp", "onClick: " + tarea.getTiempoPromedio());
-                    tarea.setTiempoPromedio ((float) (tarea.getTiempoPromedio()+(tarea.getTiempoPromedio()*multiplicador)));
+                     tarea.setMultiplicador(0);
                     Log.i("tiemp", "onClick: " + tarea.getTiempoPromedio());
 
                     Log.i("TAG", "onClick: " + tarea.getPrioridad());
