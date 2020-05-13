@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Agregar Tarea"
+                android:text="Nueva tarea 📑"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 

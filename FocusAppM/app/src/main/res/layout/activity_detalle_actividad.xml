@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Detalle Actividad"
+                android:text="Actividad 📖"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -190,7 +190,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Editar Actividad"
+                    android:text="Editar "
+                    android:textAllCaps="false"
                     android:textSize="14sp" />
 
                 <Button
@@ -198,7 +199,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Eliminar actividad"
+                    android:text="Eliminar"
+                    android:textAllCaps="false"
                     android:textSize="14sp" />
 
             </LinearLayout>

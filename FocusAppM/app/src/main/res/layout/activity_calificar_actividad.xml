@@ -24,9 +24,9 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Calificar planeacion de actividad"
+            android:text="Califica la planeacion de tareas para esta actividad 🧐"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView"
@@ -36,7 +36,7 @@
             android:paddingBottom="10dp"
             android:text="Si el tiempo de la planeación no fue adecuado, recomendamos volver a realizar el test de estilo de aprendizaje, revisar el desempeño de la actividad, y la complejidad de las tareas asociadas"
             android:textAlignment="gravity"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
 
 
@@ -100,7 +100,8 @@
             android:id="@+id/btnCalificar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enviar Calificacion" />
+            android:text="Calificar"
+            android:textAllCaps="false" />
 
     </LinearLayout>
     </ScrollView>

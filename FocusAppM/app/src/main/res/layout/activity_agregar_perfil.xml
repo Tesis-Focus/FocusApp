@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Agregar perfil"
+        android:text="Nuevo perfil 👤"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +126,8 @@
                 android:id="@+id/btnEditarEstilo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Repetir test de estilo de aprendizaje" />
+                android:text="Realizar test de estilo de aprendizaje"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>

@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Agregar horario"
+                android:text="Nuevo horario 🗓️"
                 android:textSize="20sp" />
 
             <TextView

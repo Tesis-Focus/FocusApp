@@ -48,7 +48,7 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button btnActividades,btnTareas;
-    ImageButton btnPerfiles;
+    Button btnPerfiles;
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
     List<String> idsBeneficiarios;
@@ -108,15 +108,6 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
         });
 
 
-        btnTareas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(),TareasActivity.class);
-                i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
-                startActivity(i);
-            }
-        });
-
 
         btnTareas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +115,7 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
                 Intent i = new Intent(getBaseContext(),TareasActivity.class);
                 i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
                 i.putExtra("beneficiarios", (Serializable) beneficiarios);
-                i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+                i.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
                 startActivity(i);
             }
         });
@@ -135,7 +126,7 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
                 Intent i = new Intent(getBaseContext(),ActividadesActivity.class);
                 i.putExtra("idBeneficiario",beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
                 i.putExtra("beneficiarios", (Serializable) beneficiarios);
-                i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+                i.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
                 startActivity(i);
             }
         });
@@ -160,16 +151,22 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
         if(itemClicked == R.id.mnuAregarActividad){
             Intent intent= new Intent(getBaseContext(),AgregarActividadActivity.class);
             intent.putExtra("beneficiarios", (Serializable) beneficiarios);
-            intent.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            intent.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
             intent.putExtra("codigo",0);
             startActivity(intent);
         }
         if(itemClicked == R.id.mnuAregarTarea){
             Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
             intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
-            intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
             intentAgrTarea.putExtra("codigo",0);
             startActivity(intentAgrTarea);
+        }
+        if(itemClicked == R.id.menuPerfiles){
+            Intent i = new Intent(getBaseContext(),PerfilesActivity.class);
+            i.putExtra("beneficiarios", (Serializable) beneficiarios);
+            i.putExtra("nombreBeneficiarios", (Serializable) nombresBeneficiarios);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -192,9 +189,11 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
                 nombresBeneficiarios.add("Integrada");
                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, nombresBeneficiarios);
                 spnPerfiles.setAdapter(adapter);
+                if(!(nombresBeneficiarios.size()<2)){
+                    btnActividades.setEnabled(true);
+                    btnTareas.setEnabled(true);
+                }
                 btnPerfiles.setEnabled(true);
-                btnActividades.setEnabled(true);
-                btnTareas.setEnabled(true);
             }
 
             @Override
