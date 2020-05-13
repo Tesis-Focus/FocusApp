@@ -15,8 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -114,7 +112,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         txtClasificacion = findViewById(R.id.textClasificacion);
-        txtMotivacion = findViewById(R.id.txtMotivacion);
+        txtMotivacion = findViewById(R.id.txtCalificacion);
         spnBeneficiariosAgrTar = findViewById(R.id.spnBeneficiariosAgrTar);
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);

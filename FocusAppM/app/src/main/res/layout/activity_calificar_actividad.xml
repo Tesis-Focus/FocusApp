@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalificarActividadActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewCal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Calificar planeacion de actividad"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Si el tiempo de la planeación no fue adecuado, recomendamos volver a realizar el test de estilo de aprendizaje, revisar el desempeño de la actividad, y la complejidad de las tareas asociadas"
+            android:textAlignment="gravity"
+            android:textSize="20sp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/txtCalificacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="Elige la opción correspondiente a como estuvo el tiempo en la planeación"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RadioButton
+                        android:id="@+id/radioFaltoTiempo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  Hizo falta tiempo"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioTiempoAdecuado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  El tiempo fue adecuado"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioSobraTiempo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  Sobro tiempo"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCalificar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar Calificacion" />
+
+    </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

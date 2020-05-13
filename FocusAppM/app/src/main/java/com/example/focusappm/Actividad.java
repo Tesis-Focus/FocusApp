@@ -16,6 +16,7 @@ public class Actividad implements Serializable {
     private Date fechaFinal;
     private String idUsaurio;
     private int color;
+    private double multiplicador;
     private List<String> areas = new ArrayList<String>();
     ArrayList<Horario> horarios;
 
@@ -127,5 +128,13 @@ public class Actividad implements Serializable {
 
     public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
+    }
+
+    public double getMultiplicador() {
+        return multiplicador;
+    }
+
+    public void setMultiplicador(double multiplicador) {
+        this.multiplicador = multiplicador;
     }
 }

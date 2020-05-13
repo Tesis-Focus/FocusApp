@@ -15,6 +15,7 @@ public class InstruccionesTest extends AppCompatActivity {
     Button btnEmpezar;
     VideoView videoView;
     Usuario beneficiario;
+    Integer codigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class InstruccionesTest extends AppCompatActivity {
         setContentView(R.layout.activity_instrucciones_test);
 
         beneficiario = (Usuario) getIntent().getSerializableExtra("beneficiario");
+        codigo =(Integer) getIntent().getSerializableExtra("codigo");
         btnEmpezar = findViewById(R.id.btnEmpezar);
         /*
         videoView = findViewById(R.id.videoView);
@@ -42,6 +44,7 @@ public class InstruccionesTest extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), TestAprendizajeActivity.class);
                 intent.putExtra("beneficiario", beneficiario);
+                intent.putExtra("codigo",0);
                 startActivity(intent);
             }
         });

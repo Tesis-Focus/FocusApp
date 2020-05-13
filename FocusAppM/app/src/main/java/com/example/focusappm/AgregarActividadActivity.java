@@ -236,7 +236,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     fechafin.setMinutes(horarioActividad.get(0).getmEndTime().getMinutes());
                     actividad.setFechaInicio(fechaini);
                     actividad.setFechaFinal(fechafin);
-
+                    actividad.setMultiplicador(0);
 
 
                     String idBeneficiario = beneficiarios.get(spnBeneficiariosAgrAc.getSelectedItemPosition()).getIdBeneficiario();

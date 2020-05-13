@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AgregarDatosPerfilActivity"></activity>
-        <activity android:name=".InstruccionesTest"></activity>
+        <activity android:name=".CalificarActividadActivity"></activity>
+        <activity android:name=".AgregarDatosPerfilActivity" />
+        <activity android:name=".InstruccionesTest" />
         <activity android:name=".DetalleTareaActivity" />
         <activity android:name=".DetalleActividadActivity" />
         <activity android:name=".ActividadesActivity" />

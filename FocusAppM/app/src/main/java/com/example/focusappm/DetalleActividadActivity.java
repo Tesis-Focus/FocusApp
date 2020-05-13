@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
     Button btneEliminar;
     Button btnEditarActividad;
     TextView textAsignatura;
+
 
     List<Usuario> beneficiarios;
     List<String> nombresBeneficiarios;
@@ -76,6 +80,7 @@ public class DetalleActividadActivity extends AppCompatActivity {
         diasRepite = findViewById(R.id.edttxtDias);
         btneEliminar = findViewById(R.id.btnEliminarActividad);
         btnEditarActividad = findViewById(R.id.btnEditarActividad);
+
 
         nombre.setText(actividad.getNombre());
         descripcion.setText(actividad.getDescripcion());
@@ -187,5 +192,24 @@ public class DetalleActividadActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalle_actividad, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemClicked = item.getItemId();
+        if(itemClicked==R.id.mnuCalificarActividad){
+            Intent intent = new Intent(getBaseContext(), CalificarActividadActivity.class);
+            intent.putExtra("Actividad", actividad);
+            startActivity(intent);
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

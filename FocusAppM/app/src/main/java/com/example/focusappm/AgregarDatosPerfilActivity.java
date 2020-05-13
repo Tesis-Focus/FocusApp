@@ -54,7 +54,7 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
         btnEstilo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getBaseContext(),TestAprendizajeActivity.class);
+                Intent intent= new Intent(getBaseContext(),InstruccionesTest.class);
                 intent.putExtra("beneficiario", beneficiario);
                 intent.putExtra("codigo",0);
                 startActivity(intent);
@@ -64,8 +64,7 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
         btnTerminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //validarCampos();
-                    //////
+
                 hayEstilo = false;
                 FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = dataBase.getReference();
@@ -85,7 +84,6 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
                             btnEstilo.setError("Requerido");
                         }
                         if(hayEstilo){
-                            Log.i("Validar", "validando");
                             Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
