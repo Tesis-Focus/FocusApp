@@ -342,7 +342,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
         if(spnTipo.getSelectedItem().equals("Académica")) {
             spnAsignatura.setSelection(obtenerPosicionItem(spnAsignatura, miActividad.getAsignatura()));
         }
-
+        btnColor.setBackgroundColor(miActividad.getColor());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         miActividad.getFechaInicio().setMonth(miActividad.getFechaInicio().getMonth());
         miActividad.getFechaInicio().setYear(miActividad.getFechaInicio().getYear()-1900);
