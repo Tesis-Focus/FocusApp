@@ -5,6 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -77,6 +80,25 @@ public class CalendarioPantallaCompletaActivity extends AppCompatActivity {
                 }
                 Log.i("eventos", "onMonthChange: se agregaron para el mes "+ newMonth +" estos eventos "+nuevosEventos.size());
                 return nuevosEventos;
+            }
+        });
+
+        mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
+            @Override
+            public void onEventClick(WeekViewEvent event, RectF eventRect) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle(event.getName());
+                builder.setMessage("Fecha: "+event.getStartTime().get(Calendar.DATE)+"/"+event.getStartTime().get(Calendar.MONTH)+"/"+event.getStartTime().get(Calendar.YEAR)
+                        +"\nHora inicio \t"+event.getStartTime().get(Calendar.HOUR_OF_DAY)+":"+event.getStartTime().get(Calendar.MINUTE)
+                        +"\nHora fin \t"+event.getEndTime().get(Calendar.HOUR_OF_DAY)+":"+event.getEndTime().get(Calendar.MINUTE)
+                        +"\nRecuerda tomar descansos de 5 minutos cada 20 minutos de trabajo!");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
             }
         });
 
