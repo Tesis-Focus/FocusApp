@@ -1,6 +1,10 @@
 package com.example.focusappm;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -23,12 +27,13 @@ public class UtilsFocus {
     private final static String PATH_TAREAS = "tareas/";
     private final static ArrayList<ArrayList<Horario>> horarioxTarea = new ArrayList<>();
     private final static ArrayList<Horario> horariosDisponiblesBenefi = new ArrayList<>();
+    private static Context context;
 
-
-    public static void planeacion(String idBeneficiario){
+    public static void planeacion(String idBeneficiario,Context c){
         horarioxTarea.clear();
         horariosDisponiblesBenefi.clear();
         getHorarios(idBeneficiario);
+        context = c;
 
     }
 
@@ -117,7 +122,7 @@ public class UtilsFocus {
                 }
             }
 
-            int tiempoRealizacion = (int) ( t.getTiempoPromedio() + (t.getTiempoPromedio()%20) *5);
+            int tiempoRealizacion = (int) ( t.getTiempoPromedio() + (t.getTiempoPromedio()/20) *5);
             tiempoRealizacion += (t.getTiempoPromedio()+(t.getTiempoPromedio()*t.getMultiplicador()));
             int tiempoDisponible = 0 ;
             for(ArrayList<Horario> hList : horarioxTarea){
@@ -127,7 +132,7 @@ public class UtilsFocus {
                     Log.i("JUANP", "planearTareas: "+tiempoDisponible);
                 }
             }
-            Log.i("JUANP", "planearTareas: tiempomindisponible "+tiempoDisponible);
+            Log.i("JUANP", "planearTareas: tiempomindisponible "+tiempoDisponible+" tiempo de realizacion "+tiempoRealizacion);
             if(tiempoDisponible>tiempoRealizacion){
 
                 planeacionDeTarea(t, tiempoRealizacion,idBeneficiario,false);
@@ -143,15 +148,30 @@ public class UtilsFocus {
 
         List<Horario> horariosTarea = new ArrayList<>();
         tiempoTarea = asignarHorarios(tarea,tiempoTarea,idBeneficiario,horariosTarea,sinTiempo);
-
-        if (tiempoTarea > 0 && horariosTarea.size() > 0){
+       int tiempoEntra;
+        do{
+            tiempoEntra = tiempoTarea;
             tiempoTarea = asignarHorarios(tarea,tiempoTarea,idBeneficiario,horariosTarea,sinTiempo);
-        }
+        }while (tiempoEntra>tiempoTarea);
+
         if(tiempoTarea > 0){
+            tarea.setTiempoFaltante(tiempoTarea);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Sin tiempo disponible para "+tarea.getNombre());
+            builder.setMessage("faltaron "+tiempoTarea+" minutos por asignar, sin embargo se asignó todo el tiempo disponible");
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
             Log.i("JUANP", "Falto "+tiempoTarea+" minutos por asignar, pero se asigno el disponible existente");
+        }else{
+            tarea.setTiempoFaltante(0);
         }
 
-        ArrayList<Horario> horariosEliminados = new ArrayList<>();
+       ArrayList<Horario> horariosEliminados = new ArrayList<>();
        for(Horario horarioDisponible : horariosDisponiblesBenefi){
            for(Horario horarioTarea : horariosTarea){
                if( horarioDisponible.getIdHorario().equals(horarioTarea.getIdHorario())){
@@ -177,6 +197,7 @@ public class UtilsFocus {
        myRef.setValue(tarea);
 
    }
+
 
    public static  int  asignarHorarios(Tarea tarea, int tiempoTarea, String idBeneficiario, List<Horario> horariosTarea, boolean sinTiempo){
         if(sinTiempo){
@@ -240,6 +261,7 @@ public class UtilsFocus {
                 }
 
                 startTime.setYear(startTime.getYear()+1900);
+                startTime.setMinutes(startTime.getMinutes()+1);
                 endTime.setYear(endTime.getYear()+1900);
                 Horario horarioAsignar =  new Horario(idBeneficiario,franjaHorario.getIdHorario(),startTime
                         ,endTime,"Desarrollo "+tarea.getNombre(),tarea.getColor(),false);

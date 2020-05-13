@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SemanaFragment">
+    tools:context=".CalendarioPantallaCompletaActivity">
 
     <com.alamkanak.weekview.WeekView
-        android:id="@+id/calendarHome"
+        android:id="@+id/calPantallaCom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:columnGap="8dp"
@@ -19,33 +19,23 @@
         app:headerRowBackgroundColor="#ffefefef"
         app:headerRowPadding="12dp"
         app:hourHeight="60dp"
-        app:noOfVisibleDays="2"
+        app:noOfVisibleDays="3"
         app:textSize="12sp"
         app:todayBackgroundColor="#1848adff" />
-
     <ImageButton
-        android:id="@+id/imgBtnZoom"
+        android:id="@+id/imgBtnZoom2"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom|end"
         android:scaleType="fitXY"
         android:src="@android:drawable/btn_plus" />
 
-    <Button
-        android:id="@+id/btnPantallaCompleta"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|center"
-        android:scaleType="fitXY"
-        android:text="pantalla completa" />
 
     <ImageButton
-        android:id="@+id/imgBtnnoZoom"
+        android:id="@+id/imgBtnnoZoom2"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom|start"
         android:scaleType="fitXY"
         android:src="@android:drawable/btn_minus" />
-
-
 </FrameLayout>

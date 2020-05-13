@@ -3,8 +3,10 @@ package com.example.focusappm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -293,7 +295,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         myRef.setValue(tarea);
                     }
 
-                    UtilsFocus.planeacion(idBeneficiario);
+                    UtilsFocus.planeacion(idBeneficiario,AgregarTareaActivity.this);
+                    Log.i("notificaciones", "onClick: paso");
                     Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);

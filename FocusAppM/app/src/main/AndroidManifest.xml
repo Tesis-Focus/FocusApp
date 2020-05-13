@@ -4,15 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/focus_kids"
         android:label="Focus Kids"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/focus_kids"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CalificarActividadActivity"></activity>
         <activity android:name=".AgregarDatosPerfilActivity" />
         <activity android:name=".InstruccionesTest" />
         <activity android:name=".DetalleTareaActivity" />
+        <activity android:name=".CalendarioPantallaCompletaActivity"></activity>
         <activity android:name=".DetalleActividadActivity" />
         <activity android:name=".ActividadesActivity" />
         <activity android:name=".TareasActivity" />

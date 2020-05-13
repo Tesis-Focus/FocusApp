@@ -287,13 +287,13 @@ public class EventosCalendarioActivity extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validarCampos()) {
-                    Date fechaini = new Date(), fechafin = new Date();
+                if(validarDatos()){
+                    Date fechaini = new Date(),fechafin = new Date();
                     try {
                         fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
-                        fechaini.setYear(fechaini.getYear() + 1900);
+                        fechaini.setYear(fechaini.getYear()+1900);
                         fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
-                        fechafin.setYear(fechafin.getYear() + 1900);
+                        fechafin.setYear(fechafin.getYear()+1900);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -306,46 +306,43 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                     fechafin.setHours(horaFin);
                     fechafin.setMinutes(minutoFin);
 
-                    //  if(validarCampos()) {
                     Intent i = new Intent();
-                    i.putExtra("horarios", horarios);
+                    i.putExtra("horarios",horarios);
                     i.putExtra("fechaini", fechaini);
-                    i.putExtra("fechafin", fechafin);
+                    i.putExtra("fechafin",fechafin);
                     setResult(RESULT_OK, i);
                     finish();
-                    //}
-
                 }
             }
         });
     }
+    private boolean validarDatos(){
+        boolean valido = true;
+        Date fechaini = new Date(),fechafin = new Date();
+        if(etFechaInicio.getText().toString().isEmpty() || edtxFechaFin.getText().toString().isEmpty()){
+            valido = false;
+            etFechaInicio.setError("requerido");
+            edtxFechaFin.setError("requerido");
+        }
+        if( etHoraInicio.getText().toString().isEmpty() || etHoraFin.getText().toString().isEmpty()){
+            valido = false;
+            etHoraInicio.setError("requerido");
+            etHoraFin.setError("requerido");
+        }
 
-    private boolean validarCampos() {
-        boolean esValido = true;
-        Log.i("Validar", "Validar1");
-        if(TextUtils.isEmpty(etFechaInicio.getText().toString())){
-            esValido = false;
-            etFechaInicio.setError("Requerido");
+        try {
+            fechaini = new SimpleDateFormat("dd/MM/yyyy").parse(etFechaInicio.getText().toString());
+            fechaini.setYear(fechaini.getYear()+1900);
+            fechafin = new SimpleDateFormat("dd/MM/yyyy").parse(edtxFechaFin.getText().toString());
+            fechafin.setYear(fechafin.getYear()+1900);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        if(TextUtils.isEmpty(edtxFechaFin.getText().toString())){
-            esValido = false;
-            edtxFechaFin.setError("Requerido");
+        if(fechafin.before(fechaini)){
+            valido = false;
+            etFechaInicio.setError("la fecha de inicio debe ser antes de la de fin");
         }
-        if(TextUtils.isEmpty(etHoraInicio.getText().toString())) {
-            esValido = false;
-            etHoraInicio.setError("Requerido");
-        }
-        if(TextUtils.isEmpty(etHoraFin.getText().toString())) {
-            esValido = false;
-            etHoraFin.setError("Requerido");
-        }
-        if(!chbxLun.isChecked() && !chbxMar.isChecked() && !chbxMie.isChecked() && !chbxJue.isChecked() && !chbxVie.isChecked() &&
-        !chbxSab.isChecked() && !chbxDom.isChecked()){
-            esValido = false;
-            textDias.setError("Requerido");
-        }
-        Log.i("Validar", "Validar2");
-        return esValido;
+        return valido;
     }
 
     private void llenarDatos() {
@@ -534,7 +531,6 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                 String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
 
                 fechaTexto.setText(diaFormateado + "/" + mesFormateado + "/" + year);
-
             }
         };
 

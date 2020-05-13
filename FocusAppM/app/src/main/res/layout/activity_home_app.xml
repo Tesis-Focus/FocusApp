@@ -61,10 +61,13 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:clickable="false"
             app:tabGravity="fill"
+            app:tabIndicatorColor="#FFFFFF"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
-            app:tabRippleColor="#4D6200EE"></com.google.android.material.tabs.TabLayout>
+            app:tabRippleColor="#4DFFFFFF"></com.google.android.material.tabs.TabLayout>
 
         <com.example.focusappm.CustomViewPager
             android:id="@+id/viewPage"
