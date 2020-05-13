@@ -254,7 +254,8 @@ public class AgregarTareaActivity extends AppCompatActivity {
                     String desempenoActividad = desempenoActividades.get(sprActividad.getSelectedItemPosition());
                     List<String> areasActividad = new ArrayList<String>();
                     areasActividad.addAll(actividades.get(sprActividad.getSelectedItemPosition()).getAreas());
-                   
+                    tarea.setMultiplicador(actividades.get(sprActividad.getSelectedItemPosition()).getMultiplicador());
+
                     Log.i("test", desempenoActividad);
 
                     tarea.setIdActividad(id_Actividad);
