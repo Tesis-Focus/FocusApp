@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.google.android.material.tabs.TabLayout;
@@ -84,10 +85,16 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
         spnPerfiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(!spnPerfiles.getSelectedItem().toString().equals("Integrada"))
+                if(!spnPerfiles.getSelectedItem().toString().equals("Integrada")) {
                     setUpViewPageAdapter(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario());
-                else
+                    btnActividades.setEnabled(true);
+                    btnTareas.setEnabled(true);
+                }else{
                     setUpViewPageAdapter("Integrada");
+                    btnActividades.setEnabled(false);
+                    btnTareas.setEnabled(false);
+                }
+
                 //UtilsFocus.planeacion(beneficiarios.get(spnPerfiles.getSelectedItemPosition()).getIdBeneficiario(),HomeAppActivity.this);
             }
 
@@ -153,14 +160,22 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
             intent.putExtra("beneficiarios", (Serializable) beneficiarios);
             intent.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
             intent.putExtra("codigo",0);
-            startActivity(intent);
+            if(!(nombresBeneficiarios.size()<2)){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"Debe registrar al menos un perfil para agregar una actividad",Toast.LENGTH_LONG).show();
+            }
         }
         if(itemClicked == R.id.mnuAregarTarea){
             Intent intentAgrTarea = new Intent(getBaseContext(), AgregarTareaActivity.class);
             intentAgrTarea.putExtra("beneficiarios", (Serializable) beneficiarios);
             intentAgrTarea.putExtra("nombreBeneficiarios", (Serializable) (new ArrayList<>( nombresBeneficiarios.subList(0,nombresBeneficiarios.size()-1))));
             intentAgrTarea.putExtra("codigo",0);
-            startActivity(intentAgrTarea);
+            if(!(nombresBeneficiarios.size()<2)){
+                startActivity(intentAgrTarea);
+            }else{
+                Toast.makeText(getApplicationContext(),"Debe registrar al menos un perfil para agregar una tarea",Toast.LENGTH_LONG).show();
+            }
         }
         if(itemClicked == R.id.menuPerfiles){
             Intent i = new Intent(getBaseContext(),PerfilesActivity.class);

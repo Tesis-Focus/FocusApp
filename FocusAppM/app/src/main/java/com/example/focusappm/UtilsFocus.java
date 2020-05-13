@@ -156,7 +156,7 @@ public class UtilsFocus {
 
         if(tiempoTarea > 0){
             tarea.setTiempoFaltante(tiempoTarea);
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Sin tiempo disponible para "+tarea.getNombre());
             builder.setMessage("faltaron "+tiempoTarea+" minutos por asignar, sin embargo se asignó todo el tiempo disponible");
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -165,8 +165,10 @@ public class UtilsFocus {
 
                 }
             });
-            builder.show();
-            Log.i("JUANP", "Falto "+tiempoTarea+" minutos por asignar, pero se asigno el disponible existente");
+            builder.show();*/
+            String mensaje = "Sin tiempo disponible para "+tarea.getNombre()+" faltaron "+tiempoTarea+" minutos por asignar, sin embargo se asignó todo el tiempo disponible";
+            Toast.makeText(context,mensaje,Toast.LENGTH_LONG).show();
+            Log.i("JUANP", "\nFalto "+tiempoTarea+" minutos por asignar, pero se asigno el disponible existente");
         }else{
             tarea.setTiempoFaltante(0);
         }

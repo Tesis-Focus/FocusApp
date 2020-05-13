@@ -295,7 +295,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                         myRef.setValue(tarea);
                     }
 
-                    UtilsFocus.planeacion(idBeneficiario,AgregarTareaActivity.this);
+                    UtilsFocus.planeacion(idBeneficiario,getBaseContext());
                     Log.i("notificaciones", "onClick: paso");
                     Intent i = new Intent(getBaseContext(), HomeAppActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
