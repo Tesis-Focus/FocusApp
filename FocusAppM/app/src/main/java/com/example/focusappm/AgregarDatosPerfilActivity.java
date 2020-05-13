@@ -30,6 +30,7 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
     public static final String PATH_ESTILOS = "estilosAprendizaje/";
 
     boolean hayEstilo = false;
+    boolean hayHorario = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 hayEstilo = false;
+                hayHorario = false;
+
                 FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = dataBase.getReference();
                 myRef = dataBase.getReference(PATH_ESTILOS);
@@ -83,10 +86,30 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
                         if(!hayEstilo){
                             btnEstilo.setError("Requerido");
                         }
-                        if(hayEstilo){
-                            Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                FirebaseDatabase dataBas = FirebaseDatabase.getInstance();
+                DatabaseReference myReff = dataBas.getReference();
+                myReff = dataBase.getReference(PATH_ESTILOS);
+
+                myReff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for ( DataSnapshot sd : dataSnapshot.getChildren()){
+                            Horario horario = sd.getValue(Horario.class);
+                            if( beneficiario.getIdBeneficiario().equals(horario.getIdBeneficiario())){
+                             hayHorario = true;
+                            }
+                        }
+                        if(!hayHorario){
+                            btnHorario.setError("Requerido");
                         }
                     }
 
@@ -95,6 +118,12 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
 
                     }
                 });
+
+                if(hayEstilo && hayHorario){
+                    Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
 
             }
         });
