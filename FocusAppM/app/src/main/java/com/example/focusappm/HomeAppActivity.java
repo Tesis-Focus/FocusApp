@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class HomeAppActivity extends AppCompatActivity {
+public class HomeAppActivity extends AppCompatActivity implements IpantallaCompleta {
     private ImageView imageView;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
