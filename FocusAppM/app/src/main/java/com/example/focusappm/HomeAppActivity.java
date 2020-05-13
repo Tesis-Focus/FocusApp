@@ -321,7 +321,7 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
         cargarPerfilesB();
     }
 
-    /*@Override
+    @Override
     protected void onRestart() {
         super.onRestart();
         setUpViewPageAdapter("");
@@ -329,7 +329,7 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
         nombresBeneficiarios.clear();
         idsBeneficiarios.clear();
         cargarPerfilesB();
-    }*/
+    }
 
     @Override
     public void onPantallaCompletaClicked() {
