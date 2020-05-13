@@ -63,6 +63,7 @@ public class CalendarioPantallaCompletaActivity extends AppCompatActivity {
                 mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
             }
         });
+
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {

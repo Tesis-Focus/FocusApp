@@ -105,8 +105,8 @@
 
             <Spinner
                 android:id="@+id/spnTipo"
-                android:layout_width="387dp"
-                android:layout_height="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingBottom="5dp" />
 
             <TextView
@@ -121,7 +121,7 @@
             <Spinner
                 android:id="@+id/spnAsignaturas"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp" />
 
@@ -162,7 +162,7 @@
             <Spinner
                 android:id="@+id/spnDesempeno"
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:paddingBottom="15dp"
                 android:visibility="visible" />
 

@@ -116,13 +116,13 @@ public class AgregarActividadActivity extends AppCompatActivity {
         fechaini =null;
         fechafin =null;
 
-        ArrayAdapter<CharSequence> adapterDesempeono = ArrayAdapter.createFromResource(this, R.array.Desempeno, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterDesempeono = ArrayAdapter.createFromResource(this, R.array.Desempeno, android.R.layout.simple_spinner_dropdown_item);
         spnDesempenio.setAdapter(adapterDesempeono);
 
-        ArrayAdapter<CharSequence> adapterTipo = ArrayAdapter.createFromResource(this, R.array.TipoActividad, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterTipo = ArrayAdapter.createFromResource(this, R.array.TipoActividad, android.R.layout.simple_spinner_dropdown_item);
         spnTipo.setAdapter(adapterTipo);
 
-        ArrayAdapter<CharSequence> adapterAsigna = ArrayAdapter.createFromResource(this, R.array.Asignaturas, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterAsigna = ArrayAdapter.createFromResource(this, R.array.Asignaturas, android.R.layout.simple_spinner_dropdown_item);
         spnAsignatura.setAdapter(adapterAsigna);
 
         spnAsignatura.setVisibility(View.GONE);

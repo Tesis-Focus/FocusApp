@@ -104,6 +104,9 @@ public class InicioActivity extends AppCompatActivity {
                     Log.d("inicio sesion", "signInWithEmail: succsess ");
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
+                }else if(!task.isSuccessful()){
+                    edttxtCorreo.setError("Usuario o contraseña incorrectos");
+                    edttxtContrasena.setText("");
                 }
             }
         });

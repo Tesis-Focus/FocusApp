@@ -141,10 +141,10 @@ public class AgregarTareaActivity extends AppCompatActivity {
         radioNo = findViewById(R.id.radioNo);
         radioGroup = findViewById(R.id.radioGroup);
 
-        ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterComplej = ArrayAdapter.createFromResource(this, R.array.Complejidad, android.R.layout.simple_spinner_dropdown_item);
         sprComplejidad.setAdapter(adapterComplej);
 
-        ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterClasif = ArrayAdapter.createFromResource(this, R.array.Clasificacion, android.R.layout.simple_spinner_dropdown_item);
         sprClasificacion.setAdapter(adapterClasif);
 
 
@@ -407,7 +407,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
                 if(nombre_Actividades.isEmpty()){
                     nombre_Actividades.add("");
                 }
-                ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_dropdown_item_1line, nombre_Actividades);
+                ArrayAdapter<String> adapterAct = new ArrayAdapter<>(AgregarTareaActivity.this, android.R.layout.simple_spinner_dropdown_item, nombre_Actividades);
                 sprActividad.setAdapter(adapterAct);
                 sprActividad.setSelection(posicion);
                 //adapterAct.notifyDataSetChanged();

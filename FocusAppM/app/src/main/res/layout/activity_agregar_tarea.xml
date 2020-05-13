@@ -256,7 +256,7 @@
                 <Spinner
                     android:id="@+id/sprComplejidad"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="wrap_content"
                     android:paddingBottom="15dp" />
 
                 <TextView
@@ -271,7 +271,7 @@
                 <Spinner
                     android:id="@+id/sprClasificacion"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:paddingBottom="15dp" />
 
 

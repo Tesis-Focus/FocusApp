@@ -215,6 +215,7 @@ public class EventosCalendarioActivity extends AppCompatActivity {
                             AM_PM_Fin = 1;
                             isPmEnd =true;
                         }
+
                         etHoraFin.setText(hourOfDay +":"+ minutoForFin + " " + AM_PM);
                         etHoraFin.setError(null);
                         minutoFin = minute;
