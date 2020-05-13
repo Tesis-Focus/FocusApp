@@ -322,16 +322,6 @@ public class HomeAppActivity extends AppCompatActivity implements IpantallaCompl
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        setUpViewPageAdapter("");
-        beneficiarios.clear();
-        nombresBeneficiarios.clear();
-        idsBeneficiarios.clear();
-        cargarPerfilesB();
-    }
-
-    @Override
     public void onPantallaCompletaClicked() {
         Intent i = new Intent(HomeAppActivity.this,CalendarioPantallaCompletaActivity.class);
         Bundle b = new Bundle();
