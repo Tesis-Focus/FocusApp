@@ -212,6 +212,7 @@ public class AgregarActividadActivity extends AppCompatActivity {
                     i.putExtra("codigo", 1);
 
                 }
+                btnAgregarHorarioActividad.setError(null);
                 startActivityForResult(i,REQUEST_CODE_ACTIVIDAD);
             }
         });
@@ -390,6 +391,10 @@ public class AgregarActividadActivity extends AppCompatActivity {
             esValido = false;
             TextView errorText = (TextView)spnDesempenio.getSelectedView();
             errorText.setError("");
+        }
+        if(!hayHorarios){
+            esValido = false;
+            btnAgregarHorarioActividad.setError("");
         }
         return esValido;
     }
