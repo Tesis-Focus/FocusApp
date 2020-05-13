@@ -94,6 +94,7 @@ public class CalendarDisponibleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(),EventosCalendarioActivity.class);
+                i.putExtra("codigo",0);
                 startActivityForResult(i,REQUEST_CODE);
             }
         });
