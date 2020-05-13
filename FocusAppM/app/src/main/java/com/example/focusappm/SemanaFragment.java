@@ -1,6 +1,10 @@
 package com.example.focusappm;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -37,13 +42,16 @@ public class SemanaFragment extends Fragment {
 
     public final static String PATH_TAREAS = "tareas/";
     public final static String PATH_ACTIVIDADES = "actividades/";
-    public static int DIASVISIBLES = 4;
+    public static int DIASVISIBLES = 2;
+    public static String idBeneficiarioG="";
+    IpantallaCompleta ipantallaCompletaListener;
     public SemanaFragment() {
         // Required empty public constructor
     }
 
     WeekView mWeekView;
     ImageButton imgbtnZoom,imgbtnNoZoom;
+    Button btnPantallaCompleta;
     ArrayList<WeekViewEvent> eventos;
 
     @Override
@@ -53,6 +61,8 @@ public class SemanaFragment extends Fragment {
         mWeekView = (WeekView)rootView.findViewById(R.id.calendarHome);
         imgbtnNoZoom = rootView.findViewById(R.id.imgBtnnoZoom);
         imgbtnZoom = rootView.findViewById(R.id.imgBtnZoom);
+        btnPantallaCompleta = rootView.findViewById(R.id.btnPantallaCompleta);
+
 
         eventos = new ArrayList<WeekViewEvent>();
         obtenerHorarios();
@@ -60,7 +70,6 @@ public class SemanaFragment extends Fragment {
         imgbtnZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //DIASVISIBLES = mWeekView.getNumberOfVisibleDays();
                 DIASVISIBLES = (DIASVISIBLES == 1 ? 1:DIASVISIBLES-1);
                 mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
             }
@@ -69,11 +78,18 @@ public class SemanaFragment extends Fragment {
         imgbtnNoZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //DIASVISIBLES = mWeekView.getNumberOfVisibleDays();
                 DIASVISIBLES = (DIASVISIBLES==7 ? 7 : DIASVISIBLES+1);
                 mWeekView.setNumberOfVisibleDays(DIASVISIBLES);
             }
         });
+
+        btnPantallaCompleta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ipantallaCompletaListener.onPantallaCompletaClicked();
+            }
+        });
+
 
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
@@ -95,12 +111,29 @@ public class SemanaFragment extends Fragment {
             }
         });
 
+        mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
+            @Override
+            public void onEventClick(WeekViewEvent event, RectF eventRect) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(event.getName());
+                builder.setMessage("Fecha: "+event.getStartTime().get(Calendar.DATE)+"/"+event.getStartTime().get(Calendar.MONTH)+"/"+event.getStartTime().get(Calendar.YEAR)
+                                    +"\nHora inicio \t"+event.getStartTime().get(Calendar.HOUR_OF_DAY)+":"+event.getStartTime().get(Calendar.MINUTE)
+                                    +"\nHora fin \t"+event.getEndTime().get(Calendar.HOUR_OF_DAY)+":"+event.getEndTime().get(Calendar.MINUTE)
+                                    +"\nRecuerda tomar descansos de 5 minutos cada 20 minutos de trabajo!");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-
+                    }
+                });
+                builder.show();
+            }
+        });
 
         return rootView;
 
     }
+
 
     private void obtenerHorarios() {
         Bundle b = getArguments();
@@ -109,6 +142,9 @@ public class SemanaFragment extends Fragment {
 
         if(b != null){
             idBeneficiario = b.getString("idBeneficiario");
+            idBeneficiarioG = idBeneficiario;
+            ArrayList<String> nombreBeneficiarios = b.getStringArrayList("idsBeneficiarios");
+            Log.i("Eventos", "obtenerHorarios: tam lista"+nombreBeneficiarios.size());
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             DatabaseReference myRef = db.getReference();
             myRef.child(PATH_TAREAS).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -116,7 +152,7 @@ public class SemanaFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         Tarea tarea = ds.getValue(Tarea.class);
-                        if(tarea.getIdBeneficiario().equals(idBeneficiario)){
+                        if(tarea.getIdBeneficiario().equals(idBeneficiario) || idBeneficiario.equals("Integrada") && nombreBeneficiarios.contains(tarea.getIdBeneficiario())){
                             for(Horario horario : tarea.getHorarios()){
                                 WeekViewEvent e = horario.toWeekViewEvent();
                                 e.setColor(tarea.getColor());
@@ -124,7 +160,7 @@ public class SemanaFragment extends Fragment {
                             }
                         }
                     }
-                    Log.i("Eventos", "onDataChange: se encontraron eventos tareas"+eventos.size());
+                    Log.i("Eventos", "onDataChange: se encontraron eventos tareas"+eventos.size()+" para el usuario"+idBeneficiario);
                     mWeekView.notifyDatasetChanged();
                 }
 
@@ -139,7 +175,7 @@ public class SemanaFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         Actividad actividad = ds.getValue(Actividad.class);
-                        if(actividad.getIdUsaurio().equals(idBeneficiario)){
+                        if(actividad.getIdUsaurio().equals(idBeneficiario)|| idBeneficiario.equals("Integrada") && nombreBeneficiarios.contains(actividad.getIdUsaurio())){
                             for(Horario h : actividad.getHorarios()){
                                 WeekViewEvent e = h.toWeekViewEvent();
                                 e.setColor(actividad.getColor());
@@ -148,7 +184,7 @@ public class SemanaFragment extends Fragment {
                             }
                         }
                     }
-                    Log.i("Eventos", "onDataChange: se encontraron eventos actividades"+eventos.size());
+                    Log.i("Eventos", "onDataChange: se encontraron eventos actividades"+eventos.size()+" para el usuario"+idBeneficiario);
                     mWeekView.notifyDatasetChanged();
                 }
 
@@ -163,4 +199,11 @@ public class SemanaFragment extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof IpantallaCompleta){
+            ipantallaCompletaListener = (IpantallaCompleta) context;
+        }
+    }
 }
