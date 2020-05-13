@@ -86,6 +86,11 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
                         if(!hayEstilo){
                             btnEstilo.setError("Requerido");
                         }
+                        if(hayEstilo){
+                            Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                        }
 
                     }
 
@@ -94,37 +99,6 @@ public class AgregarDatosPerfilActivity extends AppCompatActivity {
 
                     }
                 });
-
-                FirebaseDatabase dataBas = FirebaseDatabase.getInstance();
-                DatabaseReference myReff = dataBas.getReference();
-                myReff = dataBase.getReference(PATH_ESTILOS);
-
-                myReff.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for ( DataSnapshot sd : dataSnapshot.getChildren()){
-                            Horario horario = sd.getValue(Horario.class);
-                            if( beneficiario.getIdBeneficiario().equals(horario.getIdBeneficiario())){
-                             hayHorario = true;
-                            }
-                        }
-                        if(!hayHorario){
-                            btnHorario.setError("Requerido");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                if(hayEstilo && hayHorario){
-                    Intent i = new Intent(getBaseContext(), PerfilesActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
-
             }
         });
     }

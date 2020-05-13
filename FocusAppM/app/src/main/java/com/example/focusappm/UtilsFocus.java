@@ -76,7 +76,7 @@ public class UtilsFocus {
                 }
                 Collections.sort(tareas);
                 Log.i("Planeacion", "Tamano tareas "+tareas.size());//BIEN
-
+                
                 planearTareas(tareas,idBeneficiario);
 
             }
