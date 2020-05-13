@@ -50,7 +50,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
-            android:text="Para cada pregunta, debes ordenar las oraciones de modo que la primera es con la que más identificaques y la última es con la que menos te identifiques."
+            android:text="Para cada pregunta, debes ordenar las oraciones de modo que la primera es con la que más te sientes identificado y la última es con la que menos te sientes identificado."
             android:textColor="#000000"
             android:textSize="18sp" />
 
