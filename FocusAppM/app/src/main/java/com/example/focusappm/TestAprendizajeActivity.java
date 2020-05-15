@@ -488,7 +488,51 @@ public class TestAprendizajeActivity extends AppCompatActivity {
 
                 Log.i("DETALLE", "ENTRA AQUI 2");
 
-                if(mayorm.equals("EC") && mayor.equals("OR") || mayorm.equals("OR") && mayor.equals("EC")){
+                if(mayorm.equals("EC")){
+                    int may = Math.max(estilo.getEa(),estilo.getOr());
+                    if(estilo.getEa()==may){
+                        estilo.setDominate("Acomodador");
+                        estilo.setSecundario("Divergente");
+                    }else{
+                        estilo.setDominate("Divergente");
+                        estilo.setSecundario("Acomodador");
+                    }
+                }
+
+                if(mayorm.equals("OR")){
+                    int may = Math.max(estilo.getEc(),estilo.getCa());
+                    if(estilo.getEc()==may){
+                        estilo.setDominate("Divergente");
+                        estilo.setSecundario("Asimilador");
+                    }else {
+                        estilo.setDominate("Asimilador");
+                        estilo.setSecundario("Divergente");
+                    }
+                }
+
+                if(mayorm.equals("CA")){
+                    int may = Math.max(estilo.getOr(),estilo.getEa());
+                    if(estilo.getOr()==may){
+                        estilo.setDominate("Asimilador");
+                        estilo.setSecundario("Convergente");
+                    }else{
+                        estilo.setDominate("Convergente");
+                        estilo.setSecundario("Asimilador");
+                    }
+                }
+
+                if(mayorm.equals("EA")){
+                    int may = Math.max(estilo.getEc(),estilo.getCa());
+                    if(estilo.getEc()==may){
+                        estilo.setDominate("Acomodador");
+                        estilo.setSecundario("Convergente");
+                    }else{
+                        estilo.setDominate("Convergente");
+                        estilo.setSecundario("Acomodador");
+                    }
+                }
+
+               /* if(mayorm.equals("EC") && mayor.equals("OR") || mayorm.equals("OR") && mayor.equals("EC")){
                     estilo.setDominate("Divergente");
                 }
                 if(mayorm.equals("EC") && mayor.equals("EA") || mayorm.equals("EA") && mayor.equals("EC")){
@@ -512,7 +556,7 @@ public class TestAprendizajeActivity extends AppCompatActivity {
                 }
                 if(menor.equals("CA") && menorm.equals("EA") || menor.equals("EA") && menorm.equals("CA")){
                     estilo.setSecundario("Convergente");
-                }
+                }*/
 
 
 
